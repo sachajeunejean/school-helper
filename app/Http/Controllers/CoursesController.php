@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Courses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 class CoursesController extends Controller
 {
@@ -14,7 +16,9 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Courses', [
+            'courses' => Courses::all()
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('NewCourse');
     }
 
     /**
@@ -35,7 +39,17 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|string',
+        ]);
+
+        Courses::create([
+            'title' => $request->title,
+            'category' => $request->category
+        ]);
+
+        return redirect('/courses');
     }
 
     /**
