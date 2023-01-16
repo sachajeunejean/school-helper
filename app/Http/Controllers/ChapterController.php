@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chapters;
+use App\Models\Chapter;
 use Illuminate\Http\Request;
 
-class ChaptersController extends Controller
+class ChapterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ChaptersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Chapters  $chapters
+     * @param  \App\Models\Chapter  $chapters
      * @return \Illuminate\Http\Response
      */
-    public function show(Chapters $chapters)
+    public function show(Chapter $chapters)
     {
         //
     }
@@ -52,10 +52,10 @@ class ChaptersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Chapters  $chapters
+     * @param  \App\Models\Chapter  $chapters
      * @return \Illuminate\Http\Response
      */
-    public function edit(Chapters $chapters)
+    public function edit(Chapter $chapters)
     {
         //
     }
@@ -64,10 +64,10 @@ class ChaptersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Chapters  $chapters
+     * @param  \App\Models\Chapter  $chapters
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chapters $chapters)
+    public function update(Request $request, Chapter $chapters)
     {
         //
     }
@@ -75,10 +75,10 @@ class ChaptersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Chapters  $chapters
+     * @param  \App\Models\Chapter  $chapters
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chapters $chapters)
+    public function destroy(Chapter $chapters)
     {
         //
     }

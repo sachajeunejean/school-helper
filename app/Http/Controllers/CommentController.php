@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Courses;
+use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-class CoursesController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Courses', [
-            'courses' => Courses::all()
-        ]);
+        //
     }
 
     /**
@@ -28,7 +24,7 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('NewCourse');
+        //
     }
 
     /**
@@ -39,26 +35,16 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'category' => 'required|string',
-        ]);
-
-        Courses::create([
-            'title' => $request->title,
-            'category' => $request->category
-        ]);
-
-        return redirect('/courses');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Courses  $courses
+     * @param  \App\Models\Comment  $comments
      * @return \Illuminate\Http\Response
      */
-    public function show(Courses $courses)
+    public function show(Comment $comments)
     {
         //
     }
@@ -66,10 +52,10 @@ class CoursesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Courses  $courses
+     * @param  \App\Models\Comment  $comments
      * @return \Illuminate\Http\Response
      */
-    public function edit(Courses $courses)
+    public function edit(Comment $comments)
     {
         //
     }
@@ -78,10 +64,10 @@ class CoursesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Courses  $courses
+     * @param  \App\Models\Comment  $comments
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Courses $courses)
+    public function update(Request $request, Comment $comments)
     {
         //
     }
@@ -89,10 +75,10 @@ class CoursesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Courses  $courses
+     * @param  \App\Models\Comment  $comments
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Courses $courses)
+    public function destroy(Comment $comments)
     {
         //
     }
