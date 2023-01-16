@@ -1,5 +1,5 @@
-import NavBar from "@/Components/NavBar";
+import General from "@/Layouts/GeneralLayout";
 
-export default function Contact() {
-    return <NavBar />;
+export default function Home() {
+    return <General />;
 }

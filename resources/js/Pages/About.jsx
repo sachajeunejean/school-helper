@@ -1,5 +1,5 @@
-import NavBar from "@/Components/NavBar";
+import General from "@/Layouts/GeneralLayout";
 
-export default function About() {
-    return <NavBar />;
+export default function Home() {
+    return <General />;
 }

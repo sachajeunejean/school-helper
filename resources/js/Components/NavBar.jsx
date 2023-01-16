@@ -16,12 +16,8 @@ import {
 export default function NavBar() {
     const [searching, setSearching] = useState(false);
 
-    const openModal = () => {
-        setSearching(true);
-    };
-
-    const closeModal = () => {
-        setSearching(false);
+    const toggleModal = () => {
+        setSearching(!searching);
     };
 
     return (
@@ -58,7 +54,7 @@ export default function NavBar() {
                     className="hidden w-full md:block md:w-auto "
                     id="navbar-dropdown"
                 >
-                    <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
                         <NavLink
                             href={route("home")}
                             active={route().current("home")}
@@ -88,7 +84,7 @@ export default function NavBar() {
                             <IoMail className="mr-2" />
                             Contact
                         </NavLink>
-                        <button type="button" onClick={openModal}>
+                        <button type="button" onClick={toggleModal}>
                             <SearchButton />
                         </button>
 
@@ -145,7 +141,10 @@ export default function NavBar() {
             <Modal show={searching}>
                 <div className="flex justify-between">
                     <SearchBar />
-                    <SecondaryButton onClick={closeModal}>
+                    <SecondaryButton
+                        onClick={toggleModal}
+                        className="bg-indigo-500 text-white hover:text-black"
+                    >
                         Cancel
                     </SecondaryButton>
                 </div>
