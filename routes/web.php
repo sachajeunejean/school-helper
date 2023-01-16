@@ -41,6 +41,4 @@ Route::get('courses', [CoursesController::class, 'index']);
 Route::get('courses/new', [CoursesController::class, 'create']);
 Route::post('courses/new', [CoursesController::class, 'store']);
 
-
-
 require __DIR__.'/auth.php';
