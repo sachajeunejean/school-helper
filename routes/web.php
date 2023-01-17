@@ -18,13 +18,13 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})->name('welcome');
+})->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -40,5 +40,20 @@ Route::get('/courses', [CoursesController::class, 'index']);
 
 Route::get('/courses/new', [CoursesController::class, 'create']);
 Route::post('/courses/new', [CoursesController::class, 'store']);
+
+Route::get('/about', function (){
+    return Inertia::render('About');
+})->name('about');
+
+Route::get('/contact', function (){
+    return Inertia::render('Contact');
+})->name('contact');
+
+Route::get('/home', function (){
+    return Inertia::render('Home');
+})->name('home');
+Route::get('/courses', function (){
+    return Inertia::render('Courses/Courses');
+})->name('courses');
 
 require __DIR__.'/auth.php';
