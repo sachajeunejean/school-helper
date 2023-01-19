@@ -1,5 +1,5 @@
-export default function Courses( { courses } ) {
 
+export default function Courses( { courses } ) {
     return (
         <div>
             <nav className="p-10">
@@ -12,9 +12,12 @@ export default function Courses( { courses } ) {
             <div className="p-10">
                 {courses.map((course, key) => (
                     <div className="mb-5" key={key}>
-                        <li>{course.title}</li>
-                        <li>{course.category}</li>
-                        <li>{course.status}</li>
+                        <a href={ "/courses/" + course.formatted_title }>Title: {course.title}</a>
+                        <p>Desc: {course.description}</p>
+                        <p>Category: {course.category}</p>
+                        <p>Status: {course.status}</p>
+                        <p>Preview image: </p>
+                        <img src={'public/storage/images/' + course.preview_image} alt={course.preview_image} />
                     </div>
                 ))}
             </div>

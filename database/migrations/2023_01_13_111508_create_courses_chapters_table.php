@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -32,6 +33,16 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
+
+        /*DB::table('courses_chapters')->insert([
+            'id_course' => 1,
+            'id_chapter' => 1
+        ]);
+
+        DB::table('courses_chapters')->insert([
+            'id_course' => 1,
+            'id_chapter' => 2
+        ]);*/
     }
 
     /**

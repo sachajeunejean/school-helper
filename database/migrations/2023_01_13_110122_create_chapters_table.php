@@ -15,11 +15,30 @@ return new class extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('formatted_title');
+            $table->text('description');
             $table->string('content');
-            $table->bigInteger('id_previous')->unsigned();
+            $table->bigInteger('id_previous')->unsigned()->nullable();
             $table->bigInteger('id_next')->unsigned()->nullable();
             $table->timestamps();
         });
+
+        /*DB::table('chapters')->insert([
+            'title' => 'Introduction',
+            'formatted_title' => 'introduction',
+            'description' => 'The Introduction Chapter',
+            'content' => '<h2>1.1 Introduction to web development</h2>',
+            'created_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('chapters')->insert([
+            'title' => 'HTML',
+            'formatted_title' => 'html',
+            'description' => 'Learning HTML',
+            'content' => '<h2>2.1 Introduction to HTML</h2>',
+            'created_at' => date('Y-m-d H:i:s')
+        ]);*/
     }
 
     /**

@@ -6,12 +6,9 @@ export default function NewCourse() {
     function submit(e) {
         e.preventDefault();
 
-        const values = {
-            title: e.target[0].value,
-            category: e.target[1].value,
-        };
+        const data = new FormData(e.target);
 
-        router.post('/courses/new', values);
+        router.post('/courses/new', data);
     }
 
     return (
@@ -23,12 +20,16 @@ export default function NewCourse() {
                 </ul>
             </nav>
 
-            <form className="p-10" onSubmit={submit}>
-                <div className="mb-5">
+            <form className="p-10" onSubmit={submit} method="post" encType="multipart/form-data">
+                <div className="flex flex-col mb-5">
                     <label htmlFor="title">Title : </label>
                     <input type="text" name="title" defaultValue="Web Development" />
                 </div>
-                <div className="mb-5">
+                <div className="flex flex-col mb-5">
+                    <label htmlFor="description">Description : </label>
+                    <textarea name="description" defaultValue="A course about" />
+                </div>
+                <div className="flex flex-col mb-5">
                     <label htmlFor="title">Category : </label>
                     <select name="category">
                         <option value="computer_science">Computer Science</option>
@@ -36,7 +37,11 @@ export default function NewCourse() {
                         <option value="french">French</option>
                     </select>
                 </div>
-                <button className="border-2 border-black p-5" type="submit">Create a new course</button>
+                <div className="flex flex-col mb-5">
+                    <label htmlFor="preview_image">Preview Image Course : </label>
+                    <input type="file" id="preview_image" name="preview_image" />
+                </div>
+                <button className="border-2 border-black p-2" type="submit">Create a new course</button>
             </form>
         </div>
     );

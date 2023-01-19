@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class CourseController extends Controller
@@ -16,7 +18,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Course', [
+        return Inertia::render('Courses', [
             'courses' => Course::all()
         ]);
     }
@@ -41,17 +43,26 @@ class CourseController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'required|string',
             'category' => 'required|string',
         ]);
 
-        $course = Course::create([
+        $image = $request->file('preview_image');
+        $image_name = $image->getClientOriginalName();
+        $request->file('preview_image')->storeAs("", $image_name);
+        Storage::move($image_name, public_path("app/storage/"));
+
+        $formattedTitle = strtolower(join('-', explode(' ', $request->title)));
+
+        DB::table('courses')->insert([
             'title' => $request->title,
+            'formatted_title' => $formattedTitle,
+            'description' => $request->description,
             'category' => $request->category,
+            'preview_image' => $image_name
         ]);
 
-        $course->save();
-
-        return redirect('/courses/'.$course->id);
+        return redirect('/courses/'.$formattedTitle);
     }
 
     /**
@@ -60,11 +71,23 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(string $title)
     {
-        $course = Course::find($id);
+        $course = DB::table('courses')
+            ->where('formatted_title', '=', $title)
+            ->get()[0];
 
-        dd($course);
+        $idCourse = DB::table('courses')->where('formatted_title', '=', $title)->value('id');
+
+        $chapters = DB::table('chapters')
+            ->join('courses_chapters', 'courses_chapters.id_chapter', '=', 'chapters.id')
+            ->where('courses_chapters.id_course', '=', $idCourse)
+            ->get();
+
+        return Inertia::render('Course', [
+            'course' => $course,
+            'chapters' => $chapters
+        ]);
     }
 
     /**

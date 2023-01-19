@@ -38,12 +38,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/courses', [CourseController::class, 'index']);
-
 Route::get('/courses/new', [CourseController::class, 'create']);
 Route::post('/courses/new', [CourseController::class, 'store']);
+Route::get('/courses/{title}', [CourseController::class, 'show']);
 
-Route::get('/courses/{id}', [CourseController::class, 'show']);
-
-//Route::get('/courses/{id}/chapters/new', [ChapterController::class, 'create']);
+Route::get('/courses/{title_course}/{title_chapter}', [ChapterController::class, 'show']);
+Route::get('/courses/{title}/newChapter', [ChapterController::class, 'create']);
+Route::post('/courses/{title}/newChapter', [ChapterController::class, 'store']);
 
 require __DIR__.'/auth.php';

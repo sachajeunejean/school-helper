@@ -11,6 +11,9 @@ class Course extends Model
 
     protected $fillable = [
         'title',
-        'category'
+        'formatted_title',
+        'description',
+        'category',
+        'preview_image'
     ];
 }
