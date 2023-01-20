@@ -55,6 +55,7 @@ class CourseController extends Controller
 
         $file = $request->file('preview_image');
         $path =  '/images';
+
         Storage::disk('resources_views')->putFileAs($path, $file, $file->getClientOriginalName());
 
         DB::table('courses')->insert([
@@ -114,11 +115,11 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @return void
+     * @return Application|Redirector|RedirectResponse
      */
-    public function update(Request $request): void
+    public function update(Request $request): RedirectResponse|Application|Redirector
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category' => 'required|string',
@@ -126,7 +127,38 @@ class CourseController extends Controller
 
         $formattedTitle = strtolower(join('-', explode(' ', $request->title)));
 
+        $file = $request->file('preview_image');
+        $path =  '/images';
 
+        $isFile = false;
+
+        if ($file) {
+            Storage::disk('resources_views')->putFileAs($path, $file, $file->getClientOriginalName());
+            $isFile = true;
+        }
+
+        $idCourse = DB::table('courses')
+            ->where('formatted_title', '=', $formattedTitle)
+            ->value('id');
+
+
+        $affected = DB::table('courses')
+            ->where('id', $idCourse)
+            ->update(
+              [
+                  'title' => $request->title,
+                  'formatted_title' => $formattedTitle,
+                  'description' => $request->description,
+                  'category' => $request->category,
+                  'preview_image' => $isFile ? $file->getClientOriginalName() : $request->last_preview_image
+              ]
+            );
+
+        //dd($affected);
+
+        //dd($formattedTitle);
+
+        return redirect('/courses/' . $formattedTitle);
     }
 
     /**

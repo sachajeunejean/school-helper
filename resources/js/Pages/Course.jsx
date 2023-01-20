@@ -1,5 +1,3 @@
-import {useEffect} from "react";
-
 export default function Course( { course, chapters } ) {
 
     return (
@@ -7,6 +5,7 @@ export default function Course( { course, chapters } ) {
             <div className="p-10">
                 <h2 className="underline">Course:</h2>
                 <p>{course.title}</p>
+                <p>{course.description}</p>
                 <p>{course.category}</p>
                 <p>{course.status}</p>
                 <img src={"http://127.0.0.1:5174/resources/images/" + course.preview_image} alt={course.preview_image}></img>

@@ -27,10 +27,6 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,7 +38,7 @@ Route::get('/courses/new', [CourseController::class, 'create']);
 Route::post('/courses/new', [CourseController::class, 'store']);
 Route::get('/courses/{title}', [CourseController::class, 'show']);
 Route::get('/courses/{title}/edit', [CourseController::class, 'edit']);
-Route::put('/courses/{title}/edit', [CourseController::class, 'update']);
+Route::put('/courses/{title}/update', [CourseController::class, 'update']);
 
 
 Route::get('/courses/{title}/new-chapter', [ChapterController::class, 'create']);
