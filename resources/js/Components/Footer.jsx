@@ -1,13 +1,13 @@
-import { Link } from "@inertiajs/inertia-react";
+import { Link } from "@inertiajs/react";
 
 export default function Footer() {
     return (
-        <footer className="w-full text-center">
+        <footer className="w-full text-center pb-5 bg-white">
             <hr className="p-2" />
-            <div className="w-full justify-between sm:flex sm:items-center sm:justify-between px-4 text-sm">
-                <div>School Helper © 2023</div>
-                <Link href="#">Anselme & Sacha</Link>
-                <div className="space-x-5 text-gray-600">
+            <div className="w-full justify-between md:flex md:items-center px-4 text-sm space-y-3 md:space-y-0">
+                <p className="flex-grow basis-0">School Helper © 2023</p>
+                <p>Anselme & Sacha</p>
+                <div className="space-x-5 text-gray-600 flex-grow basis-0">
                     <Link
                         href="#"
                         className="hover:underline hover:text-black underline-offset-4"
