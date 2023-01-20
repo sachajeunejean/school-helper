@@ -3,20 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         return Inertia::render('Courses', [
             'courses' => Course::all()
@@ -26,9 +30,9 @@ class CourseController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('NewCourse');
     }
@@ -36,10 +40,10 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request): Redirector|RedirectResponse|Application
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -47,19 +51,18 @@ class CourseController extends Controller
             'category' => 'required|string',
         ]);
 
-        $image = $request->file('preview_image');
-        $image_name = $image->getClientOriginalName();
-        $request->file('preview_image')->storeAs("", $image_name);
-        Storage::move($image_name, public_path("app/storage/"));
-
         $formattedTitle = strtolower(join('-', explode(' ', $request->title)));
+
+        $file = $request->file('preview_image');
+        $path =  '/images';
+        Storage::disk('resources_views')->putFileAs($path, $file, $file->getClientOriginalName());
 
         DB::table('courses')->insert([
             'title' => $request->title,
             'formatted_title' => $formattedTitle,
             'description' => $request->description,
             'category' => $request->category,
-            'preview_image' => $image_name
+            'preview_image' => $file->getClientOriginalName()
         ]);
 
         return redirect('/courses/'.$formattedTitle);
@@ -68,10 +71,10 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
+     * @param string $title
+     * @return Response
      */
-    public function show(string $title)
+    public function show(string $title): Response
     {
         $course = DB::table('courses')
             ->where('formatted_title', '=', $title)
@@ -93,33 +96,46 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
+     * @param string $title
+     * @return Response
      */
-    public function edit(Course $course)
+    public function edit(string $title): Response
     {
-        //
+        $course = DB::table('courses')
+            ->where('formatted_title', '=', $title)
+            ->get()[0];
+
+        return Inertia::render('UpdateCourse', [
+            'course' => $course
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request): void
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string',
+        ]);
+
+        $formattedTitle = strtolower(join('-', explode(' ', $request->title)));
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
+     * @param Course $course
+     * @return void
      */
-    public function destroy(Course $course)
+    public function destroy(Course $course): void
     {
         //
     }

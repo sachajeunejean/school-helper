@@ -2,7 +2,7 @@ import {router} from "@inertiajs/react";
 
 export default function NewChapter() {
 
-    const getCourseID = () => {
+    const getCourseFormattedTitle = () => {
         return window.location.href.split('/')[4];
     }
 
@@ -11,7 +11,7 @@ export default function NewChapter() {
 
         const data = new FormData(e.target);
 
-        router.post('/courses/' + getCourseID() + '/chapters/new', data);
+        router.post('/courses/' + getCourseFormattedTitle() + '/new-chapter', data);
     }
 
     return (
@@ -20,6 +20,10 @@ export default function NewChapter() {
                 <div className="flex flex-col mb-5">
                     <label htmlFor="title">Title : </label>
                     <input type="text" name="title" />
+                </div>
+                <div className="flex flex-col mb-5">
+                    <label htmlFor="title">Description : </label>
+                    <textarea name="description" />
                 </div>
                 <div className="flex flex-col mb-5">
                     <label htmlFor="title">Content : </label>

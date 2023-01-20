@@ -9,7 +9,11 @@ export default function Course( { course, chapters } ) {
                 <p>{course.title}</p>
                 <p>{course.category}</p>
                 <p>{course.status}</p>
-                <p>{course.preview_image}</p>
+                <img src={"http://127.0.0.1:5174/resources/images/" + course.preview_image} alt={course.preview_image}></img>
+            </div>
+
+            <div className="p-10">
+                <a className="bg-red-500 text-amber-50 p-5" href={'/courses/' + course.formatted_title + '/' + 'edit'}>EDIT</a>
             </div>
 
             <div className="p-10">

@@ -41,9 +41,12 @@ Route::get('/courses', [CourseController::class, 'index']);
 Route::get('/courses/new', [CourseController::class, 'create']);
 Route::post('/courses/new', [CourseController::class, 'store']);
 Route::get('/courses/{title}', [CourseController::class, 'show']);
+Route::get('/courses/{title}/edit', [CourseController::class, 'edit']);
+Route::put('/courses/{title}/edit', [CourseController::class, 'update']);
 
+
+Route::get('/courses/{title}/new-chapter', [ChapterController::class, 'create']);
+Route::post('/courses/{title}/new-chapter', [ChapterController::class, 'store']);
 Route::get('/courses/{title_course}/{title_chapter}', [ChapterController::class, 'show']);
-Route::get('/courses/{title}/newChapter', [ChapterController::class, 'create']);
-Route::post('/courses/{title}/newChapter', [ChapterController::class, 'store']);
 
 require __DIR__.'/auth.php';

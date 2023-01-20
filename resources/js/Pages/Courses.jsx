@@ -1,4 +1,3 @@
-
 export default function Courses( { courses } ) {
     return (
         <div>
@@ -17,7 +16,7 @@ export default function Courses( { courses } ) {
                         <p>Category: {course.category}</p>
                         <p>Status: {course.status}</p>
                         <p>Preview image: </p>
-                        <img src={'public/storage/images/' + course.preview_image} alt={course.preview_image} />
+                        <img src={"http://127.0.0.1:5174/resources/images/" + course.preview_image} alt={course.preview_image} />
                     </div>
                 ))}
             </div>

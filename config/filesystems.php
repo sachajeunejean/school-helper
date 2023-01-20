@@ -46,7 +46,12 @@ return [
 
         'public_uploads' => [
             'driver' => 'local',
-            'root' => public_path() . '/resources',
+            'root' => '/resources/images',
+        ],
+
+        'resources_views' => [
+            'driver' => 'local',
+            'root' => base_path('resources/'),
         ],
 
         's3' => [

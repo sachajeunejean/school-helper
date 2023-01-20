@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chapter;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ChapterController extends Controller
 {
@@ -14,17 +18,17 @@ class ChapterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
         //
-    }
+    }*/
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('NewChapter');
     }
@@ -32,30 +36,40 @@ class ChapterController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request): Redirector|RedirectResponse|Application
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:50',
             'chap_content' => 'required|string',
+            'description' => 'required|string|max:300'
         ]);
 
         //récupérer le dernier chapitre crée
         $currentURL = url()->current();
-        $idCourse = explode('/', $currentURL)[4];
+        $courseFormattedTitle = explode('/', $currentURL)[4];
+
+        $idCourse = DB::table('courses')
+            ->where('formatted_title', '=', $courseFormattedTitle)
+            ->value('id');
 
         $lastChapterID = DB::table('chapters')
             ->join('courses_chapters', 'courses_chapters.id_chapter', '=', 'chapters.id')
             ->where('courses_chapters.id_course', '=', $idCourse)
+            ->orderByDesc('chapters.created_at')
             ->limit(1)
             ->value('chapters.id');
+
+        $formattedTitle = strtolower(join('-', explode(' ', $request->title)));
 
         //crée le chapitre
         $chapter = Chapter::create([
            'title' => $request->title,
            'content' => $request->chap_content,
+           'formatted_title' => $formattedTitle,
+           'description' => $request->description,
            'id_previous' => $lastChapterID,
         ]);
 
@@ -71,16 +85,17 @@ class ChapterController extends Controller
             ->where('id', $lastChapterID)
             ->update(['id_next' => $chapter->id]);
 
-        return redirect('/courses/' . $idCourse . '/chapters');
+        return redirect('/courses/' . $courseFormattedTitle . '/' . $formattedTitle);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Chapter  $chapters
-     * @return \Illuminate\Http\Response
+     * @param string $title_course
+     * @param string $title_chapter
+     * @return Response
      */
-    public function show(string $title_course, string $title_chapter)
+    public function show(string $title_course, string $title_chapter): Response
     {
         $chapter = DB::table('chapters')
             ->where('formatted_title', '=', $title_chapter)
@@ -94,10 +109,10 @@ class ChapterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Chapter  $chapters
+     * @param Chapter $chapters
      * @return \Illuminate\Http\Response
      */
-    public function edit(Chapter $chapters)
+    public function edit(Chapter $chapters): \Illuminate\Http\Response
     {
         //
     }
@@ -105,11 +120,11 @@ class ChapterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Chapter  $chapters
+     * @param Request $request
+     * @param Chapter $chapters
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chapter $chapters)
+    public function update(Request $request, Chapter $chapters): \Illuminate\Http\Response
     {
         //
     }
@@ -117,10 +132,10 @@ class ChapterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Chapter  $chapters
-     * @return \Illuminate\Http\Response
+     * @param Chapter $chapters
+     * @return void
      */
-    public function destroy(Chapter $chapters)
+    public function destroy(Chapter $chapters): void
     {
         //
     }
