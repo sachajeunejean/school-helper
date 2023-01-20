@@ -1,7 +1,7 @@
 export default function SearchBar() {
     return (
         <div className="block">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <div className="absolute top-4 left-1 flex items-center pl-3 pointer-events-none">
                 {/* remplace with react icon */}
                 <svg
                     className="w-5 h-5 text-gray-500"
@@ -21,9 +21,12 @@ export default function SearchBar() {
             <input
                 type="text"
                 id="search-navbar"
-                className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-none focus:outline-none focus:ring-transparent"
+                className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg border-2 focus:ring-0 focus:outline-none focus:border-2 focus:border-indigo-700"
                 placeholder="Search..."
             />
+            <p className="text-center text-gray-800 pt-2">
+                Press ESC to cancel
+            </p>
         </div>
     );
 }

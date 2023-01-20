@@ -1,34 +1,38 @@
 import { useEffect, useState } from "react";
 import NavLink from "@/Components/NavLink";
-import SearchButton from "@/Components/SearchButton";
 import Dropdown from "@/Components/Dropdown";
 import Modal from "@/Components/Modal";
 import SearchBar from "@/Components/SearchBar";
-import SecondaryButton from "@/Components/SecondaryButton";
 import {
     IoFileTrayFull,
     IoHome,
     IoInformationCircle,
     IoMail,
     IoPerson,
+    IoSearch,
 } from "react-icons/io5";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function NavBar() {
+    // Hide/Show modal (for searchbar)
     const [searching, setSearching] = useState(false);
+    // Hide/Show navbar
     const [navbar, setNavbar] = useState(false);
     // fake log auth
     const [isAuth, setIsAuth] = useState(false);
 
+    // get previous scroll position
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [visible, setVisible] = useState(true);
+
     const toggleModal = () => {
         setSearching(!searching);
     };
-    const [prevScrollPos, setPrevScrollPos] = useState(0);
-    const [visible, setVisible] = useState(true);
 
     const handleScroll = () => {
         const currentScrollPos = window.scrollY;
 
-        if (currentScrollPos > prevScrollPos) {
+        if (currentScrollPos > 80 && currentScrollPos > prevScrollPos) {
             setVisible(false);
         } else {
             setVisible(true);
@@ -43,15 +47,26 @@ export default function NavBar() {
         return () => window.removeEventListener("scroll", handleScroll);
     });
 
+    useEffect(() => {
+        const close = (e) => {
+            if (e.keyCode === 27) {
+                setSearching(false);
+            }
+        };
+
+        window.addEventListener("keydown", close);
+        return () => window.removeEventListener("keydown", close);
+    });
+
     return (
         <nav
-            className={`w-full bg-white shadow sticky duration-500 z-50  ${
+            className={`w-full bg-white shadow sticky duration-300 z-50  ${
                 visible
                     ? "top-0 md:translate-y-0"
                     : "top-0 md:translate-y-[-100px]"
             }`}
         >
-            <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+            <div className="justify-between px-4 mx-auto lg:max-w-screen-2xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <a href="#" className="flex items-center">
@@ -103,39 +118,54 @@ export default function NavBar() {
                             navbar ? "flex" : "hidden"
                         }`}
                     >
-                        <ul className="flex flex-col md:flex-row space-y-8 md:space-x-6 md:space-y-0">
+                        <ul className="flex flex-col md:flex-row space-y-8 md:space-x-3 lg:space-x-8 2xl:space-x-12 md:space-y-0">
                             <NavLink
                                 href={route("home")}
                                 active={route().current("home")}
                             >
-                                <IoHome className="mr-2" />
+                                <IoHome className="mr-2" size={16} />
                                 Home
                             </NavLink>
                             <NavLink
                                 href={route("courses")}
                                 active={route().current("courses")}
                             >
-                                <IoFileTrayFull className="mr-2" />
+                                <IoFileTrayFull className="mr-2" size={18} />
                                 Courses
                             </NavLink>
                             <NavLink
                                 href={route("about")}
                                 active={route().current("about")}
                             >
-                                <IoInformationCircle className="mr-2" />
+                                <IoInformationCircle
+                                    className="mr-2"
+                                    size={18}
+                                />
                                 About
                             </NavLink>
                             <NavLink
                                 href={route("contact")}
                                 active={route().current("contact")}
                             >
-                                <IoMail className="mr-2" />
+                                <IoMail className="mr-2" size={18} />
                                 Contact
                             </NavLink>
                             <div className="w-50% h-px md:h-7 md:w-px bg-gray-200"></div>
 
-                            <button type="button" onClick={toggleModal}>
-                                <SearchButton />
+                            <button
+                                type="button"
+                                id="searchBtn"
+                                onClick={toggleModal}
+                                className="flex md:block focus-visible:outline-none"
+                            >
+                                <IoSearch
+                                    size={18}
+                                    color="gray"
+                                    className="mr-2 translate-y-1 md:translate-y-0 focus:outline-none shadow-none"
+                                />
+                                <p className="text-gray-700 text-lg md:hidden">
+                                    Search
+                                </p>
                             </button>
                             <div className="w-50% h-px md:h-7 md:w-px bg-gray-200"></div>
 
@@ -147,20 +177,17 @@ export default function NavBar() {
                                                 type="button"
                                                 className="inline-flex items-center border border-transparent text-lg md:text-sm font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                <IoPerson className="mr-2" />
-                                                Profile
-                                                <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
+                                                <IoPerson
+                                                    className="mr-2"
+                                                    size={18}
+                                                />
+                                                <p className="translate-y-[2px] mr-2">
+                                                    Profile
+                                                </p>
+                                                <MdKeyboardArrowDown
+                                                    size={20}
+                                                    className="translate-y-[1px]"
+                                                />
                                             </button>
                                         </Dropdown.Trigger>
 
@@ -213,7 +240,12 @@ export default function NavBar() {
                         </ul>
                     </div>
                 </div>
-                <Modal show={searching}>
+                <Modal
+                    close={() => {
+                        toggleModal(false);
+                    }}
+                    show={searching}
+                >
                     <SearchBar />
                 </Modal>
             </div>
