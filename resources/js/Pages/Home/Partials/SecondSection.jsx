@@ -8,7 +8,7 @@ import AOS from "aos";
 
 import "aos/dist/aos.css";
 
-export default function HomeHero({
+export default function FirstSection({
     background,
     title,
     subtitle,
@@ -17,6 +17,9 @@ export default function HomeHero({
     hrefBtn,
     textBtn,
     iconBtn,
+    hrefBtnBis,
+    textBtnBis,
+    iconBtnBis,
 }) {
     useEffect(() => {
         AOS.init();
@@ -24,8 +27,17 @@ export default function HomeHero({
 
     return (
         <div className={`pb-8 2xl:py-28 ${background}`}>
-            <div className="CONTAINER grid xl:grid-cols-2 w-[90%] lg:w-3/4 mx-auto ">
-                <div className="RIGHT w-3/4 mx-auto" data-aos="fade-right">
+            <div className="CONTAINER grid xl:grid-cols-2 w-11/12 lg:w-3/4 mx-auto ">
+                <div
+                    className="w-11/12 mx-auto hidden xl:flex"
+                    data-aos="fade-right"
+                >
+                    {img}
+                </div>
+                <div
+                    className="flex  flex-col justify-center items-center text-center w-11/12 mx-auto"
+                    data-aos="fade-left"
+                >
                     <h3 className="text-medium pt-10 pb-6 text-5xl text-gray-700">
                         {title}
                     </h3>
@@ -33,26 +45,35 @@ export default function HomeHero({
                         {subtitle}
                     </h3>
                     <p className=" text-gray-500 leading-8">{text}</p>
-                    <div className="hidden xl:flex  justify-center">
-                        <PrimaryButton className="mr-5 my-14">
+                    <div className="hidden xl:flex  justify-center ">
+                        <PrimaryButton className="mr-5 my-8 xl:my-14">
                             <a href={hrefBtn} className="flex items-center">
                                 {iconBtn}
                                 {textBtn}
                             </a>
                         </PrimaryButton>
+                        <PrimaryButton className="mr-5 xl:my-14">
+                            <a href={hrefBtnBis} className="flex items-center">
+                                {iconBtnBis}
+                                {textBtnBis}
+                            </a>
+                        </PrimaryButton>
                     </div>
                 </div>
-                <div
-                    className="flex mx-auto max-w-[700px] justify-center items-center"
-                    data-aos="fade-left"
-                >
+                <div className="mx-auto flex xl:hidden" data-aos="fade-right">
                     {img}
                 </div>
-                <div className="flex flex-col justify-center gap-4 w-3/4 mx-auto sm:flex-row xl:hidden">
-                    <PrimaryButton className="mr-5 my-14">
+                <div className="flex flex-col justify-center gap-4 mt-8 mx-auto md:flex-row xl:hidden">
+                    <PrimaryButton>
                         <a href={hrefBtn} className="flex items-center">
                             {iconBtn}
                             {textBtn}
+                        </a>
+                    </PrimaryButton>
+                    <PrimaryButton>
+                        <a href={hrefBtnBis} className="flex items-center">
+                            {iconBtnBis}
+                            {textBtnBis}
                         </a>
                     </PrimaryButton>
                 </div>

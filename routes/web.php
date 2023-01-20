@@ -18,7 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Home/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -26,9 +26,6 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -50,7 +47,7 @@ Route::get('/contact', function (){
 })->name('contact');
 
 Route::get('/home', function (){
-    return Inertia::render('Home');
+    return Inertia::render('Home/Home');
 })->name('home');
 Route::get('/courses', function (){
     return Inertia::render('Courses/Courses');

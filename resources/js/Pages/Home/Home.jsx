@@ -1,8 +1,14 @@
 import { Head } from "@inertiajs/react";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { IoArrowRedoOutline, IoFileTrayFull, IoMail } from "react-icons/io5";
-import HomeHero from "@/Components/HomeHero";
-import HomeLast from "@/Components/HomeLast";
+import {
+    IoInformationCircleOutline,
+    IoFileTrayFull,
+    IoMail,
+    IoSearchOutline,
+} from "react-icons/io5";
+import FirstSection from "@/Pages/Home/Partials/FirstSection";
+import SecondSection from "@/Pages/Home/Partials/SecondSection";
+import ThirdSection from "@/Pages/Home/Partials/ThirdSection";
 import PrimaryButton from "@/Components/PrimaryButton";
 import General from "@/Layouts/GeneralLayout";
 
@@ -11,7 +17,7 @@ export default function Home() {
         <General>
             <Head title="Home" />
             <main className="overflow-hidden">
-                <HomeHero
+                <FirstSection
                     title={"School Helper"}
                     subtitle={[
                         "A ",
@@ -41,32 +47,25 @@ export default function Home() {
                         ></Player>
                     }
                     hrefBtn={route("courses")}
-                    textBtn={"Courses"}
-                    iconBtn={<IoArrowRedoOutline size={20} className="mr-2" />}
+                    textBtn={<p className="text-sm">See all courses</p>}
+                    iconBtn={<IoFileTrayFull size={20} className="mr-7" />}
+                    textBtnBis={<p className="text-sm">Search course</p>}
+                    iconBtnBis={<IoSearchOutline size={20} className="mr-7" />}
                 />
 
                 <hr className="h-[2px] bg-gray-200" />
-                <HomeHero
+                <SecondSection
                     background={"bg-gradient-to-l from-white to-gray-200"}
                     title={"School Helper"}
                     subtitle={[
-                        "A ",
                         <span
                             key={"subtitleSpanOne"}
                             className="text-indigo-700"
                         >
-                            free
+                            Designed
                         </span>,
-                        " and ",
-                        <span
-                            key={"subtitleSpanTwo"}
-                            className="text-indigo-700"
-                        >
-                            shared
-                        </span>,
-                        " digital plateform.",
+                        " for learners.",
                     ]}
-                    subtitleSpan={"free"}
                     text={
                         "The website is designed with a user-friendly interface and easy navigation, making it simple for users to find the courses that interest them. Users can also create their own courses and share them with others, contributing to the growing community of lifelong learners."
                     }
@@ -74,13 +73,24 @@ export default function Home() {
                         <img
                             src="/assets/img/Boy-attending-video-lecture.svg"
                             alt="Boy attending video lecture"
-                            className="p-5 lg:max-w-lg"
+                            className="p-5 sm:max-w-lg"
                         />
                     }
+                    hrefBtn={route("about")}
+                    textBtn={<p className="text-sm">About Us</p>}
+                    iconBtn={
+                        <IoInformationCircleOutline
+                            size={20}
+                            className="mr-7"
+                        />
+                    }
+                    hrefBtnBis={route("courses")}
+                    textBtnBis={<p className="text-sm">Contact Us</p>}
+                    iconBtnBis={<IoMail size={20} className="mr-7" />}
                 />
                 <hr className="h-[2px] bg-gray-200" />
 
-                <HomeLast
+                <ThirdSection
                     title={"The world of learning is at your fingertips"}
                     subtitle={[
                         <span
