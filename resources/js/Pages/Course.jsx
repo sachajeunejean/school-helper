@@ -1,4 +1,17 @@
-export default function Course( { course, chapters } ) {
+import { router } from "@inertiajs/react";
+
+export default function Course( { course, chapters, comments, connected } ) {
+
+    const submitComment = (e) => {
+        e.preventDefault()
+
+        let data = new FormData(e.target);
+
+        data.append('id_course', course.id)
+        data.append('formatted_title', course.formatted_title)
+
+        router.post('/courses/' + course.formatted_title + '/new-comment', data);
+    }
 
     return (
         <div>
@@ -21,6 +34,30 @@ export default function Course( { course, chapters } ) {
                     chapters.map((chapter, key) => (
                         <div key={key}>
                             <a href={'/courses/' + course.formatted_title + '/' + chapter.formatted_title}>{chapter.title}</a>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <form
+                onSubmit={submitComment}
+                className={
+                    connected ?
+                        "flex p-10" :
+                        "hidden"
+                }
+                method="post"
+            >
+                <input type="text" name="com_content" placeholder="Add a comment..." />
+                <button className="p-5 cursor-pointer border-2" type="submit">Add</button>
+            </form>
+
+            <div>
+                {
+                    comments.map((comment, key) => (
+                        <div key={key}>
+                            <h3 className="font-bold underline">{comment.username}</h3>
+                            <p>{comment.content}</p>
                         </div>
                     ))
                 }

@@ -5,6 +5,8 @@ export default function Courses( { courses } ) {
                 <ul className="flex flex-row">
                     <a className="m-5" href="/courses">Courses</a>
                     <a className="m-5" href="/courses/new">New Course</a>
+                    <a className="m-5" href="/register">Register</a>
+                    <a className="m-5" href="/login">Login</a>
                 </ul>
             </nav>
 

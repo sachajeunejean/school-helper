@@ -32,10 +32,10 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->bigInteger('id_feedback')->unsigned();
-            $table->foreign('id_feedback')
+            $table->bigInteger('id_comment')->unsigned();
+            $table->foreign('id_comment')
                 ->references('id')
-                ->on('feedbacks')
+                ->on('comments')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

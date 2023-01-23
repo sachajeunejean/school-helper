@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,11 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -38,11 +44,13 @@ Route::get('/courses/new', [CourseController::class, 'create']);
 Route::post('/courses/new', [CourseController::class, 'store']);
 Route::get('/courses/{title}', [CourseController::class, 'show']);
 Route::get('/courses/{title}/edit', [CourseController::class, 'edit']);
-Route::put('/courses/{title}/update', [CourseController::class, 'update']);
+Route::patch('/courses/{title}/update', [CourseController::class, 'update']);
 
 
 Route::get('/courses/{title}/new-chapter', [ChapterController::class, 'create']);
 Route::post('/courses/{title}/new-chapter', [ChapterController::class, 'store']);
 Route::get('/courses/{title_course}/{title_chapter}', [ChapterController::class, 'show']);
+
+Route::post('/courses/{title}/new-comment', [CommentController::class, 'store']);
 
 require __DIR__.'/auth.php';

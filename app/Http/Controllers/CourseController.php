@@ -7,6 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -88,9 +89,22 @@ class CourseController extends Controller
             ->where('courses_chapters.id_course', '=', $idCourse)
             ->get();
 
+        $comments = DB::table('comments')
+            ->join('courses_comments', 'courses_comments.id_comment', 'comments.id')
+            ->where('courses_comments.id_course', '=', $idCourse)
+            ->get();
+
+        foreach ($comments as $comment) {
+            $comment->username = DB::table('users')
+                ->where('id', '=', $comment->id_user)
+                ->value('username');
+        }
+
         return Inertia::render('Course', [
             'course' => $course,
-            'chapters' => $chapters
+            'chapters' => $chapters,
+            'comments' => $comments,
+            'connected' => Auth::check()
         ]);
     }
 
@@ -119,13 +133,14 @@ class CourseController extends Controller
      */
     public function update(Request $request): RedirectResponse|Application|Redirector
     {
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category' => 'required|string',
         ]);
 
-        $formattedTitle = strtolower(join('-', explode(' ', $request->title)));
+        $lastFormattedTitle = explode('/', url()->current())[4];
+        $newFormattedTitle = strtolower(join('-', explode(' ', $request->title)));
 
         $file = $request->file('preview_image');
         $path =  '/images';
@@ -138,27 +153,21 @@ class CourseController extends Controller
         }
 
         $idCourse = DB::table('courses')
-            ->where('formatted_title', '=', $formattedTitle)
+            ->where('formatted_title', '=', $lastFormattedTitle)
             ->value('id');
-
-
         $affected = DB::table('courses')
             ->where('id', $idCourse)
             ->update(
               [
                   'title' => $request->title,
-                  'formatted_title' => $formattedTitle,
+                  'formatted_title' => $newFormattedTitle,
                   'description' => $request->description,
                   'category' => $request->category,
                   'preview_image' => $isFile ? $file->getClientOriginalName() : $request->last_preview_image
               ]
             );
 
-        //dd($affected);
-
-        //dd($formattedTitle);
-
-        return redirect('/courses/' . $formattedTitle);
+        return redirect('/courses/' . $newFormattedTitle);
     }
 
     /**

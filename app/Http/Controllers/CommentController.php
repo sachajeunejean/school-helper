@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -12,30 +14,44 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
         //
-    }
+    }*/
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    /*public function create()
     {
         //
-    }
+    }*/
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+           'com_content' => 'required|string|max:200'
+        ]);
+
+        $comment = Comment::create([
+           'content' => $request->com_content
+        ]);
+
+        $comment->save();
+
+        DB::table('courses_comments')->insert([
+            'id_course' => $request->id_course,
+            'id_user' => Auth::id(),
+            'id_comment' => $comment->id,
+        ]);
     }
 
     /**
@@ -44,10 +60,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comments
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comments)
+    /*public function show(Comment $comments)
     {
         //
-    }
+    }*/
 
     /**
      * Show the form for editing the specified resource.
