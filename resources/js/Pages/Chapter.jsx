@@ -5,7 +5,7 @@ export default function Chapter( { chapter, course, owner, sessionUser } ) {
     const onDelete = (e) => {
         e.preventDefault()
 
-        router.delete('/courses/' + course.formatted_title + '/' + 'delete')
+        router.delete('/courses/' + course.formatted_title + '/' + chapter.formatted_title + '/delete')
     }
 
     return (

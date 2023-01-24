@@ -165,7 +165,6 @@ class ChapterController extends Controller
             'description' => 'required|string|max:300'
         ]);
 
-        $currentURL = url()->current();
         $courseFormattedTitle = explode('/', url()->current())[4];
         $lastFormattedTitle = explode('/', url()->current())[5];
         $newFormattedTitle = strtolower(join('-', explode(' ', $request->title)));
@@ -191,10 +190,57 @@ class ChapterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return void
+     * @return Application|Redirector|RedirectResponse
      */
-    public function destroy(): void
+    public function destroy(): RedirectResponse|Application|Redirector
     {
-        dd('pass here');
+        $courseFormTitle = explode('/', url()->current())[4];
+        $chapterFormTitle = explode('/', url()->current())[5];
+        $chapter = DB::table('chapters')
+            ->where('formatted_title', '=', $chapterFormTitle)
+            ->get()[0];
+
+        $nextChapter = Chapter::find($chapter->id_next);
+        $previousChapter = Chapter::find($chapter->id_previous);
+
+        if ($previousChapter === null) {
+            DB::table('chapters')
+                ->where('id', $nextChapter->id)
+                ->update(
+                    [
+                        'id_previous' => null
+                    ]
+                );
+        } else {
+            if ($nextChapter !== null) {
+                DB::table('chapters')
+                    ->where('id', $previousChapter->id)
+                    ->update(
+                        [
+                            'id_next' => $nextChapter->id
+                        ]
+                    );
+
+                DB::table('chapters')
+                    ->where('id', $nextChapter->id)
+                    ->update(
+                        [
+                            'id_previous' => $previousChapter->id
+                        ]
+                    );
+            } else {
+                DB::table('chapters')
+                    ->where('id', $previousChapter->id)
+                    ->update(
+                        [
+                            'id_next' => null
+                        ]
+                    );
+            }
+        }
+
+        Chapter::find($chapter->id)->delete();
+
+        return redirect('/courses/' . $courseFormTitle);
     }
 }
