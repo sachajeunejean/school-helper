@@ -1,4 +1,16 @@
-export default function SearchBar() {
+import { useEffect, useState } from "react";
+
+export default function SearchBar({
+    courses,
+    toggleModal,
+    formattedQuery,
+    setFormattedQuery,
+}) {
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        toggleModal();
+    };
+
     return (
         <div className="block">
             <div className="absolute top-4 left-1 flex items-center pl-3 pointer-events-none">
@@ -18,15 +30,20 @@ export default function SearchBar() {
                 </svg>
                 <span className="sr-only">Search icon</span>
             </div>
-            <input
-                type="text"
-                id="search-navbar"
-                className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg border-2 focus:ring-0 focus:outline-none focus:border-2 focus:border-indigo-700"
-                placeholder="Search..."
-            />
-            <p className="text-center text-gray-800 pt-2">
-                Press ESC to cancel
-            </p>
+            <form onSubmit={handleOnSubmit}>
+                <input
+                    type="text"
+                    onChange={(e) =>
+                        setFormattedQuery(e.target.value.toLocaleLowerCase())
+                    }
+                    id="search-navbar"
+                    className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg border-2 focus:ring-0 focus:outline-none focus:border-2 focus:border-indigo-700"
+                    placeholder="Search..."
+                />
+                <p className="text-center text-gray-800 pt-2">
+                    Press ESC to cancel
+                </p>
+            </form>
         </div>
     );
 }

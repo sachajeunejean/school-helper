@@ -11,6 +11,7 @@ export default forwardRef(function TextInput(
         required,
         isFocused,
         handleChange,
+        placeholder,
     },
     ref
 ) {
@@ -23,18 +24,19 @@ export default forwardRef(function TextInput(
     }, []);
 
     return (
-        <div className="flex flex-col items-start">
-            <input
-                type={type}
-                name={name}
-                id={id}
-                value={value}
-                className={`border-gray-30 rounded-md shadow-sm ` + className}
-                ref={input}
-                autoComplete={autoComplete}
-                required={required}
-                onChange={(e) => handleChange(e)}
-            />
-        </div>
+        <input
+            placeholder={placeholder}
+            type={type}
+            name={name}
+            id={id}
+            value={value}
+            className={
+                "peer h-12 w-full bg-gray-100 border-b-2 border-gray-300 rounded-md shadow-md placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+            }
+            ref={input}
+            autoComplete={autoComplete}
+            required={required}
+            onChange={(e) => handleChange(e)}
+        />
     );
 });

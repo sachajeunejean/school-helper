@@ -1,30 +1,69 @@
-export default function Course( { course, chapters } ) {
+import Dropdown from "@/Components/Dropdown";
+import General from "@/Layouts/GeneralLayout";
+import { Head } from "@inertiajs/react";
 
+export default function Course({ auth, course, chapters }) {
     return (
-        <div>
+        <General auth={auth}>
+            <Head title={`${course.title}`} />
+            {/* <p>{course.status}</p> */}
             <div className="p-10">
-                <h2 className="underline">Course:</h2>
-                <p>{course.title}</p>
-                <p>{course.description}</p>
-                <p>{course.category}</p>
-                <p>{course.status}</p>
-                <img src={"http://127.0.0.1:5174/resources/images/" + course.preview_image} alt={course.preview_image}></img>
-            </div>
+                <div className="">
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <button
+                                type="button"
+                                className="absolute -bottom-3 right-0 rounded-md  text-3xl  hover:text-red-400 focus:outline-none transition ease-in-out duration-150"
+                            >
+                                ...
+                            </button>
+                        </Dropdown.Trigger>
 
-            <div className="p-10">
-                <a className="bg-red-500 text-amber-50 p-5" href={'/courses/' + course.formatted_title + '/' + 'edit'}>EDIT</a>
-            </div>
+                        <div className>
+                            <Dropdown.Content>
+                                <Dropdown.Link
+                                    href={`/courses/${course.formatted_title}/edit`}
+                                >
+                                    Edit
+                                </Dropdown.Link>
 
+                                <Dropdown.Link>Delete</Dropdown.Link>
+                            </Dropdown.Content>
+                        </div>
+                    </Dropdown>
+                </div>
+                <div>
+                    <h2 className="capitalize text-2xl pb-5">{course.title}</h2>
+                    <p className="capitalize px-3 py-1 mb-5 bg-gray-500 text-gray-100 w-fit rounded-full">
+                        {course.category.split("_").join(" ")}
+                    </p>
+                    <p>{course.description}</p>
+                    <img
+                        src={
+                            "http://127.0.0.1:5174/resources/images/" +
+                            course.preview_image
+                        }
+                        alt={course.preview_image}
+                    ></img>
+                </div>
+            </div>
             <div className="p-10">
                 <h3 className="underline">Chapters:</h3>
-                {
-                    chapters.map((chapter, key) => (
-                        <div key={key}>
-                            <a href={'/courses/' + course.formatted_title + '/' + chapter.formatted_title}>{chapter.title}</a>
-                        </div>
-                    ))
-                }
+                {chapters.map((chapter, key) => (
+                    <div key={key}>
+                        <a
+                            href={
+                                "/courses/" +
+                                course.formatted_title +
+                                "/" +
+                                chapter.formatted_title
+                            }
+                        >
+                            {chapter.title}
+                        </a>
+                    </div>
+                ))}
             </div>
-        </div>
-    )
+        </General>
+    );
 }

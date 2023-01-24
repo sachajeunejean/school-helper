@@ -6,7 +6,7 @@ import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import General from "@/Layouts/GeneralLayout";
 
-export default function Register() {
+export default function Register({ auth }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         username: "",
         lastname: "",
@@ -40,177 +40,194 @@ export default function Register() {
     };
 
     return (
-        <General>
+        <General auth={auth}>
             <Head title="Register" />
-            <div className="w-3/4 mx-auto my-10">
-                <h3 className="text-3xl text-center mb-6">
-                    <span className="text-indigo-700">Join</span> us today !
-                </h3>
-                <form onSubmit={submit}>
-                    <div>
-                        <InputLabel forInput="username" value="Username" />
+            <div className="bg-gray-100">
+                <div className="w-3/4 lg:w-1/2 mx-auto py-10">
+                    <h3 className="text-3xl text-center mb-6">
+                        <span className="text-indigo-700">Join</span> us today !
+                    </h3>
+                    <form onSubmit={submit}>
+                        <div className="relative">
+                            <TextInput
+                                id="username"
+                                type="text"
+                                name="username"
+                                value={data.username}
+                                autoComplete="username"
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                                placeholder="username"
+                                required
+                            />
 
-                        <TextInput
-                            id="username"
-                            name="username"
-                            value={data.username}
-                            className="mt-1 block w-full"
-                            autoComplete="username"
-                            isFocused={true}
-                            handleChange={onHandleChange}
-                            required
-                        />
+                            <InputLabel forInput="username" value="Username" />
 
-                        <InputError
-                            message={errors.username}
-                            className="mt-2"
-                        />
-                    </div>
+                            <InputError
+                                message={errors.username}
+                                className="mt-2"
+                            />
+                        </div>
 
-                    <div className="mt-4">
-                        <InputLabel forInput="lastname" value="Lastname" />
+                        <div className="mt-8 relative">
+                            <TextInput
+                                id="firstname"
+                                type="text"
+                                name="firstname"
+                                value={data.firstname}
+                                className="mt-1 block w-full"
+                                autoComplete="firstname"
+                                handleChange={onHandleChange}
+                                placeholder="firstname"
+                                required
+                            />
+                            <InputLabel
+                                forInput="firstname"
+                                value="Firstname"
+                            />
+                            <InputError
+                                message={errors.firstname}
+                                className="mt-2"
+                            />
+                        </div>
 
-                        <TextInput
-                            id="lastname"
-                            name="lastname"
-                            value={data.lastname}
-                            className="mt-1 block w-full"
-                            autoComplete="lastname"
-                            isFocused={true}
-                            handleChange={onHandleChange}
-                            required
-                        />
+                        <div className="mt-8 relative">
+                            <TextInput
+                                id="lastname"
+                                type="text"
+                                name="lastname"
+                                value={data.lastname}
+                                className="mt-1 block w-full"
+                                autoComplete="lastname"
+                                handleChange={onHandleChange}
+                                placeholder="lastname"
+                                required
+                            />
+                            <InputLabel forInput="lastname" value="Lastname" />
 
-                        <InputError
-                            message={errors.lastname}
-                            className="mt-2"
-                        />
-                    </div>
+                            <InputError
+                                message={errors.lastname}
+                                className="mt-2"
+                            />
+                        </div>
 
-                    <div className="mt-4">
-                        <InputLabel forInput="firstname" value="Firstname" />
+                        <div className="mt-8 relative">
+                            <TextInput
+                                id="email"
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                className="mt-1 block w-full"
+                                autoComplete="email"
+                                handleChange={onHandleChange}
+                                placeholder="email@email.email"
+                                required
+                            />
+                            <InputLabel forInput="email" value="Email" />
 
-                        <TextInput
-                            id="firstname"
-                            name="firstname"
-                            value={data.firstname}
-                            className="mt-1 block w-full"
-                            autoComplete="firstname"
-                            isFocused={true}
-                            handleChange={onHandleChange}
-                            required
-                        />
+                            <InputError
+                                message={errors.email}
+                                className="mt-2"
+                            />
+                        </div>
 
-                        <InputError
-                            message={errors.firstname}
-                            className="mt-2"
-                        />
-                    </div>
+                        <div className="mt-8 relative">
+                            <TextInput
+                                id="gender"
+                                name="gender"
+                                value={data.gender}
+                                className="mt-1 block w-full"
+                                autoComplete="gender"
+                                handleChange={onHandleChange}
+                                placeholder="gender"
+                                required
+                            />
+                            <InputLabel forInput="gender" value="Gender" />
 
-                    <div className="mt-4">
-                        <InputLabel forInput="email" value="Email" />
+                            <InputError
+                                message={errors.gender}
+                                className="mt-2"
+                            />
+                        </div>
 
-                        <TextInput
-                            id="email"
-                            type="email"
-                            name="email"
-                            value={data.email}
-                            className="mt-1 block w-full"
-                            autoComplete="username"
-                            handleChange={onHandleChange}
-                            required
-                        />
+                        <div className="mt-8 relative">
+                            <TextInput
+                                id="role"
+                                name="role"
+                                value={data.role}
+                                className="mt-1 block w-full"
+                                autoComplete="gender"
+                                handleChange={onHandleChange}
+                                placeholder="role"
+                                required
+                            />
+                            <InputLabel forInput="role" value="Role" />
 
-                        <InputError message={errors.email} className="mt-2" />
-                    </div>
+                            <InputError
+                                message={errors.role}
+                                className="mt-2"
+                            />
+                        </div>
 
-                    <div className="mt-4">
-                        <InputLabel forInput="gender" value="Gender" />
+                        <div className="mt-8 relative">
+                            <TextInput
+                                id="password"
+                                type="password"
+                                name="password"
+                                value={data.password}
+                                className="mt-1 block w-full"
+                                autoComplete="password"
+                                handleChange={onHandleChange}
+                                placeholder="password"
+                                required
+                            />
+                            <InputLabel forInput="password" value="Password" />
 
-                        <TextInput
-                            id="gender"
-                            name="gender"
-                            value={data.gender}
-                            className="mt-1 block w-full"
-                            autoComplete="gender"
-                            handleChange={onHandleChange}
-                            required
-                        />
+                            <InputError
+                                message={errors.password}
+                                className="mt-2"
+                            />
+                        </div>
 
-                        <InputError message={errors.gender} className="mt-2" />
-                    </div>
+                        <div className="mt-8 relative">
+                            <TextInput
+                                id="password_confirmation"
+                                type="password"
+                                name="password_confirmation"
+                                value={data.password_confirmation}
+                                className="mt-1 block w-full"
+                                autoComplete="password_confirmation"
+                                handleChange={onHandleChange}
+                                placeholder="password_confirmation"
+                                required
+                            />
+                            <InputLabel
+                                forInput="password_confirmation"
+                                value="Confirm Password"
+                            />
+                            <InputError
+                                message={errors.password_confirmation}
+                                className="mt-2"
+                            />
+                        </div>
 
-                    <div className="mt-4">
-                        <InputLabel forInput="role" value="Role" />
+                        <div className="flex items-center justify-between mt-8 relative">
+                            <Link
+                                href={route("login")}
+                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Already registered?
+                            </Link>
 
-                        <TextInput
-                            id="role"
-                            name="role"
-                            value={data.role}
-                            className="mt-1 block w-full"
-                            autoComplete="gender"
-                            handleChange={onHandleChange}
-                            required
-                        />
-
-                        <InputError message={errors.role} className="mt-2" />
-                    </div>
-
-                    <div className="mt-4">
-                        <InputLabel forInput="password" value="Password" />
-
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            className="mt-1 block w-full"
-                            autoComplete="new-password"
-                            handleChange={onHandleChange}
-                            required
-                        />
-
-                        <InputError
-                            message={errors.password}
-                            className="mt-2"
-                        />
-                    </div>
-
-                    <div className="mt-4">
-                        <InputLabel
-                            forInput="password_confirmation"
-                            value="Confirm Password"
-                        />
-
-                        <TextInput
-                            id="password_confirmation"
-                            type="password"
-                            name="password_confirmation"
-                            value={data.password_confirmation}
-                            className="mt-1 block w-full"
-                            handleChange={onHandleChange}
-                            required
-                        />
-
-                        <InputError
-                            message={errors.password_confirmation}
-                            className="mt-2"
-                        />
-                    </div>
-
-                    <div className="flex items-center justify-between mt-4">
-                        <Link
-                            href={route("login")}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Already registered?
-                        </Link>
-
-                        <PrimaryButton className="ml-4" processing={processing}>
-                            Register
-                        </PrimaryButton>
-                    </div>
-                </form>
+                            <PrimaryButton
+                                className="ml-4"
+                                processing={processing}
+                            >
+                                Register
+                            </PrimaryButton>
+                        </div>
+                    </form>
+                </div>
             </div>
         </General>
     );

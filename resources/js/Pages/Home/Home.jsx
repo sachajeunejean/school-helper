@@ -12,13 +12,14 @@ import ThirdSection from "@/Pages/Home/Partials/ThirdSection";
 import PrimaryButton from "@/Components/PrimaryButton";
 import General from "@/Layouts/GeneralLayout";
 
-export default function Home() {
+export default function Home({ auth }) {
     return (
-        <General>
+        <General auth={auth}>
             <Head title="Home" />
             <main className="overflow-hidden">
                 <FirstSection
                     title={"School Helper"}
+                    background={"bg-gradient-to-r from-white to-gray-200"}
                     subtitle={[
                         "A ",
                         <span
