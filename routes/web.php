@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/courses', [CourseController::class, 'index'])->name('courses');
 Route::get('/courses/new', [CourseController::class, 'create']);
 Route::post('/courses/new', [CourseController::class, 'store']);
 Route::get('/courses/{title}', [CourseController::class, 'show']);
@@ -56,8 +56,5 @@ Route::get('/contact', function (){
 Route::get('/home', function (){
     return Inertia::render('Home/Home');
 })->name('home');
-Route::get('/courses', function (){
-    return Inertia::render('Courses/Courses');
-})->name('courses');
 
 require __DIR__.'/auth.php';

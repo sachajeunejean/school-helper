@@ -6,8 +6,17 @@ import {
     IoPersonOutline,
     IoBookmark,
 } from "react-icons/io5";
+import Dropdown from "./Dropdown";
 
-export default function Card({ title, likes, chapter, category, imgSrc }) {
+export default function Card({
+    formatted_title,
+    link,
+    title,
+    likes,
+    description,
+    category,
+    imgSrc,
+}) {
     const [isLiked, setIsLiked] = useState(false);
 
     const toggleLiked = () => {
@@ -22,38 +31,59 @@ export default function Card({ title, likes, chapter, category, imgSrc }) {
                 <IoBookmark
                     size={40}
                     className={` absolute top-1 right-1 stroke-[20px] stroke-white fill-transparent ${
-                        isLiked ? "fill-indigo-700" : "fill-transparent"
+                        isLiked ? "fill-yellow-400" : "fill-transparent"
                     }`}
                     onClick={toggleLiked}
                 />
+                {/* <div className="absolute bottom-1 right-[13px]">
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <button
+                                type="button"
+                                className=" rounded-md text-white text-3xl  hover:text-red-400 focus:outline-none transition ease-in-out duration-150"
+                            >
+                                ...
+                            </button>
+                        </Dropdown.Trigger>
 
-                <h3 className="text-white text-xl font-bold z-10 px-6 mr-[10%] max-h-fit">
+                        <div className>
+                            <Dropdown.Content>
+                                <Dropdown.Link>Edit</Dropdown.Link>
+
+                                <Dropdown.Link>Delete</Dropdown.Link>
+                            </Dropdown.Content>
+                        </div>
+                    </Dropdown>
+                </div> */}
+
+                <h3 className="text-white text-xl font-bold z-10 px-6 mr-[10%] max-h-fit first-letter:capitalize line-clamp-4">
                     {title}
                 </h3>
             </div>
-            <div className="mb-4 mt-8 space-y-6 px-6">
+            <div className="mb-4 mt-8 space-y-6 px-6 h-32">
                 <div className="flex space-x-3 items-center ">
                     <span>
                         <IoReaderOutline size={24} color="rgb(67 56 202)" />
                     </span>
 
-                    <p>{category}</p>
+                    <p className="capitalize">{category}</p>
                 </div>
                 <div className="flex space-x-3 items-center">
                     <span>
                         <IoBookOutline size={24} color="rgb(67 56 202)" />
                     </span>
-                    <p>{chapter}</p>
-                </div>
-                <div className="flex space-x-3 items-center">
-                    <span>
-                        <IoPersonOutline size={24} color="rgb(67 56 202)" />
-                    </span>
-                    <p>{likes}</p>
+                    {/* <p className="whitespace-nowrap overflow-ellipsis w-fit block overflow-hidden">
+                        {description}
+                    </p> */}
+                    <p className="line-clamp-4">{description}</p>
                 </div>
             </div>
             <div className="flex justify-center">
-                <PrimaryButton className="w-3/4 my-4">See more</PrimaryButton>
+                <a href={`/courses/${formatted_title}`}>
+                    <PrimaryButton className="w-full my-4">
+                        See more
+                    </PrimaryButton>
+                </a>
             </div>
         </div>
     );
