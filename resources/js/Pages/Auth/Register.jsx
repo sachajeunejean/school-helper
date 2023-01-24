@@ -39,6 +39,8 @@ export default function Register({ auth }) {
         post(route("register"));
     };
 
+    console.log(data);
+
     return (
         <General auth={auth}>
             <Head title="Register" />
@@ -54,10 +56,10 @@ export default function Register({ auth }) {
                                 type="text"
                                 name="username"
                                 value={data.username}
-                                autoComplete="username"
-                                isFocused={true}
                                 handleChange={onHandleChange}
-                                placeholder="username"
+                                isFocused={true}
+                                autoComplete={false}
+                                placeholder="Username"
                                 required
                             />
 
@@ -131,42 +133,48 @@ export default function Register({ auth }) {
                             />
                         </div>
 
-                        <div className="mt-8 relative">
-                            <TextInput
-                                id="gender"
-                                name="gender"
-                                value={data.gender}
-                                className="mt-1 block w-full"
-                                autoComplete="gender"
-                                handleChange={onHandleChange}
-                                placeholder="gender"
-                                required
-                            />
-                            <InputLabel forInput="gender" value="Gender" />
+                        <div className="mt-8 flex justify-between align-center">
+                            <div className="relative">
+                                <select
+                                    value={data.gender}
+                                    onChange={onHandleChange}
+                                    name="gender"
+                                    className="py-[14px] lg:px-12 rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                                >
+                                    <option value="" selected disabled hidden>
+                                        Indicate gender
+                                    </option>
+                                    <option value="F">Female</option>
+                                    <option value="M">Male</option>
+                                    <option value="O">Other</option>
+                                    <option value="U">Prefer Not To Say</option>
+                                </select>
+                                <InputLabel forInput="gender" value="Gender" />
+                                <InputError
+                                    message={errors.gender}
+                                    className="mt-2"
+                                />
+                            </div>
 
-                            <InputError
-                                message={errors.gender}
-                                className="mt-2"
-                            />
-                        </div>
-
-                        <div className="mt-8 relative">
-                            <TextInput
-                                id="role"
-                                name="role"
-                                value={data.role}
-                                className="mt-1 block w-full"
-                                autoComplete="gender"
-                                handleChange={onHandleChange}
-                                placeholder="role"
-                                required
-                            />
-                            <InputLabel forInput="role" value="Role" />
-
-                            <InputError
-                                message={errors.role}
-                                className="mt-2"
-                            />
+                            <div className="relative">
+                                <select
+                                    name="role"
+                                    className="py-[14px] lg:px-12 rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                                    value={data.role}
+                                    onChange={onHandleChange}
+                                >
+                                    <option value="" selected disabled hidden>
+                                        Indicate role
+                                    </option>
+                                    <option value="learner">Learner</option>
+                                    <option value="teacher">Teacher</option>
+                                </select>
+                                <InputLabel forInput="role" value="Role" />
+                                <InputError
+                                    message={errors.role}
+                                    className="mt-2"
+                                />
+                            </div>
                         </div>
 
                         <div className="mt-8 relative">
