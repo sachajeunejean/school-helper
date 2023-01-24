@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
+use JetBrains\PhpStorm\NoReturn;
 
 class CourseController extends Controller
 {
@@ -59,12 +60,17 @@ class CourseController extends Controller
 
         Storage::disk('resources_views')->putFileAs($path, $file, $file->getClientOriginalName());
 
-        DB::table('courses')->insert([
+        $idCourse = DB::table('courses')->insertGetId([
             'title' => $request->title,
             'formatted_title' => $formattedTitle,
             'description' => $request->description,
             'category' => $request->category,
             'preview_image' => $file->getClientOriginalName()
+        ]);
+
+        DB::table('courses_users')->insert([
+           'id_course' => $idCourse,
+           'id_user' => Auth::user()->id
         ]);
 
         return redirect('/courses/'.$formattedTitle);
@@ -83,6 +89,11 @@ class CourseController extends Controller
             ->get()[0];
 
         $idCourse = DB::table('courses')->where('formatted_title', '=', $title)->value('id');
+
+        $course->owner = DB::table('users')
+            ->join('courses_users', 'courses_users.id_user', '=', 'users.id')
+            ->join('courses', 'courses_users.id_course', '=', 'courses.id')
+            ->value('username');
 
         $chapters = DB::table('chapters')
             ->join('courses_chapters', 'courses_chapters.id_chapter', '=', 'chapters.id')
@@ -104,7 +115,8 @@ class CourseController extends Controller
             'course' => $course,
             'chapters' => $chapters,
             'comments' => $comments,
-            'connected' => Auth::check()
+            'sessionUser' => Auth::check() ? Auth::user() : false
+
         ]);
     }
 
@@ -155,7 +167,8 @@ class CourseController extends Controller
         $idCourse = DB::table('courses')
             ->where('formatted_title', '=', $lastFormattedTitle)
             ->value('id');
-        $affected = DB::table('courses')
+
+        DB::table('courses')
             ->where('id', $idCourse)
             ->update(
               [
@@ -173,11 +186,19 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Course $course
-     * @return void
+     * @return Application|Redirector|RedirectResponse
      */
-    public function destroy(Course $course): void
+    public function destroy(): RedirectResponse|Application|Redirector
     {
-        //
+        $currentURL = url()->current();
+        $courseFormattedTitle = explode('/', $currentURL)[4];
+
+        $idCourse = DB::table('courses')
+            ->where('formatted_title', '=', $courseFormattedTitle)
+            ->value('id');
+
+        Course::find($idCourse)->delete();
+
+        return redirect('/courses/');
     }
 }

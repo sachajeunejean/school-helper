@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chapter;
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -101,20 +104,50 @@ class ChapterController extends Controller
             ->where('formatted_title', '=', $title_chapter)
             ->get()[0];
 
+        $idCourse = DB::table('courses_chapters')
+            ->where('id_chapter', '=', $chapter->id)
+            ->value('id_course');
+
+        $course = Course::find($idCourse);
+
+        $idUser = DB::table('courses_users')
+            ->where('id_course', '=', $idCourse)
+            ->value('id_user');
+
+        $user = User::find($idUser);
+
         return Inertia::render('Chapter', [
-            'chapter' => $chapter
+            'chapter' => $chapter,
+            'course' => $course,
+            'owner' => $user->username,
+            'sessionUser' => Auth::user()
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Chapter $chapters
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function edit(Chapter $chapters): \Illuminate\Http\Response
+    public function edit(): Response
     {
-        //
+        $currentURL = url()->current();
+        $courseFormattedTitle = explode('/', $currentURL)[4];
+        $chapterFormattedTitle = explode('/', $currentURL)[5];
+
+        $chapter = DB::table('chapters')
+            ->where('formatted_title', '=', $chapterFormattedTitle)
+            ->get()[0];
+
+        $course = DB::table('courses')
+            ->where('formatted_title', '=', $courseFormattedTitle)
+            ->get()[0];
+
+        $chapter->course = $course;
+
+        return Inertia::render('UpdateChapter', [
+            'chapter' => $chapter,
+        ]);
     }
 
     /**
@@ -122,21 +155,46 @@ class ChapterController extends Controller
      *
      * @param Request $request
      * @param Chapter $chapters
-     * @return \Illuminate\Http\Response
+     * @return Application|Redirector|RedirectResponse
      */
-    public function update(Request $request, Chapter $chapters): \Illuminate\Http\Response
+    public function update(Request $request, Chapter $chapters): Application|RedirectResponse|Redirector
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:50',
+            'chap_content' => 'required|string',
+            'description' => 'required|string|max:300'
+        ]);
+
+        $currentURL = url()->current();
+        $courseFormattedTitle = explode('/', url()->current())[4];
+        $lastFormattedTitle = explode('/', url()->current())[5];
+        $newFormattedTitle = strtolower(join('-', explode(' ', $request->title)));
+
+        $idChapter = DB::table('chapters')
+            ->where('formatted_title', '=', $lastFormattedTitle)
+            ->value('id');
+
+        DB::table('chapters')
+            ->where('id', $idChapter)
+            ->update(
+                [
+                    'title' => $request->title,
+                    'formatted_title' => $newFormattedTitle,
+                    'description' => $request->description,
+                    'content' => $request->chap_content,
+                ]
+            );
+
+        return redirect('/courses/' . $courseFormattedTitle . '/' . $newFormattedTitle);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Chapter $chapters
      * @return void
      */
-    public function destroy(Chapter $chapters): void
+    public function destroy(): void
     {
-        //
+        dd('pass here');
     }
 }

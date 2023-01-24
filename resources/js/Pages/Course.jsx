@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/react";
 
-export default function Course( { course, chapters, comments, connected } ) {
+export default function Course( { course, chapters, comments, sessionUser } ) {
 
     const submitComment = (e) => {
         e.preventDefault()
@@ -11,6 +11,12 @@ export default function Course( { course, chapters, comments, connected } ) {
         data.append('formatted_title', course.formatted_title)
 
         router.post('/courses/' + course.formatted_title + '/new-comment', data);
+    }
+
+    const onDelete = (e) => {
+        e.preventDefault()
+
+        router.delete('/courses/' + course.formatted_title + '/' + 'delete')
     }
 
     return (
@@ -24,8 +30,12 @@ export default function Course( { course, chapters, comments, connected } ) {
                 <img src={"http://127.0.0.1:5174/resources/images/" + course.preview_image} alt={course.preview_image}></img>
             </div>
 
-            <div className="p-10">
-                <a className="bg-red-500 text-amber-50 p-5" href={'/courses/' + course.formatted_title + '/' + 'edit'}>EDIT</a>
+            <div className={ (sessionUser ? sessionUser.username === course.owner : false) ? "flex flex-col p-10" : "hidden" }>
+                <a className="w-1/12 bg-red-500 text-amber-50 p-5 mb-5" href={'/courses/' + course.formatted_title + '/' + 'edit'}>EDIT</a>
+                <br />
+                <br />
+                <br />
+                <button onClick={onDelete} type="button" className="w-1/12 bg-red-500 text-amber-50 p-5">DELETE</button>
             </div>
 
             <div className="p-10">
@@ -42,7 +52,7 @@ export default function Course( { course, chapters, comments, connected } ) {
             <form
                 onSubmit={submitComment}
                 className={
-                    connected ?
+                    sessionUser ?
                         "flex p-10" :
                         "hidden"
                 }
