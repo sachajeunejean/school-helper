@@ -57,8 +57,7 @@ export default function Register({ auth }) {
                                 name="username"
                                 value={data.username}
                                 handleChange={onHandleChange}
-                                isFocused={true}
-                                autoComplete={false}
+                                isFocused
                                 placeholder="Username"
                                 required
                             />
