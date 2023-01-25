@@ -26,7 +26,7 @@ export default function UpdateCourse() {
     }
 
     return (
-        <div>
+        <div className="min-h-[calc(100vh-125px)]">
             <form onSubmit={submit} className="flex flex-col p-10">
                 <h2 className="underline">Course:</h2>
                 <input

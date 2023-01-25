@@ -62,7 +62,7 @@ export default function Courses({ auth, courses }) {
             <Head title="Courses" />
 
             <main className="">
-                <div className=" bg-gradient-to-r from-white to-gray-200">
+                <div className=" bg-gradient-to-r from-white to-gray-200 min-h-[calc(100vh-125px)]">
                     <div
                         className="w-3/4 mx-auto relative flex justify-between"
                         data-aos="fade-right"

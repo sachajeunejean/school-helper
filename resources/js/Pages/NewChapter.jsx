@@ -29,7 +29,7 @@ export default function NewChapter({ auth }) {
     return (
         <General auth={auth}>
             <Head title="New Chapter" />
-            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto py-10">
+            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto py-10 min-h-[calc(100vh-125px)]">
                 <h3 className="text-3xl text-center mb-6">
                     <span className="text-indigo-700">Upload</span> a{" "}
                     <span className="text-indigo-700">chapter</span> for
@@ -67,15 +67,12 @@ export default function NewChapter({ auth }) {
                     </div>
                     <div className="relative">
                         <textarea
-                            id="description"
-                            name="description"
-                            placeholder="description"
+                            id="chap_content"
+                            name="chap_content"
+                            placeholder="chap_content"
                             className="peer p-4 h-36 w-full rounded-md shadow-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
                         />
-                        <InputLabel
-                            forInput="description"
-                            value="Description"
-                        />
+                        <InputLabel forInput="chap_content" value="Content" />
                     </div>
 
                     <div className="flex justify-between">

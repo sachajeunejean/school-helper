@@ -8,7 +8,7 @@ export default function ChapterListItem({ title, description, id }) {
             </p>
             <div className="h-12 bg-white w-px mx-5 lg:ml-10"></div>
             <div className="flex flex-col gap-1 lg:gap-3">
-                <h4 className="text-white text-lg font-bold cursor-pointer hover:underline hover:underline-offset-4">
+                <h4 className="text-white text-md sm:text-lg font-bold cursor-pointer hover:underline hover:underline-offset-4">
                     {title}
                 </h4>
                 <p className="text-white text-sm line-clamp-2">{description}</p>

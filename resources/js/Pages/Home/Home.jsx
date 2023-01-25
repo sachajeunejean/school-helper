@@ -16,7 +16,7 @@ export default function Home({ auth }) {
     return (
         <General auth={auth}>
             <Head title="Home" />
-            <main className="overflow-hidden">
+            <main className="overflow-hidden ">
                 <FirstSection
                     title={"School Helper"}
                     background={"bg-gradient-to-r from-white to-gray-200"}

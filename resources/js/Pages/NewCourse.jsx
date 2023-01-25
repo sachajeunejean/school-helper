@@ -46,7 +46,7 @@ export default function NewCourse({ auth }) {
     return (
         <General auth={auth}>
             <Head title="New course" />
-            <div className="bg-gray-100">
+            <div className="bg-gray-100 min-h-[calc(100vh-125px)]">
                 <div className="w-full md:w-3/4 lg:w-1/2 mx-auto py-10">
                     <h3 className="text-3xl text-center mb-6">
                         <span className="text-indigo-700">Upload</span> your{" "}
