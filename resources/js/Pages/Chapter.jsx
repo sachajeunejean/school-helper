@@ -1,15 +1,19 @@
-export default function Chapter( { chapter } ) {
+import General from "@/Layouts/GeneralLayout";
+import { Head } from "@inertiajs/react";
 
+export default function Chapter({ chapter, auth }) {
     console.log(chapter);
 
     return (
-        <div>
-            <div className="p-10">
-                <h2 className="underline">Chapter:</h2>
-                <p>{chapter.title}</p>
-                <p>{chapter.description}</p>
-                <p>{chapter.content}</p>
+        <General auth={auth}>
+            <Head title={`${chapter.title}`} />
+            <div>
+                <div className="w-[90%] mx-auto py-10 space-y-4">
+                    <h3 className="text-3xl text-center">{chapter.title}</h3>
+                    <p className="text-center">{chapter.description}</p>
+                    <p>{chapter.content}</p>
+                </div>
             </div>
-        </div>
-    )
+        </General>
+    );
 }
