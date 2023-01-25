@@ -4,7 +4,6 @@ import {
     IoBookOutline,
     IoReaderOutline,
     IoPersonOutline,
-    IoBookmark,
 } from "react-icons/io5";
 import Dropdown from "./Dropdown";
 
@@ -17,24 +16,11 @@ export default function Card({
     category,
     imgSrc,
 }) {
-    const [isLiked, setIsLiked] = useState(false);
-
-    const toggleLiked = () => {
-        setIsLiked(!isLiked);
-    };
-
     return (
         <div className="mt-6 mb-6 bg-gray-300 mx-auto w-full rounded-xl shadow-xl hover:scale-[1.025] transition duration-500 ">
             <div
                 className={`w-full rounded-t-xl shadow-xl h-36 bg-[url('${imgSrc}')]  bg-cover relative flex items-center before:absolute before:bg-[rgba(0,0,0,0.7)] before:top-0 before:right-0 before:bottom-0 before:left-0 before:rounded-t-xl`}
             >
-                <IoBookmark
-                    size={40}
-                    className={` absolute top-1 right-1 stroke-[20px] stroke-white fill-transparent ${
-                        isLiked ? "fill-yellow-400" : "fill-transparent"
-                    }`}
-                    onClick={toggleLiked}
-                />
                 {/* <div className="absolute bottom-1 right-[13px]">
                     <Dropdown>
                         <Dropdown.Trigger>
