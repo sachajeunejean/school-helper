@@ -28,6 +28,8 @@ export default function NewCourse({ auth }) {
         "technology",
     ];
 
+    const [imgName, setImgName] = useState("");
+
     function submit(e) {
         e.preventDefault();
 
@@ -89,33 +91,48 @@ export default function NewCourse({ auth }) {
                                 value="Description"
                             />
                         </div>
-
-                        <div className="relative">
-                            <select
-                                name="category"
-                                className="rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
-                            >
-                                <option value="" selected disabled hidden>
-                                    Choose the category
-                                </option>
-                                {subjects.map((subject, key) => (
-                                    <option value={subject} key={key}>
-                                        {subject.charAt(0).toUpperCase() +
-                                            subject
-                                                .slice(1)
-                                                .split("_")
-                                                .join(" ")}
+                        <div className="flex flex-col space-y-10 md:flex-row md:space-y-0 md:justify-between">
+                            <div className="relative">
+                                <select
+                                    name="category"
+                                    className="w-full rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                                >
+                                    <option selected disabled hidden>
+                                        Choose the category
                                     </option>
-                                ))}
-                            </select>
-                        </div>
+                                    {subjects.map((subject, key) => (
+                                        <option value={subject} key={key}>
+                                            {subject.charAt(0).toUpperCase() +
+                                                subject
+                                                    .slice(1)
+                                                    .split("_")
+                                                    .join(" ")}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
 
-                        <div className="flex flex-col justify-center items-center">
-                            <input
-                                type="file"
-                                id="preview_image"
-                                name="preview_image"
-                            />
+                            <div className="flex flex-col justify-center items-center">
+                                <input
+                                    className="hidden"
+                                    type="file"
+                                    id="preview_image"
+                                    name="preview_image"
+                                    onChange={(e) => {
+                                        setImgName(e.target.files[0].name);
+                                    }}
+                                />
+                                <label
+                                    className="cursor-pointer w-full text-center rounded-md shadow-md bg-gray-100 border-2 border-gray-300 hover:outline-none hover:border-indigo-700  hover:ring-indigo-700 hover:text-indigo-700 px-4 py-2"
+                                    htmlFor="preview_image"
+                                    value="Preview_image"
+                                >
+                                    Upload an image
+                                </label>
+                                <p className="pt-2">{`${
+                                    imgName === "" ? "" : imgName
+                                }`}</p>
+                            </div>
                         </div>
                         <div className="flex justify-between">
                             <a href="/courses">

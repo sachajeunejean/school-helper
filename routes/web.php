@@ -38,7 +38,7 @@ Route::get('/courses/new', [CourseController::class, 'create']);
 Route::post('/courses/new', [CourseController::class, 'store']);
 Route::get('/courses/{title}', [CourseController::class, 'show']);
 Route::get('/courses/{title}/edit', [CourseController::class, 'edit']);
-Route::put('/courses/{title}/update', [CourseController::class, 'update']);
+Route::patch('/courses/{title}/update', [CourseController::class, 'update']);
 
 
 Route::get('/courses/{title}/new-chapter', [ChapterController::class, 'create']);
