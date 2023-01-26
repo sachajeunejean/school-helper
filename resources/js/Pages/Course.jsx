@@ -1,6 +1,7 @@
 import ChapterListItem from "@/Components/ChapterListItem";
 import Dropdown from "@/Components/Dropdown";
 import FollowButton from "@/Components/FollowButton";
+import LikeButton from "@/Components/LikeButton";
 import General from "@/Layouts/GeneralLayout";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
@@ -8,15 +9,20 @@ import { IoBookmark, IoSettingsOutline } from "react-icons/io5";
 
 export default function Course({ auth, course, chapters }) {
     const [isLiked, setIsLiked] = useState(false);
+    const [isFollowed, setIsFollowed] = useState(false);
     const toggleLiked = () => {
         setIsLiked(!isLiked);
     };
+    const toggleFollowed = () => {
+        setIsFollowed(!isFollowed);
+    };
+
     return (
         <General auth={auth}>
             <Head title={`${course.title}`} />
             {/* <p>{course.status}</p> */}
-            <div className="min-h-[calc(100vh-125px)]">
-                <div className="p-5 md:p-10">
+            <div className="min-h-[calc(100vh-185px)] md:min-h-[calc(100vh-125px)]">
+                <div className="pt-5 px-5 md:pt-10 md:px-10">
                     <div className="absolute right-10">
                         <Dropdown>
                             <Dropdown.Trigger>
@@ -49,10 +55,14 @@ export default function Course({ auth, course, chapters }) {
                             {course.category.split("_").join(" ")}
                         </p>
                         <p className="text-center">{course.description}</p>
-                        <FollowButton onClick={toggleLiked} isLiked={isLiked} />
                     </div>
                 </div>
-                <div className="mb-5">
+                <div className="">
+                    <FollowButton
+                        onClick={toggleFollowed}
+                        isFollowed={isFollowed}
+                    />
+
                     <h3 className="underline text-xl text-center">
                         {chapters.length > 0 ? "" : "No chapter"}
                     </h3>
@@ -72,7 +82,7 @@ export default function Course({ auth, course, chapters }) {
                                         <ChapterListItem
                                             title={chapter.title}
                                             description={chapter.description}
-                                            id={chapter.id}
+                                            number={key + 1}
                                         />
                                     </a>
                                 </li>
