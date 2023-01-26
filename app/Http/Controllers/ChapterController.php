@@ -100,7 +100,7 @@ class ChapterController extends Controller
      */
     public function show(string $title_course, string $title_chapter): Response
     {
-        $chapter = DB::table('chapters')
+        /*$chapter = DB::table('chapters')
             ->where('formatted_title', '=', $title_chapter)
             ->get()[0];
 
@@ -109,9 +109,35 @@ class ChapterController extends Controller
             ->value('id_course');
 
         $course = Course::find($idCourse);
-
         $idUser = DB::table('courses_users')
             ->where('id_course', '=', $idCourse)
+            ->value('id_user');
+
+        $user = User::find($idUser);*/
+
+        $course = DB::table('courses')
+            ->where('formatted_title', '=', $title_course)
+            ->get()[0];
+
+        $idChapters = DB::table('courses_chapters')
+            ->where('id_course', '=', $course->id)
+            ->get()[0];
+
+        $chapters = [];
+
+        foreach ($idChapters as $idChapter) {
+            array_push($chapters, Chapter::find($idChapter));
+        }
+
+        $chapter = null;
+
+        foreach($chapters as $chap) {
+            if ($chap->formatted_title === $title_chapter)
+                $chapter = $chap;
+        }
+
+        $idUser = DB::table('courses_users')
+            ->where('id_course', '=', $course->id)
             ->value('id_user');
 
         $user = User::find($idUser);
@@ -196,6 +222,7 @@ class ChapterController extends Controller
     {
         $courseFormTitle = explode('/', url()->current())[4];
         $chapterFormTitle = explode('/', url()->current())[5];
+
         $chapter = DB::table('chapters')
             ->where('formatted_title', '=', $chapterFormTitle)
             ->get()[0];

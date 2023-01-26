@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -65,7 +66,9 @@ class CourseController extends Controller
             'formatted_title' => $formattedTitle,
             'description' => $request->description,
             'category' => $request->category,
-            'preview_image' => $file->getClientOriginalName()
+            'preview_image' => $file->getClientOriginalName(),
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => null
         ]);
 
         DB::table('courses_users')->insert([
@@ -73,7 +76,7 @@ class CourseController extends Controller
            'id_user' => Auth::user()->id
         ]);
 
-        return redirect('/courses/'.$formattedTitle);
+        return redirect('/courses/' . $formattedTitle);
     }
 
     /**
@@ -111,12 +114,31 @@ class CourseController extends Controller
                 ->value('username');
         }
 
+        $idUserLike = DB::table('likes')
+            ->where('id_course', '=', $idCourse)
+            ->where('id_user', '=', Auth::user()->id)
+            ->value('id_user');
+
+        $isLiked = !($idUserLike === null);
+        $likes = DB::table('likes')
+            ->where('id_course', '=', $idCourse)
+            ->count();
+
+        $idUserFollow = DB::table('followed_courses')
+            ->where('id_course', '=', $idCourse)
+            ->where('id_user', '=', Auth::user()->id)
+            ->value('id_user');
+
+        $isFollowed = !($idUserFollow === null);
+
         return Inertia::render('Course', [
             'course' => $course,
             'chapters' => $chapters,
             'comments' => $comments,
-            'sessionUser' => Auth::check() ? Auth::user() : false
-
+            'sessionUser' => Auth::check() ? Auth::user() : false,
+            'isLiked' => $isLiked,
+            'likes' => $likes,
+            'isFollowed' => $isFollowed
         ]);
     }
 

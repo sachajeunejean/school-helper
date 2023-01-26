@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LikeFollowController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,10 @@ Route::get('/courses/{title}/edit', [CourseController::class, 'edit']);
 Route::patch('/courses/{title}/update', [CourseController::class, 'update']);
 Route::delete('/courses/{title}/delete', [CourseController::class, 'destroy']);
 
+Route::post('/courses/{title}/like/{id}', [LikeFollowController::class, 'like']);
+Route::delete('/courses/{title}/delete-like/{id}', [LikeFollowController::class, 'deleteLike']);
+Route::post('/courses/{title}/follow/{id}', [LikeFollowController::class, 'follow']);
+Route::delete('/courses/{title}/delete-follow/{id}', [LikeFollowController::class, 'deleteFollow']);
 
 Route::get('/courses/{title}/new-chapter', [ChapterController::class, 'create']);
 Route::post('/courses/{title}/new-chapter', [ChapterController::class, 'store']);
@@ -56,5 +61,7 @@ Route::patch('/courses/{title_course}/{title_chapter}/update', [ChapterControlle
 Route::delete('/courses/{title_course}/{title_chapter}/delete', [ChapterController::class, 'destroy']);
 
 Route::post('/courses/{title}/new-comment', [CommentController::class, 'store']);
+Route::patch('/courses/{title}/update-comment/{id}', [CommentController::class, 'update']);
+Route::delete('/courses/{title}/delete-comment/{id}', [CommentController::class, 'destroy']);
 
 require __DIR__.'/auth.php';

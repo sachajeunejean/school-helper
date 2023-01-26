@@ -1,6 +1,16 @@
-import { router } from "@inertiajs/react";
+import {router, useForm, usePage} from "@inertiajs/react";
+import {useRef, useState} from "react";
+import ContentEditable from "react-contenteditable";
 
-export default function Course( { course, chapters, comments, sessionUser } ) {
+export default function Course( { course, chapters, sessionUser, isLiked, likes, isFollowed } ) {
+
+    const { comments } = usePage().props;
+
+    const { data, setData, post} = useForm({
+        com_content_up: '',
+
+        _method: 'patch'
+    });
 
     const submitComment = (e) => {
         e.preventDefault()
@@ -19,10 +29,61 @@ export default function Course( { course, chapters, comments, sessionUser } ) {
         router.delete('/courses/' + course.formatted_title + '/' + 'delete')
     }
 
+    const onDeleteComment = (id) => {
+        //console.log('/courses/' + course.formatted_title + '/' + id + '/delete')
+        router.delete('/courses/' + course.formatted_title + '/delete-comment/' + id);
+    }
+
+    const updateComment = (e, id) => {
+        e.preventDefault()
+
+        post('/courses/' + course.formatted_title + '/update-comment/' + id, {
+            forceFormData: true,
+        });
+    }
+
+    const likeCourse = (e) => {
+        e.preventDefault()
+
+        router.post('/courses/' + course.formatted_title + '/like/' + sessionUser.id);
+    }
+
+    const deleteLike = (e) => {
+        e.preventDefault()
+
+        router.delete('/courses/' + course.formatted_title + '/delete-like/' + sessionUser.id);
+    }
+
+    const followCourse = (e) => {
+        e.preventDefault()
+
+        router.post('/courses/' + course.formatted_title + '/follow/' + sessionUser.id);
+    }
+
+    const deleteFollow = (e) => {
+        e.preventDefault()
+
+        router.delete('/courses/' + course.formatted_title + '/delete-follow/' + sessionUser.id);
+    }
+
     return (
         <div>
             <div className="p-10">
                 <h2 className="underline">Course:</h2>
+                <p>likes: {likes}</p>
+                <form onSubmit={likeCourse} className={sessionUser ? "flex" : "hidden"} >
+                    <button type="submit" name="like-btn" disabled={isLiked}>Like</button>
+                </form>
+                <form onSubmit={deleteLike} className={sessionUser ? "flex" : "hidden"} >
+                    <button type="submit" name="delete-like-btn" disabled={!isLiked}>Delete Like</button>
+                </form>
+                <p>isFollowed : {isFollowed ? 'yes' : 'no'}</p>
+                <form onSubmit={followCourse} className={sessionUser ? "flex" : "hidden"} >
+                    <button type="submit" name="like-btn" disabled={isFollowed}>Follow</button>
+                </form>
+                <form onSubmit={deleteFollow} className={sessionUser ? "flex" : "hidden"} >
+                    <button type="submit" name="like-btn" disabled={!isFollowed}>Unfollow</button>
+                </form>
                 <p>{course.title}</p>
                 <p>{course.description}</p>
                 <p>{course.category}</p>
@@ -67,7 +128,15 @@ export default function Course( { course, chapters, comments, sessionUser } ) {
                     comments.map((comment, key) => (
                         <div key={key}>
                             <h3 className="font-bold underline">{comment.username}</h3>
-                            <p>{comment.content}</p>
+
+                            <form onSubmit={(e) => updateComment(e, comment.id)} className={sessionUser ? (sessionUser.username === comment.username ? "flex flex-col" : "hidden" ) : "hidden 1"}>
+                                <input type="text" name="com_content_up" onChange={ (e) => setData('com_content_up', e.target.value) } defaultValue={comment.content} />
+                                <div>
+                                    <button type="submit">EDIT</button>
+                                    <br />
+                                    <button onClick={() => onDeleteComment(comment.id)} type="button">DELETE</button>
+                                </div>
+                            </form>
                         </div>
                     ))
                 }

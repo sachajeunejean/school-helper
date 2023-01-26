@@ -14,19 +14,16 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('courses')) {
-            Schema::create('courses', function (Blueprint $table) {
-                $table->id();
-                $table->string('title')->unique();
-                $table->string('formatted_title')->unique();
-                $table->text('description');
-                $table->string('category');
-                $table->string('status')->default('pending');
-                $table->string('preview_image');
-                $table->integer('rating')->default('0');
-                $table->timestamps();
-            });
-        }
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->unique();
+            $table->string('formatted_title')->unique();
+            $table->text('description');
+            $table->string('category');
+            $table->string('status')->default('pending');
+            $table->string('preview_image');
+            $table->timestamps();
+        });
     }
 
     /**
