@@ -111,37 +111,8 @@ export default function Course( { course, chapters, sessionUser, isLiked, likes,
                 }
             </div>
 
-            <form
-                onSubmit={submitComment}
-                className={
-                    sessionUser ?
-                        "flex p-10" :
-                        "hidden"
-                }
-                method="post"
-            >
-                <input type="text" name="com_content" placeholder="Add a comment..." />
-                <button className="p-5 cursor-pointer border-2" type="submit">Add</button>
-            </form>
 
-            <div>
-                {
-                    comments.map((comment, key) => (
-                        <div key={key}>
-                            <h3 className="font-bold underline">{comment.username}</h3>
-
-                            <form onSubmit={(e) => updateComment(e, comment.id)} className={sessionUser ? (sessionUser.username === comment.username ? "flex flex-col" : "hidden" ) : "hidden 1"}>
-                                <input type="text" name="com_content_up" onChange={ (e) => setData('com_content_up', e.target.value) } defaultValue={comment.content} />
-                                <div>
-                                    <button type="submit">EDIT</button>
-                                    <br />
-                                    <button onClick={() => onDeleteComment(comment.id)} type="button">DELETE</button>
-                                </div>
-                            </form>
-                        </div>
-                    ))
-                }
-            </div>
+            
         </div>
     )
 */
@@ -151,19 +122,88 @@ import Dropdown from "@/Components/Dropdown";
 import FollowButton from "@/Components/FollowButton";
 import LikeButton from "@/Components/LikeButton";
 import General from "@/Layouts/GeneralLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { IoBookmark, IoSettingsOutline } from "react-icons/io5";
 
-export default function Course({ auth, course, chapters }) {
-    const [isLiked, setIsLiked] = useState(false);
-    const [isFollowed, setIsFollowed] = useState(false);
-    const toggleLiked = () => {
-        setIsLiked(!isLiked);
+export default function Course({
+    auth,
+    course,
+    chapters,
+    sessionUser,
+    isLiked,
+    likes,
+    isFollowed,
+}) {
+    const { comments } = usePage().props;
+
+    const { data, setData, post } = useForm({
+        com_content_up: "",
+
+        _method: "patch",
+    });
+
+    const submitComment = (e) => {
+        e.preventDefault();
+
+        let data = new FormData(e.target);
+
+        data.append("id_course", course.id);
+        data.append("formatted_title", course.formatted_title);
+
+        router.post(
+            "/courses/" + course.formatted_title + "/new-comment",
+            data
+        );
     };
-    const toggleFollowed = () => {
-        setIsFollowed(!isFollowed);
+
+    const onDelete = (e) => {
+        e.preventDefault();
+
+        router.delete("/courses/" + course.formatted_title + "/" + "delete");
     };
+
+    const onDeleteComment = (id) => {
+        //console.log('/courses/' + course.formatted_title + '/' + id + '/delete')
+        router.delete(
+            "/courses/" + course.formatted_title + "/delete-comment/" + id
+        );
+    };
+
+    const updateComment = (e, id) => {
+        e.preventDefault();
+
+        post("/courses/" + course.formatted_title + "/update-comment/" + id, {
+            forceFormData: true,
+        });
+    };
+
+    const likeCourse = (e) => {
+        e.preventDefault();
+        router.post(
+            "/courses/" + course.formatted_title + "/like/" + sessionUser.id
+        );
+    };
+
+    const deleteLike = (e) => {
+        e.preventDefault();
+
+        router.delete(
+            "/courses/" +
+                course.formatted_title +
+                "/delete-like/" +
+                sessionUser.id
+        );
+    };
+
+    // const [isLiked, setIsLiked] = useState(false);
+    // const [isFollowed, setIsFollowed] = useState(false);
+    // const toggleLiked = () => {
+    //     setIsLiked(!isLiked);
+    // };
+    // const toggleFollowed = () => {
+    //     setIsFollowed(!isFollowed);
+    // };
 
     return (
         <General auth={auth}>
@@ -182,7 +222,15 @@ export default function Course({ auth, course, chapters }) {
                                 </button>
                             </Dropdown.Trigger>
                             <Dropdown.Content width="40">
-                                <Dropdown.Link>Edit</Dropdown.Link>
+                                <Dropdown.Link
+                                    href={
+                                        "/courses/" +
+                                        course.formatted_title +
+                                        "/edit"
+                                    }
+                                >
+                                    Edit
+                                </Dropdown.Link>
                                 <Dropdown.Link>Delete</Dropdown.Link>
                             </Dropdown.Content>
                         </Dropdown>
@@ -191,26 +239,55 @@ export default function Course({ auth, course, chapters }) {
                         <h2 className="capitalize text-2xl pt-5 pb-5 text-center font-bold">
                             {course.title}
                         </h2>
-                        {/* <img
-                        src={
-                            "http://127.0.0.1:5174/resources/images/" +
-                            course.preview_image
-                        }
-                        alt={course.preview_image}
-                        className="mx-auto"
-                    ></img> */}
+                        <img
+                            src="/assets/img/WebDev.jpg"
+                            //     "http://127.0.0.1:5174/resources/images/" +
+                            //     course.preview_image
+
+                            // alt={course.preview_image}
+
+                            className="w-full max-w-lg mx-auto mb-10"
+                        ></img>
                         <p className="capitalize px-3 py-1 mb-5 bg-gray-500 text-gray-100 w-fit rounded-full mx-auto">
                             {course.category.split("_").join(" ")}
                         </p>
+
+                        <FollowButton
+                            isFollowed={isFollowed}
+                            course={course}
+                            sessionUser={sessionUser}
+                        />
                         <p className="text-center">{course.description}</p>
                     </div>
                 </div>
+                <div className="p-10">
+                    <p>likes: {likes}</p>
+                    <form
+                        onSubmit={likeCourse}
+                        className={sessionUser ? "flex" : "hidden"}
+                    >
+                        <button
+                            type="submit"
+                            name="like-btn"
+                            disabled={isLiked}
+                        >
+                            Like
+                        </button>
+                    </form>
+                    <form
+                        onSubmit={deleteLike}
+                        className={sessionUser ? "flex" : "hidden"}
+                    >
+                        <button
+                            type="submit"
+                            name="delete-like-btn"
+                            disabled={!isLiked}
+                        >
+                            Delete Like
+                        </button>
+                    </form>
+                </div>
                 <div className="">
-                    <FollowButton
-                        onClick={toggleFollowed}
-                        isFollowed={isFollowed}
-                    />
-
                     <h3 className="underline text-xl text-center">
                         {chapters.length > 0 ? "" : "No chapter"}
                     </h3>
@@ -236,6 +313,70 @@ export default function Course({ auth, course, chapters }) {
                                 </li>
                             ))}
                         </ol>
+                    </div>
+                    <form
+                        onSubmit={submitComment}
+                        className={sessionUser ? "flex p-10" : "hidden"}
+                        method="post"
+                    >
+                        <input
+                            type="text"
+                            name="com_content"
+                            placeholder="Add a comment..."
+                        />
+                        <button
+                            className="p-5 cursor-pointer border-2"
+                            type="submit"
+                        >
+                            Add
+                        </button>
+                    </form>
+                    <div>
+                        {comments.map((comment, key) => (
+                            <div key={key}>
+                                <h3 className="font-bold underline">
+                                    {comment.username}
+                                </h3>
+
+                                <form
+                                    onSubmit={(e) =>
+                                        updateComment(e, comment.id)
+                                    }
+                                    className={
+                                        sessionUser
+                                            ? sessionUser.username ===
+                                              comment.username
+                                                ? "flex flex-col"
+                                                : "hidden"
+                                            : "hidden 1"
+                                    }
+                                >
+                                    <input
+                                        type="text"
+                                        name="com_content_up"
+                                        onChange={(e) =>
+                                            setData(
+                                                "com_content_up",
+                                                e.target.value
+                                            )
+                                        }
+                                        defaultValue={comment.content}
+                                    />
+                                    <div>
+                                        <button type="submit">EDIT</button>
+                                        <br />
+                                        <button
+                                            onClick={() =>
+                                                onDeleteComment(comment.id)
+                                            }
+                                            type="button"
+                                        >
+                                            DELETE
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
