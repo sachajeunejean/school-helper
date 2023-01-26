@@ -23,6 +23,7 @@
         "@lottiefiles/react-lottie-player": "^3.5.0",
         "aos": "^3.0.0-beta.6",
         "react-icons": "^4.7.1",
-        "swiper": "^8.4.5"
+        "swiper": "^8.4.5",
+        "react-contenteditable": "^3.3.6"
     }
 }

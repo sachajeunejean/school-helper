@@ -11,16 +11,15 @@ export default function UpdateCourse() {
         preview_image: course.preview_image,
         last_preview_image: course.preview_image,
 
-        // NOTE: When working with Laravel PUT/PATCH requests and FormData
-        // you SHOULD send POST request and fake the PUT request like this.
-        _method: 'PUT'
+        _method: 'patch'
     });
 
     function submit(e) {
         e.preventDefault();
 
-        post('/courses' + course.formatted_title + '/update');
-        //router.post('/courses/' + course.formatted_title + '/update', data);
+        post('/courses/' + course.formatted_title + '/update', {
+            forceFormData: true,
+        });
     }
 
     return (

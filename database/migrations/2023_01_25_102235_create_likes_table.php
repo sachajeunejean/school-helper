@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('courses_comments', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
 
             $table->bigInteger('id_course')->unsigned();
@@ -29,15 +29,6 @@ return new class extends Migration
                 ->on('users')
                 ->constrained()
                 ->onDelete('cascade');
-
-            $table->bigInteger('id_comment')->unsigned();
-            $table->foreign('id_comment')
-                ->references('id')
-                ->on('comments')
-                ->constrained()
-                ->onDelete('cascade');
-
-            $table->timestamps();
         });
     }
 
@@ -48,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courses_comments');
+        Schema::dropIfExists('likes');
     }
 };
