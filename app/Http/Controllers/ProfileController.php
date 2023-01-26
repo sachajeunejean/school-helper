@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -31,10 +32,17 @@ class ProfileController extends Controller
     {
 
         $request->user()->fill($request->validated());
-        // if ($request->user()->isDirty('email')) {
-        //     $request->user()->email_verified_at = null;
-        // }
-        $request->user()->save();
+
+        //$request->user()->save();
+
+        DB::table('users')
+            ->where('username', '=', Auth::user()->username)
+            ->update([
+                'username' => $request->username,
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+            ]);
 
         return Redirect::route('profile.edit');
     }

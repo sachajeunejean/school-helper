@@ -121,17 +121,17 @@ class ChapterController extends Controller
 
         $idChapters = DB::table('courses_chapters')
             ->where('id_course', '=', $course->id)
-            ->get()[0];
+            ->get();
 
         $chapters = [];
 
         foreach ($idChapters as $idChapter) {
-            array_push($chapters, Chapter::find($idChapter));
+            array_push($chapters, Chapter::find($idChapter->id_chapter));
         }
 
         $chapter = null;
 
-        foreach($chapters as $chap) {
+        foreach ($chapters as $chap) {
             if ($chap->formatted_title === $title_chapter)
                 $chapter = $chap;
         }

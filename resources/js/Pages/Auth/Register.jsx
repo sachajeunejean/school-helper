@@ -44,7 +44,7 @@ export default function Register({ auth }) {
     return (
         <General auth={auth}>
             <Head title="Register" />
-            <div className="bg-gray-100 min-h-[calc(100vh-125px)]">
+            <div className="flex items-center justify-center bg-gray-100 min-h-[calc(100vh-125px)]">
                 <div className="w-3/4 lg:w-1/2 mx-auto py-10">
                     <h3 className="text-3xl text-center mb-6">
                         <span className="text-indigo-700">Join</span> us today !
