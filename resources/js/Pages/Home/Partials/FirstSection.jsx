@@ -26,7 +26,9 @@ export default function FirstSection({
     }, []);
 
     return (
-        <div className={`pb-8 2xl:py-28 ${background}`}>
+        <div
+            className={`pb-8 2xl:py-28 ${background}  min-h-[calc(100vh-100px)]`}
+        >
             <div className="CONTAINER grid xl:grid-cols-2 w-11/12 lg:w-3/4 mx-auto ">
                 <div
                     className="w-11/12 mx-auto text-center"

@@ -12,13 +12,14 @@ import ThirdSection from "@/Pages/Home/Partials/ThirdSection";
 import PrimaryButton from "@/Components/PrimaryButton";
 import General from "@/Layouts/GeneralLayout";
 
-export default function Home() {
+export default function Home({ auth }) {
     return (
-        <General>
+        <General auth={auth}>
             <Head title="Home" />
-            <main className="overflow-hidden">
+            <main className="overflow-hidden ">
                 <FirstSection
                     title={"School Helper"}
+                    background={"bg-gradient-to-r from-white to-gray-200"}
                     subtitle={[
                         "A ",
                         <span
@@ -43,7 +44,7 @@ export default function Home() {
                         <Player
                             autoplay
                             loop
-                            src="/assets/School-lottiefile-girl-laptop.json"
+                            src="/assets/lottiefile-girl-laptop.json"
                         ></Player>
                     }
                     hrefBtn={route("courses")}
@@ -70,11 +71,12 @@ export default function Home() {
                         "The website is designed with a user-friendly interface and easy navigation, making it simple for users to find the courses that interest them. Users can also create their own courses and share them with others, contributing to the growing community of lifelong learners."
                     }
                     img={
-                        <img
-                            src="/assets/img/Boy-attending-video-lecture.svg"
-                            alt="Boy attending video lecture"
-                            className="p-5 sm:max-w-lg"
-                        />
+                        <Player
+                            autoplay
+                            loop
+                            src="/assets/lottiefile-online-learning.json"
+                            style={{ scale: ".8" }}
+                        ></Player>
                     }
                     hrefBtn={route("about")}
                     textBtn={<p className="text-sm">About Us</p>}
@@ -102,13 +104,15 @@ export default function Home() {
                         " today !",
                     ]}
                     text={[
-                        "School Helper is committed to empowering learners of all ages and backgrounds to take control of their education and achieve their full potential. Sign up today and start exploring the vast array of courses and resources available on the platform.",
+                        "School Helper is committed to empowering learners of all ages and backgrounds to take control of their education and achieve their full potential.",
+                        <br key={"lineBreak"} />,
+                        "Sign up today and start exploring the vast array of courses and resources available on the platform.",
                     ]}
                     img={
                         <Player
                             autoplay
                             loop
-                            src="/assets/School-lottiefile-girl-laptop.json"
+                            src="/assets/lottiefile-back-to-school.json"
                             style={{
                                 maxHeight: "400px",
                                 maxWidth: "400px",

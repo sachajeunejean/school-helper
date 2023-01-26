@@ -13,13 +13,16 @@ import {
 } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-export default function NavBar() {
+export default function NavBar({
+    auth,
+    courses,
+    formattedQuery,
+    setFormattedQuery,
+}) {
     // Hide/Show modal (for searchbar)
     const [searching, setSearching] = useState(false);
-    // Hide/Show navbar
+    // Hide/Show navbar mobile
     const [navbar, setNavbar] = useState(false);
-    // fake log auth
-    const [isAuth, setIsAuth] = useState(false);
 
     // get previous scroll position
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -47,16 +50,16 @@ export default function NavBar() {
         return () => window.removeEventListener("scroll", handleScroll);
     });
 
-    useEffect(() => {
-        const close = (e) => {
-            if (e.keyCode === 27) {
-                setSearching(false);
-            }
-        };
+    // useEffect(() => {
+    //     const close = (e) => {
+    //         if (e.keyCode === 27) {
+    //             setSearching(false);
+    //         }
+    //     };
 
-        window.addEventListener("keydown", close);
-        return () => window.removeEventListener("keydown", close);
-    });
+    //     window.addEventListener("keydown", close);
+    //     return () => window.removeEventListener("keydown", close);
+    // });
 
     return (
         <nav
@@ -69,7 +72,7 @@ export default function NavBar() {
             <div className="justify-between px-4 mx-auto lg:max-w-screen-2xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                        <a href="#" className="flex items-center">
+                        <a href="/courses" className="flex items-center">
                             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                                 School Helper
                             </span>
@@ -182,7 +185,11 @@ export default function NavBar() {
                                                     size={18}
                                                 />
                                                 <p className="translate-y-[2px] mr-2">
-                                                    Profile
+                                                    {`${
+                                                        auth.user
+                                                            ? auth.user.username
+                                                            : "Profil"
+                                                    }`}
                                                 </p>
                                                 <MdKeyboardArrowDown
                                                     size={20}
@@ -193,7 +200,7 @@ export default function NavBar() {
 
                                         <div
                                             className={`${
-                                                isAuth ? "flex" : "hidden"
+                                                auth.user ? "flex" : "hidden"
                                             }`}
                                         >
                                             <Dropdown.Content>
@@ -214,7 +221,7 @@ export default function NavBar() {
                                         </div>
                                         <div
                                             className={`${
-                                                isAuth ? "hidden" : "flex"
+                                                auth.user ? "hidden" : "flex"
                                             }`}
                                         >
                                             <Dropdown.Content>
@@ -237,12 +244,18 @@ export default function NavBar() {
                     </div>
                 </div>
                 <Modal
-                    close={() => {
-                        toggleModal(false);
-                    }}
+                    // close={() => {
+                    //     toggleModal(false);
+                    // }}
+                    onClose={toggleModal}
                     show={searching}
                 >
-                    <SearchBar />
+                    <SearchBar
+                        toggleModal={toggleModal}
+                        courses={courses}
+                        formattedQuery={formattedQuery}
+                        setFormattedQuery={setFormattedQuery}
+                    />
                 </Modal>
             </div>
         </nav>
