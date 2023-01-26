@@ -4,7 +4,7 @@ import General from "@/Layouts/GeneralLayout";
 import { Head } from "@inertiajs/react";
 import { IoSettingsOutline } from "react-icons/io5";
 
-export default function Chapter({ chapter, auth, owner, sessionUser }) {
+export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
     console.log(chapter);
 
     const onDelete = (e) => {

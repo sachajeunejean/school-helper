@@ -195,25 +195,6 @@ export default function Course({
         );
     };
 
-    const followCourse = (e) => {
-        e.preventDefault();
-
-        router.post(
-            "/courses/" + course.formatted_title + "/follow/" + sessionUser.id
-        );
-    };
-
-    const deleteFollow = (e) => {
-        e.preventDefault();
-
-        router.delete(
-            "/courses/" +
-                course.formatted_title +
-                "/delete-follow/" +
-                sessionUser.id
-        );
-    };
-
     // const [isLiked, setIsLiked] = useState(false);
     // const [isFollowed, setIsFollowed] = useState(false);
     // const toggleLiked = () => {
@@ -269,9 +250,11 @@ export default function Course({
                         <p className="capitalize px-3 py-1 mb-5 bg-gray-500 text-gray-100 w-fit rounded-full mx-auto">
                             {course.category.split("_").join(" ")}
                         </p>
+
                         <FollowButton
                             isFollowed={isFollowed}
-                            onClick={likeCourse}
+                            course={course}
+                            sessionUser={sessionUser}
                         />
                         <p className="text-center">{course.description}</p>
                     </div>
@@ -300,31 +283,6 @@ export default function Course({
                             disabled={!isLiked}
                         >
                             Delete Like
-                        </button>
-                    </form>
-                    <p>isFollowed : {isFollowed ? "yes" : "no"}</p>
-                    <form
-                        onSubmit={followCourse}
-                        className={sessionUser ? "flex" : "hidden"}
-                    >
-                        <button
-                            type="submit"
-                            name="like-btn"
-                            disabled={isFollowed}
-                        >
-                            Follow
-                        </button>
-                    </form>
-                    <form
-                        onSubmit={deleteFollow}
-                        className={sessionUser ? "flex" : "hidden"}
-                    >
-                        <button
-                            type="submit"
-                            name="like-btn"
-                            disabled={!isFollowed}
-                        >
-                            Unfollow
                         </button>
                     </form>
                 </div>
