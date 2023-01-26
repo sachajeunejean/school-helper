@@ -18,6 +18,8 @@ class DashboardController extends Controller
             ->where('id_user', '=', $idUser)
             ->get();
 
+        
+
         return response()->json([
            'idCourses' => $idCourses
         ]);

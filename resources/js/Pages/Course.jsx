@@ -145,6 +145,7 @@ export default function Course( { course, chapters, sessionUser, isLiked, likes,
         </div>
     )
 */
+
 import ChapterListItem from "@/Components/ChapterListItem";
 import Dropdown from "@/Components/Dropdown";
 import FollowButton from "@/Components/FollowButton";

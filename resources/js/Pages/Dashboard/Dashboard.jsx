@@ -1,13 +1,9 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import General from "@/Layouts/GeneralLayout";
 
-export default function Dashboard(props) {
+export default function Dashboard( { auth } ) {
     return (
-        <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
-        >
+        <General auth={auth} className="flex">
             <Head title="Dashboard" />
 
             <div className="py-12">
@@ -17,6 +13,6 @@ export default function Dashboard(props) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </General>
     );
 }
