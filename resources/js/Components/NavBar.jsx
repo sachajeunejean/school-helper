@@ -211,6 +211,12 @@ export default function NavBar({
                                                 </Dropdown.Link>
 
                                                 <Dropdown.Link
+                                                    href={route("dashboard")}
+                                                >
+                                                    Dashboard
+                                                </Dropdown.Link>
+
+                                                <Dropdown.Link
                                                     href={route("logout")}
                                                     method="post"
                                                     as="button"

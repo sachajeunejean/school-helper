@@ -2,26 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DashboardController extends Controller
 {
     /**
-     * @return JsonResponse
+     * @return Response
      */
-    public function getFollowedCourses(int $idUser): JsonResponse
+    public function index(): Response
     {
-        $idCourses = DB::table('followed_courses')
+        $followedCourses = $this->getCourses(Auth::user()->id, "followed_courses");
+        $createdCourses = $this->getCourses(Auth::user()->id, "courses_users");
+
+        return Inertia::render('Dashboard/Dashboard', [
+            'followedCourses' => $followedCourses,
+            'createdCourses' => $createdCourses
+        ]);
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCourses(int $idUser, string $tableName): array|null
+    {
+        $idCourses = DB::table($tableName)
             ->where('id_user', '=', $idUser)
             ->get();
 
-        
+        $courses = [];
 
-        return response()->json([
-           'idCourses' => $idCourses
-        ]);
+        foreach ($idCourses as $idCourse) {
+            array_push($courses, Course::find($idCourse->id_course));
+        }
+
+        return (count($courses) ? $courses : null);
     }
 }

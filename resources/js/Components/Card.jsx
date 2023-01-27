@@ -17,9 +17,9 @@ export default function Card({
     imgSrc,
 }) {
     return (
-        <div className="mt-6 mb-6 bg-gray-300 mx-auto w-full rounded-xl shadow-xl hover:scale-[1.025] transition duration-500 ">
+        <div className="mt-6 mb-6 max-w-[400px] mx-5 rounded-xl shadow-xl hover:scale-[1.025] transition duration-500">
             <div
-                className={`w-full rounded-t-xl shadow-xl h-36 bg-[url('${imgSrc}')]  bg-cover relative flex items-center before:absolute before:bg-[rgba(0,0,0,0.7)] before:top-0 before:right-0 before:bottom-0 before:left-0 before:rounded-t-xl`}
+                className={`w-full rounded-t-xl shadow-xl h-36 bg-[url(${imgSrc})] bg-cover relative flex items-center before:absolute before:bg-[rgba(0,0,0,0.7)] before:top-0 before:right-0 before:bottom-0 before:left-0 before:rounded-t-xl`}
             >
                 {/* <div className="absolute bottom-1 right-[13px]">
                     <Dropdown>

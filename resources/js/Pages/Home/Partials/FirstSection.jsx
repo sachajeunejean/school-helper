@@ -40,7 +40,7 @@ export default function FirstSection({
                     <h3 className="text-medium pb-10 text-3xl text-gray-700">
                         {subtitle}
                     </h3>
-                    <p className=" text-gray-500 leading-8">{text}</p>
+                    <p className=" text-gray-500 leading-9">{text}</p>
                     <div className="hidden xl:flex flex-col xl:flex-row  justify-center ">
                         <PrimaryButton className="mr-5 my-8 xl:my-14">
                             <a href={hrefBtn} className="flex items-center">

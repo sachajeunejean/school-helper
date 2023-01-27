@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('formatted_title');
-            $table->text('description');
-            $table->string('content');
+            $table->string('description');
+            $table->mediumText('content');
             $table->bigInteger('id_previous')->unsigned()->nullable();
             $table->bigInteger('id_next')->unsigned()->nullable();
             $table->timestamps();

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->string('content');
+            $table->mediumText('content');
             $table->timestamps();
         });
     }

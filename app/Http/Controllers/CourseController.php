@@ -114,22 +114,32 @@ class CourseController extends Controller
                 ->value('username');
         }
 
-        $idUserLike = DB::table('likes')
-            ->where('id_course', '=', $idCourse)
-            ->where('id_user', '=', Auth::user()->id)
-            ->value('id_user');
-
-        $isLiked = !($idUserLike === null);
         $likes = DB::table('likes')
             ->where('id_course', '=', $idCourse)
             ->count();
 
-        $idUserFollow = DB::table('followed_courses')
-            ->where('id_course', '=', $idCourse)
-            ->where('id_user', '=', Auth::user()->id)
-            ->value('id_user');
+        if (Auth::user()) {
 
-        $isFollowed = !($idUserFollow === null);
+            $idUserLike = DB::table('likes')
+                ->where('id_course', '=', $idCourse)
+                ->where('id_user', '=', Auth::user()->id)
+                ->value('id_user');
+
+            $isLiked = !($idUserLike === null);
+
+            $idUserFollow = DB::table('followed_courses')
+                ->where('id_course', '=', $idCourse)
+                ->where('id_user', '=', Auth::user()->id)
+                ->value('id_user');
+
+            $isFollowed = !($idUserFollow === null);
+
+        } else {
+
+            $isLiked = false;
+            $isFollowed = false;
+
+        }
 
         return Inertia::render('Course', [
             'course' => $course,

@@ -230,7 +230,7 @@ class ChapterController extends Controller
         $nextChapter = Chapter::find($chapter->id_next);
         $previousChapter = Chapter::find($chapter->id_previous);
 
-        if ($previousChapter === null) {
+        if ($previousChapter === null && $nextChapter !== null) {
             DB::table('chapters')
                 ->where('id', $nextChapter->id)
                 ->update(
@@ -255,7 +255,7 @@ class ChapterController extends Controller
                             'id_previous' => $previousChapter->id
                         ]
                     );
-            } else {
+            } else if ($previousChapter !== null) {
                 DB::table('chapters')
                     ->where('id', $previousChapter->id)
                     ->update(
