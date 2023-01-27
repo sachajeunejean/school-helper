@@ -23,7 +23,7 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
         <General auth={auth}>
             <Head title={`${chapter.title}`} />
 
-            <div className="w-[90%] mx-auto py-10 space-y-4 min-h-[calc(100vh-125px)]">
+            <div className="w-[90%] mx-auto py-10 space-y-4 min-h-[calc(100vh-185px)] md:min-h-[calc(100vh-125px)]">
                 <div className="absolute right-10">
                     <Dropdown>
                         <Dropdown.Trigger>

@@ -46,7 +46,7 @@ export default function NewCourse({ auth }) {
     return (
         <General auth={auth}>
             <Head title="New course" />
-            <div className="bg-gray-100 min-h-[calc(100vh-125px)]">
+            <div className="bg-gray-100 min-h-[calc(100vh-185px)] md:min-h-[calc(100vh-125px)]">
                 <div className="w-full md:w-3/4 lg:w-1/2 mx-auto py-10">
                     <h3 className="text-3xl text-center mb-6">
                         <span className="text-indigo-700">Upload</span> your{" "}
@@ -92,25 +92,23 @@ export default function NewCourse({ auth }) {
                             />
                         </div>
                         <div className="flex flex-col space-y-10 md:flex-row md:space-y-0 md:justify-between">
-                            <div className="relative">
-                                <select
-                                    name="category"
-                                    className="w-full rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
-                                >
-                                    <option selected disabled hidden>
-                                        Choose the category
+                            <select
+                                name="category"
+                                className="w-full rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                            >
+                                <option selected disabled hidden>
+                                    Choose the category
+                                </option>
+                                {subjects.map((subject, key) => (
+                                    <option value={subject} key={key}>
+                                        {subject.charAt(0).toUpperCase() +
+                                            subject
+                                                .slice(1)
+                                                .split("_")
+                                                .join(" ")}
                                     </option>
-                                    {subjects.map((subject, key) => (
-                                        <option value={subject} key={key}>
-                                            {subject.charAt(0).toUpperCase() +
-                                                subject
-                                                    .slice(1)
-                                                    .split("_")
-                                                    .join(" ")}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                                ))}
+                            </select>
 
                             <div className="flex flex-col justify-center items-center">
                                 <input

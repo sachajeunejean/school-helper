@@ -29,7 +29,7 @@ export default function NewChapter({ auth }) {
     return (
         <General auth={auth}>
             <Head title="New Chapter" />
-            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto py-10 min-h-[calc(100vh-125px)]">
+            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto py-10 min-h-[calc(100vh-185px)] md:min-h-[calc(100vh-125px)]">
                 <h3 className="text-3xl text-center mb-6">
                     <span className="text-indigo-700">Upload</span> a{" "}
                     <span className="text-indigo-700">chapter</span> for
