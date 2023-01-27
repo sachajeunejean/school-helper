@@ -1,6 +1,10 @@
-import { router, useForm, usePage } from "@inertiajs/react";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import General from "@/Layouts/GeneralLayout";
+import { Head, router, useForm, usePage } from "@inertiajs/react";
+import { useState } from "react";
 
-export default function UpdateCourse() {
+export default function UpdateCourse({ auth }) {
     const { course } = usePage().props;
 
     const { data, setData, post } = useForm({
@@ -22,42 +26,41 @@ export default function UpdateCourse() {
     }
 
     return (
-        <div className="min-h-[calc(100vh-125px)]">
-            <form onSubmit={submit} className="flex flex-col p-10">
-                <h2 className="underline">Course:</h2>
-                <input
-                    onChange={(e) => setData("title", e.target.value)}
-                    name="title"
-                    type="text"
-                    value={course.title}
-                />
-                <textarea
-                    onChange={(e) => setData("description", e.target.value)}
-                    name="description"
-                    defaultValue={course.description}
-                />
-                <input
-                    onChange={(e) => setData("category", e.target.value)}
-                    name="category"
-                    type="text"
-                    defaultValue={course.category}
-                />
-                <input
-                    onChange={(e) => setData("preview_image", e.target.value)}
-                    name="preview_image"
-                    type="file"
-                />
-                <img
-                    src={
-                        "http://127.0.0.1:5174/resources/images/" +
-                        course.preview_image
-                    }
-                    alt={course.preview_image}
-                ></img>
-                <button type="submit" className="bg-red-500 text-amber-50 p-5">
-                    CHANGE THE COURSE
-                </button>
-            </form>
-        </div>
+        <General auth={auth}>
+            <Head title={`${course.title}`} />
+            <div className="pt-5 px-5 md:pt-10 md:px-10 min-h-[calc(100vh-185px)] md:min-h-[calc(100vh-125px)]">
+                <h2 className="capitalize text-2xl pt-5 pb-5 w-3/4 mx-auto text-center font-bold">
+                    {course.title}
+                </h2>
+                <form
+                    onSubmit={submit}
+                    className="flex flex-col space-y-5 w-9/12 mx-auto"
+                >
+                    <TextInput
+                        onChange={(e) => setData("title", e.target.value)}
+                        name="title"
+                        type="text"
+                        value={course.title}
+                    />
+                    <textarea
+                        onChange={(e) => setData("description", e.target.value)}
+                        name="description"
+                        defaultValue={course.description}
+                        className="peer p-4 h-80 w-full rounded-md shadow-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                    />
+
+                    <input
+                        className="hidden"
+                        name="category"
+                        type="text"
+                        defaultValue={course.category}
+                    />
+
+                    <PrimaryButton type="submit">
+                        CHANGE THE COURSE
+                    </PrimaryButton>
+                </form>
+            </div>
+        </General>
     );
 }
