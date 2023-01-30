@@ -26,7 +26,7 @@ export default function FollowButton({ isFollowed, course, sessionUser }) {
             {isFollowed ? (
                 <form onSubmit={deleteFollow}>
                     <button
-                        className="w-32 mx-auto flex text-white items-center justify-center cursor-pointer py-2 space-x-4 rounded-md bg-indigo-700 transition-all"
+                        className="w-32 mx-auto flex text-white items-center justify-center cursor-pointer py-2 space-x-4 bg-indigo-700 transition-all"
                         type="submit"
                         name="follow-btn"
                     >
@@ -40,7 +40,7 @@ export default function FollowButton({ isFollowed, course, sessionUser }) {
             ) : (
                 <form onSubmit={followCourse}>
                     <button
-                        className="w-32 mx-auto text-white flex items-center justify-center cursor-pointer py-2 space-x-4 rounded-md bg-indigo-700 transition-all"
+                        className="w-32 mx-auto text-white flex items-center justify-center cursor-pointer py-2 space-x-4 bg-indigo-700 transition-all"
                         type="submit"
                         name="follow-btn"
                     >

@@ -17,37 +17,45 @@ export default function Course({
     likes,
     isFollowed,
 }) {
-    console.log(course.owner, auth.user.username);
+    const onDelete = (e) => {
+        e.preventDefault();
+
+        router.delete("/courses/" + course.formatted_title + "/" + "delete");
+    };
     return (
         <General auth={auth}>
             <Head title={`${course.title}`} />
             {/* <p>{course.status}</p> */}
             <div className="min-h-[calc(100vh-185px)] md:min-h-[calc(100vh-125px)]">
                 <div className="pt-5 px-5 md:pt-10 md:px-10">
-                    {course.owner === auth.user.username &&  <div className="absolute right-10">
-                        <Dropdown>
-                            <Dropdown.Trigger>
-                                <button
-                                    type="button"
-                                    className="hover:text-indigo-700 transition ease-in-out duration-150"
-                                >
-                                    <IoSettingsOutline size={32} />
-                                </button>
-                            </Dropdown.Trigger>
-                            <Dropdown.Content width="40">
-                                <Dropdown.Link
-                                    href={
-                                        "/courses/" +
-                                        course.formatted_title +
-                                        "/edit"
-                                    }
-                                >
-                                    Edit
-                                </Dropdown.Link>
-                                <Dropdown.Link>Delete</Dropdown.Link>
-                            </Dropdown.Content>
-                        </Dropdown>
-                    </div>}
+                    {course.owner === auth.user.username && (
+                        <div className="absolute right-10">
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <button
+                                        type="button"
+                                        className="hover:text-indigo-700 transition ease-in-out duration-150"
+                                    >
+                                        <IoSettingsOutline size={32} />
+                                    </button>
+                                </Dropdown.Trigger>
+                                <Dropdown.Content width="40">
+                                    <Dropdown.Link
+                                        href={
+                                            "/courses/" +
+                                            course.formatted_title +
+                                            "/edit"
+                                        }
+                                    >
+                                        Edit
+                                    </Dropdown.Link>
+                                    <Dropdown.Button onClick={onDelete}>
+                                        Delete
+                                    </Dropdown.Button>
+                                </Dropdown.Content>
+                            </Dropdown>
+                        </div>
+                    )}
                     <div>
                         <h2 className="capitalize text-2xl pt-5 pb-5 text-center font-bold">
                             {course.title}
@@ -78,12 +86,14 @@ export default function Course({
                             />
                         </div>
 
-                        <p className="text-center">{course.description}</p>
+                        <p className="text-center text-xl">
+                            {course.description}
+                        </p>
                     </div>
                 </div>
 
                 <div className="mx-auto w-10/12 lg:w-3/5 xl:w-1/2">
-                    <h3 className="underline text-xl text-center">
+                    <h3 className="underline text-lg text-center pt-10">
                         {chapters.length > 0 ? "" : "No chapter"}
                     </h3>
                     <div>

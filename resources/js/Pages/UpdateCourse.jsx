@@ -1,6 +1,11 @@
-import { router, useForm, usePage } from "@inertiajs/react";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
+import TextInput from "@/Components/TextInput";
+import General from "@/Layouts/GeneralLayout";
+import { Head, router, useForm, usePage } from "@inertiajs/react";
 
-export default function UpdateCourse() {
+export default function UpdateCourse({ auth }) {
     const { course } = usePage().props;
 
     const { data, setData, post } = useForm({
@@ -22,42 +27,55 @@ export default function UpdateCourse() {
     }
 
     return (
-        <div className="min-h-[calc(100vh-125px)]">
-            <form onSubmit={submit} className="flex flex-col p-10">
-                <h2 className="underline">Course:</h2>
-                <input
-                    onChange={(e) => setData("title", e.target.value)}
-                    name="title"
-                    type="text"
-                    value={course.title}
-                />
-                <textarea
-                    onChange={(e) => setData("description", e.target.value)}
-                    name="description"
-                    defaultValue={course.description}
-                />
-                <input
-                    onChange={(e) => setData("category", e.target.value)}
-                    name="category"
-                    type="text"
-                    defaultValue={course.category}
-                />
-                <input
-                    onChange={(e) => setData("preview_image", e.target.value)}
-                    name="preview_image"
-                    type="file"
-                />
-                <img
-                    src={
-                        "http://127.0.0.1:5174/resources/images/" +
-                        course.preview_image
-                    }
-                    alt={course.preview_image}
-                ></img>
-                <button type="submit" className="bg-red-500 text-amber-50 p-5">
-                    CHANGE THE COURSE
-                </button>
-            </form>
-        </div>
+        <General auth={auth}>
+            <Head title={`${course.title} - Edit`} />
+            <div className="bg-gray-100 min-h-[calc(100vh-125px)] ">
+                <form
+                    onSubmit={submit}
+                    className="flex flex-col p-10 mx-auto w-10/12 lg:w-3/5 xl:w-1/2 space-y-10"
+                >
+                    <h2 className="capitalize text-2xl pt-5 pb-5 text-center font-bold">
+                        {`${course.title} - Edit`}
+                    </h2>
+                    <div className="relative">
+                        <TextInput
+                            handleChange={(e) =>
+                                setData("title", e.target.value)
+                            }
+                            name="title"
+                            type="text"
+                            value={data.title}
+                        />
+                        <InputLabel forInput="title" value="Title" />
+                    </div>
+                    <div className="relative">
+                        <textarea
+                            value={data.description}
+                            onChange={(e) =>
+                                setData("description", e.target.value)
+                            }
+                            id="description"
+                            name="description"
+                            placeholder="description"
+                            className="peer p-4 h-36 w-full rounded-md shadow-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                        />
+                        <InputLabel
+                            forInput="description"
+                            value="Description"
+                        />
+                        <div className="flex justify-between">
+                            <a href={`/courses/${course.formatted_title}`}>
+                                <SecondaryButton type="button">
+                                    Cancel
+                                </SecondaryButton>
+                            </a>
+                            <PrimaryButton className="rounded-lg">
+                                Edit
+                            </PrimaryButton>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </General>
     );
 }

@@ -102,13 +102,13 @@ const DropdownLink = ({ href, method, as, children }) => {
     );
 };
 
-const Button = ({ onClick, value, children }) => {
+const Button = ({ onClick, value, className, children }) => {
     return (
         <button
             onClick={onClick}
             value={value}
             type="button"
-            className="w-full flex min-w-[75px]"
+            className="block w-full px-4 py-2 text-left text-lg md:text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
         >
             {children}
         </button>

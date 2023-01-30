@@ -25,7 +25,7 @@ export default function LikeButton({ course, isLiked, sessionUser }) {
             {isLiked ? (
                 <form onSubmit={deleteLike}>
                     <button
-                        className="w-32 mx-auto flex text-white items-center justify-center cursor-pointer py-2 space-x-4 rounded-md bg-indigo-700 transition-all"
+                        className="w-32 mx-auto flex text-white items-center justify-center cursor-pointer py-2 space-x-4  bg-indigo-700 transition-all"
                         type="submit"
                         name="follow-btn"
                     >
@@ -41,7 +41,7 @@ export default function LikeButton({ course, isLiked, sessionUser }) {
             ) : (
                 <form onSubmit={likeCourse}>
                     <button
-                        className="w-32 mx-auto flex text-white items-center justify-center cursor-pointer py-2 space-x-4 rounded-md bg-indigo-700 transition-all"
+                        className="w-32 mx-auto flex text-white items-center justify-center cursor-pointer py-2 space-x-4  bg-indigo-700 transition-all"
                         type="submit"
                         name="follow-btn"
                     >

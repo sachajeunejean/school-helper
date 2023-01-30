@@ -58,10 +58,7 @@ export default function CommentSection({ sessionUser, course }) {
                                         <BsThreeDots />
                                     </button>
                                 </Dropdown.Trigger>
-                                <Dropdown.Content
-                                    width=""
-                                    contentClasses="bg-white flex flex-col items-start px-2 py-1"
-                                >
+                                <Dropdown.Content width="">
                                     <Dropdown.Button
                                         onClick={() =>
                                             toggleIsEditing(comment.id)
@@ -102,7 +99,7 @@ export default function CommentSection({ sessionUser, course }) {
                                     }
                                     defaultValue={comment.content}
                                     autoFocus
-                                    className="my-2 px-1 bg-gray-100 border-indigo-700"
+                                    className="my-2 px-1 bg-gray-100 border-indigo-700 rounded-lg"
                                 />
 
                                 <div className="flex justify-between mb-2">

@@ -38,7 +38,7 @@ export default function CommentForm({ sessionUser, course }) {
                         placeholder="Write a comment..."
                         className="h-24 py-2 px-4 bg-[#f3f4f6] shadow-[-20px_20px_60px_#cfcfd1,20px_-20px_60px_#ffff] rounded-lg border-gray-600 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-indigo-700"
                     />
-                    <PrimaryButton type="submit" className="w-42 rounded-lg">
+                    <PrimaryButton type="submit" className="w-42 ">
                         Post comment
                     </PrimaryButton>
                 </form>
