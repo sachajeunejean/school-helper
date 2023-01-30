@@ -253,41 +253,23 @@ export default function Course({
                             {course.category.split("_").join(" ")}
                         </p>
 
-                        <FollowButton
-                            isFollowed={isFollowed}
-                            course={course}
-                            sessionUser={sessionUser}
-                        />
+                        <div className="flex justify-around mb-10 max-w-lg mx-auto">
+                            <FollowButton
+                                isFollowed={isFollowed}
+                                course={course}
+                                sessionUser={sessionUser}
+                            />
+                            <LikeButton
+                                isLiked={isLiked}
+                                course={course}
+                                sessionUser={sessionUser}
+                            />
+                        </div>
+
                         <p className="text-center">{course.description}</p>
                     </div>
                 </div>
-                <div className="p-10">
-                    <p>likes: {likes}</p>
-                    <form
-                        onSubmit={likeCourse}
-                        className={sessionUser ? "flex" : "hidden"}
-                    >
-                        <button
-                            type="submit"
-                            name="like-btn"
-                            disabled={isLiked}
-                        >
-                            Like
-                        </button>
-                    </form>
-                    <form
-                        onSubmit={deleteLike}
-                        className={sessionUser ? "flex" : "hidden"}
-                    >
-                        <button
-                            type="submit"
-                            name="delete-like-btn"
-                            disabled={!isLiked}
-                        >
-                            Delete Like
-                        </button>
-                    </form>
-                </div>
+
                 <div className="mx-auto w-10/12 lg:w-3/5 xl:w-1/2">
                     <h3 className="underline text-xl text-center">
                         {chapters.length > 0 ? "" : "No chapter"}
