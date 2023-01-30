@@ -11,8 +11,6 @@ export default function CommentSection({ sessionUser, course }) {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedComment, setSelectedComment] = useState(0);
 
-    console.log(comments.length);
-
     const toggleIsEditing = (id) => {
         setSelectedComment(id);
 
@@ -42,7 +40,6 @@ export default function CommentSection({ sessionUser, course }) {
         setIsEditing(!isEditing);
     };
 
-    console.log(comments, sessionUser);
     return (
         <div className="mt-24 mb-8 space-y-4">
             <h2 className="text-lg lg:text-2xl font-bold text-gray-900 ml-4 relative z-40">
@@ -54,7 +51,7 @@ export default function CommentSection({ sessionUser, course }) {
             <div>
                 {comments.map((comment, key) => (
                     <div className="py-3" key={key}>
-                        {sessionUser.username === comment.username ? (
+                        {sessionUser.username === comment.username && (
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <button className="absolute right-0 -top-1">
@@ -81,8 +78,6 @@ export default function CommentSection({ sessionUser, course }) {
                                     </Dropdown.Button>
                                 </Dropdown.Content>
                             </Dropdown>
-                        ) : (
-                            ""
                         )}
                         <div className="flex items-end space-x-10">
                             <h3 className="font-bold text-xl underline text-gray-900">
@@ -127,7 +122,6 @@ export default function CommentSection({ sessionUser, course }) {
                                 {comment.content}
                             </p>
                         )}
-                        <hr className="border-gray-300" />
                     </div>
                 ))}
             </div>

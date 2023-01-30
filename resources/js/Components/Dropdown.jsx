@@ -108,7 +108,7 @@ const Button = ({ onClick, value, children }) => {
             onClick={onClick}
             value={value}
             type="button"
-            className="w-full flex min-w-[75px] "
+            className="w-full flex min-w-[75px]"
         >
             {children}
         </button>
