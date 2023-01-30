@@ -118,6 +118,7 @@ export default function Course( { course, chapters, sessionUser, isLiked, likes,
 */
 
 import ChapterListItem from "@/Components/ChapterListItem";
+import CommentSection from "@/Components/CommentSection";
 import Dropdown from "@/Components/Dropdown";
 import FollowButton from "@/Components/FollowButton";
 import LikeButton from "@/Components/LikeButton";
@@ -287,12 +288,12 @@ export default function Course({
                         </button>
                     </form>
                 </div>
-                <div className="">
+                <div className="mx-auto w-10/12 lg:w-3/5 xl:w-1/2">
                     <h3 className="underline text-xl text-center">
                         {chapters.length > 0 ? "" : "No chapter"}
                     </h3>
                     <div>
-                        <ol className="mx-auto w-10/12 lg:w-3/5 xl:w-1/2">
+                        <ol>
                             {chapters.map((chapter, key) => (
                                 <li key={key}>
                                     <a
@@ -314,70 +315,8 @@ export default function Course({
                             ))}
                         </ol>
                     </div>
-                    <form
-                        onSubmit={submitComment}
-                        className={sessionUser ? "flex p-10" : "hidden"}
-                        method="post"
-                    >
-                        <input
-                            type="text"
-                            name="com_content"
-                            placeholder="Add a comment..."
-                        />
-                        <button
-                            className="p-5 cursor-pointer border-2"
-                            type="submit"
-                        >
-                            Add
-                        </button>
-                    </form>
-                    <div>
-                        {comments.map((comment, key) => (
-                            <div key={key}>
-                                <h3 className="font-bold underline">
-                                    {comment.username}
-                                </h3>
 
-                                <form
-                                    onSubmit={(e) =>
-                                        updateComment(e, comment.id)
-                                    }
-                                    className={
-                                        sessionUser
-                                            ? sessionUser.username ===
-                                              comment.username
-                                                ? "flex flex-col"
-                                                : "hidden"
-                                            : "hidden 1"
-                                    }
-                                >
-                                    <input
-                                        type="text"
-                                        name="com_content_up"
-                                        onChange={(e) =>
-                                            setData(
-                                                "com_content_up",
-                                                e.target.value
-                                            )
-                                        }
-                                        defaultValue={comment.content}
-                                    />
-                                    <div>
-                                        <button type="submit">EDIT</button>
-                                        <br />
-                                        <button
-                                            onClick={() =>
-                                                onDeleteComment(comment.id)
-                                            }
-                                            type="button"
-                                        >
-                                            DELETE
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        ))}
-                    </div>
+                    <CommentSection sessionUser={sessionUser} course={course} />
                 </div>
             </div>
         </General>
