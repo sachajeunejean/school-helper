@@ -63,16 +63,15 @@ export default function UpdateCourse({ auth }) {
                             forInput="description"
                             value="Description"
                         />
-                        <div className="flex justify-between">
-                            <a href={`/courses/${course.formatted_title}`}>
-                                <SecondaryButton type="button">
-                                    Cancel
-                                </SecondaryButton>
-                            </a>
-                            <PrimaryButton className="rounded-lg">
-                                Edit
-                            </PrimaryButton>
-                        </div>
+                    </div>
+
+                    <div className="flex justify-between">
+                        <a href={`/courses/${course.formatted_title}`}>
+                            <SecondaryButton type="button">
+                                Cancel
+                            </SecondaryButton>
+                        </a>
+                        <PrimaryButton>Edit</PrimaryButton>
                     </div>
                 </form>
             </div>

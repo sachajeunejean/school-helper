@@ -29,14 +29,14 @@ export default function NewChapter({ auth }) {
     return (
         <General auth={auth}>
             <Head title="New Chapter" />
-            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto py-10 min-h-[calc(100vh-125px)]">
+            <div className="w-full py-10 min-h-[calc(100vh-125px)] bg-gray-100">
                 <h3 className="text-3xl text-center mb-6">
                     <span className="text-indigo-700">Upload</span> a{" "}
                     <span className="text-indigo-700">chapter</span> for
                     everybody.
                 </h3>
                 <form
-                    className="p-10 space-y-10"
+                    className="p-10 space-y-10 md:w-3/4 lg:w-1/2 mx-auto"
                     onSubmit={submit}
                     method="post"
                 >
@@ -77,9 +77,12 @@ export default function NewChapter({ auth }) {
 
                     <div className="flex justify-between">
                         {/* Link to the previous page */}
-                        {/* <a href={`/courses/${getCourseFormattedTitle(title)}`}> */}
-                        <SecondaryButton type="button">Cancel</SecondaryButton>
-                        {/* </a> */}
+                        <a href={`/courses/${getCourseFormattedTitle()}`}>
+                            <SecondaryButton type="button">
+                                Cancel
+                            </SecondaryButton>
+                        </a>
+
                         <PrimaryButton className="text-sm">
                             Create a new course
                         </PrimaryButton>
