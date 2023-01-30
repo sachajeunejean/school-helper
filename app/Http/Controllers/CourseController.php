@@ -30,6 +30,18 @@ class CourseController extends Controller
         ]);
     }
 
+        /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function search(): Response
+    {
+        return Inertia::render('Search', [
+            'courses' => Course::all()
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

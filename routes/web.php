@@ -70,6 +70,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/courses/{title}/delete-comment/{id}', [CommentController::class, 'destroy']);
 });
 
+Route::get('/search', [CourseController::class, 'search'])->name('search');
+
 Route::get('/about', function (){
     return Inertia::render('About');
 })->name('about');

@@ -1,13 +1,12 @@
+import { router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
-export default function SearchBar({
-    courses,
-    toggleModal,
-    formattedQuery,
-    setFormattedQuery,
-}) {
+export default function SearchBar({ toggleModal }) {
+    const [querry, setQuery] = useState("");
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        router.get(`/search?${querry}`);
         toggleModal();
     };
 
@@ -33,12 +32,18 @@ export default function SearchBar({
             <form onSubmit={handleOnSubmit}>
                 <input
                     type="text"
-                    onChange={(e) =>
-                        setFormattedQuery(e.target.value.toLocaleLowerCase())
-                    }
                     id="search-navbar"
                     className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg border-2 focus:ring-0 focus:outline-none focus:border-2 focus:border-indigo-700"
                     placeholder="Search..."
+                    onChange={(e) =>
+                        setQuery(
+                            e.target.value
+                                .trim()
+                                .toLocaleLowerCase()
+                                .split(" ")
+                                .join("-")
+                        )
+                    }
                 />
                 <p className="text-center text-gray-800 pt-2">
                     Press ESC to cancel

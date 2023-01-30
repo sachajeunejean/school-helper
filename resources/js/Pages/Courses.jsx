@@ -11,9 +11,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { entries } from "lodash";
 
 export default function Courses({ auth, courses }) {
-    // search query
-    const [formattedQuery, setFormattedQuery] = useState();
-
     // pagination
     const [firstValue, setFirstValue] = useState(0);
     const [secondValue, setSecondValue] = useState(16);
@@ -53,24 +50,17 @@ export default function Courses({ auth, courses }) {
     }, []);
 
     return (
-        <General
-            auth={auth}
-            courses={courses}
-            formattedQuery={formattedQuery}
-            setFormattedQuery={setFormattedQuery}
-        >
+        <General auth={auth} courses={courses}>
             <Head title="Courses" />
 
-            <main className="">
+            <main>
                 <div className=" bg-gradient-to-r from-white to-gray-200 min-h-[calc(100vh-125px)]">
                     <div
                         className="w-3/4 mx-auto relative flex justify-between"
                         data-aos="fade-right"
                     >
                         <h3 className="text-center text-medium pt-8 text-3xl text-gray-700">
-                            {formattedQuery === undefined
-                                ? "All courses"
-                                : `Result for : ${formattedQuery}`}
+                            All courses
                         </h3>
                         <p className="text-center text-medium pt-8 text-3xl text-gray-700">
                             FILTER

@@ -2,21 +2,11 @@ import Footer from "@/Components/Footer";
 import NavBar from "@/Components/NavBar";
 import ScrollToTopButton from "@/Components/ScrollToTopButton";
 
-export default function General({
-    auth,
-    courses,
-    children,
-    formattedQuery,
-    setFormattedQuery,
-}) {
+export default function General({ auth, courses, children }) {
     return (
         <>
-            <NavBar
-                auth={auth}
-                courses={courses}
-                formattedQuery={formattedQuery}
-                setFormattedQuery={setFormattedQuery}
-            />
+            <NavBar auth={auth} courses={courses} />
+            
             <main>
                 {children}
                 <ScrollToTopButton />

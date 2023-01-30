@@ -17,12 +17,7 @@ import {
 } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AiOutlineProfile } from "react-icons/ai";
-export default function NavBar({
-    auth,
-    courses,
-    formattedQuery,
-    setFormattedQuery,
-}) {
+export default function NavBar({ auth, courses }) {
     // Hide/Show modal (for searchbar)
     const [searching, setSearching] = useState(false);
     // Hide/Show navbar mobile
@@ -310,12 +305,7 @@ export default function NavBar({
                     onClose={toggleModal}
                     show={searching}
                 >
-                    <SearchBar
-                        toggleModal={toggleModal}
-                        courses={courses}
-                        formattedQuery={formattedQuery}
-                        setFormattedQuery={setFormattedQuery}
-                    />
+                    <SearchBar toggleModal={toggleModal}  />
                 </Modal>
             </div>
         </nav>
