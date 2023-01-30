@@ -55,6 +55,8 @@ const Content = ({
 
     if (width === "48") {
         widthClasses = "w-48";
+    } else if (width === "32") {
+        widthClasses = "w-32";
     }
 
     return (
@@ -100,8 +102,22 @@ const DropdownLink = ({ href, method, as, children }) => {
     );
 };
 
+const Button = ({ onClick, value, children }) => {
+    return (
+        <button
+            onClick={onClick}
+            value={value}
+            type="button"
+            className="w-full flex min-w-[75px] "
+        >
+            {children}
+        </button>
+    );
+};
+
 Dropdown.Trigger = Trigger;
 Dropdown.Content = Content;
 Dropdown.Link = DropdownLink;
+Dropdown.Button = Button;
 
 export default Dropdown;

@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import CommentForm from "@/Components/CommentForm";
 import { router, useForm, usePage } from "@inertiajs/react";
 import Dropdown from "./Dropdown";
 import { BsThreeDots } from "react-icons/bs";
+import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
 
 export default function CommentSection({ sessionUser, course }) {
     const { comments } = usePage().props;
+    const [isEditing, setIsEditing] = useState(false);
+    const [selectedComment, setSelectedComment] = useState(0);
+
+    console.log(comments.length);
+
+    const toggleIsEditing = (id) => {
+        setSelectedComment(id);
+
+        setIsEditing(!isEditing);
+    };
 
     const { data, setData, post } = useForm({
         com_content_up: "",
@@ -26,6 +38,8 @@ export default function CommentSection({ sessionUser, course }) {
         post("/courses/" + course.formatted_title + "/update-comment/" + id, {
             forceFormData: true,
         });
+
+        setIsEditing(!isEditing);
     };
 
     console.log(comments, sessionUser);
@@ -39,7 +53,7 @@ export default function CommentSection({ sessionUser, course }) {
 
             <div>
                 {comments.map((comment, key) => (
-                    <div className="py-3 " key={key}>
+                    <div className="py-3" key={key}>
                         {sessionUser.username === comment.username ? (
                             <Dropdown>
                                 <Dropdown.Trigger>
@@ -47,8 +61,24 @@ export default function CommentSection({ sessionUser, course }) {
                                         <BsThreeDots />
                                     </button>
                                 </Dropdown.Trigger>
-                                <Dropdown.Content>
-                                    <button>Edit</button>
+                                <Dropdown.Content
+                                    width=""
+                                    contentClasses="bg-white flex flex-col items-start px-2 py-1"
+                                >
+                                    <Dropdown.Button
+                                        onClick={() =>
+                                            toggleIsEditing(comment.id)
+                                        }
+                                    >
+                                        Edit
+                                    </Dropdown.Button>
+                                    <Dropdown.Button
+                                        onClick={() =>
+                                            onDeleteComment(comment.id)
+                                        }
+                                    >
+                                        Delete
+                                    </Dropdown.Button>
                                 </Dropdown.Content>
                             </Dropdown>
                         ) : (
@@ -60,38 +90,44 @@ export default function CommentSection({ sessionUser, course }) {
                             </h3>
                             <p className="text-sm text-gray-800">timestamp</p>
                         </div>
-                        <p className="py-3 text-gray-600">{comment.content}</p>
-                        <hr className="border-gray-300" />
 
-                        {/* <form
-                            onSubmit={(e) => updateComment(e, comment.id)}
-                            className={
-                                sessionUser
-                                    ? sessionUser.username === comment.username
-                                        ? "flex flex-col"
-                                        : "hidden"
-                                    : "hidden 1"
-                            }
-                        >
-                            <input
-                                type="text"
-                                name="com_content_up"
-                                onChange={(e) =>
-                                    setData("com_content_up", e.target.value)
-                                }
-                                defaultValue={comment.content}
-                            />
-                            <div>
-                                <button type="submit">EDIT</button>
-                                <br />
-                                <button
-                                    onClick={() => onDeleteComment(comment.id)}
-                                    type="button"
-                                >
-                                    DELETE
-                                </button>
-                            </div>
-                        </form> */}
+                        {isEditing && selectedComment === comment.id ? (
+                            <form
+                                onSubmit={(e) => updateComment(e, comment.id)}
+                                className="flex flex-col justify-between "
+                            >
+                                <input
+                                    type="text"
+                                    name="com_content_up"
+                                    onChange={(e) =>
+                                        setData(
+                                            "com_content_up",
+                                            e.target.value
+                                        )
+                                    }
+                                    defaultValue={comment.content}
+                                    autoFocus
+                                    className="my-2 px-1 bg-gray-100 border-indigo-700"
+                                />
+
+                                <div className="flex justify-between mb-2">
+                                    <SecondaryButton
+                                        type="button"
+                                        onClick={() => setIsEditing(false)}
+                                    >
+                                        Cancel
+                                    </SecondaryButton>
+                                    <PrimaryButton type="submit">
+                                        Edit
+                                    </PrimaryButton>
+                                </div>
+                            </form>
+                        ) : (
+                            <p className="py-3 text-gray-600">
+                                {comment.content}
+                            </p>
+                        )}
+                        <hr className="border-gray-300" />
                     </div>
                 ))}
             </div>
