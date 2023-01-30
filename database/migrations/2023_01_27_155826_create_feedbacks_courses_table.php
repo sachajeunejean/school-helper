@@ -15,6 +15,21 @@ return new class extends Migration
     {
         Schema::create('feedbacks_courses', function (Blueprint $table) {
             $table->id();
+
+            $table->bigInteger('id_course')->unsigned();
+            $table->foreign('id_course')
+                ->references('id')
+                ->on('courses')
+                ->constrained()
+                ->onDelete('cascade');
+
+            $table->bigInteger('id_user')->unsigned();
+            $table->foreign('id_user')
+                ->references('id')
+                ->on('users')
+                ->constrained()
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

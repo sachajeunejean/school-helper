@@ -59,6 +59,7 @@ export default ( { courses } ) => {
                                         category={course.category}
                                         formatted_title={course.formatted_title}
                                         description={course.description}
+                                        status={course.status}
                                         chapter={"3 Chapters"}
                                         author={"Sacha Jeunejean"}
                                         imgSrc={"/resources/images/" + course.preview_image}

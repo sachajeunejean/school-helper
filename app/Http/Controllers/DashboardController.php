@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Feedback;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,19 +18,21 @@ class DashboardController extends Controller
      */
     public function index(): Response
     {
-        $followedCourses = $this->getCourses(Auth::user()->id, "followed_courses");
-        $createdCourses = $this->getCourses(Auth::user()->id, "courses_users");
+        $followedCourses = $this->getUserData(Auth::user()->id, "followed_courses");
+        $createdCourses = $this->getUserData(Auth::user()->id, "courses_users");
+        $feedbacksGiven = $this->getFeedbacks(Auth::user()->id);
 
         return Inertia::render('Dashboard/Dashboard', [
             'followedCourses' => $followedCourses,
-            'createdCourses' => $createdCourses
+            'createdCourses' => $createdCourses,
+            'feedbacksGiven' => $feedbacksGiven
         ]);
     }
 
     /**
      * @return array|null
      */
-    public function getCourses(int $idUser, string $tableName): array|null
+    private function getUserData(int $idUser, string $tableName): array|null
     {
         $idCourses = DB::table($tableName)
             ->where('id_user', '=', $idUser)
@@ -38,9 +41,25 @@ class DashboardController extends Controller
         $courses = [];
 
         foreach ($idCourses as $idCourse) {
-            array_push($courses, Course::find($idCourse->id_course));
+            $courses[] = Course::find($idCourse->id_course);
         }
 
         return (count($courses) ? $courses : null);
+    }
+
+    private function getFeedbacks(int $idModerator): ?array
+    {
+
+        $idFeedbacks = DB::table('feedbacks_courses')
+            ->where('id_user', '=', $idModerator)
+            ->get();
+
+        $feedbacks = [];
+
+        foreach ($idFeedbacks as $idFeedback) {
+            $feedbacks[] = DB::table('feedbacks')->where('id', '=', $idFeedback->id_course)->get();
+        }
+
+        return (count($feedbacks) ? $feedbacks : null);
     }
 }

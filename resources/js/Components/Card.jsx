@@ -7,6 +7,8 @@ import {
 } from "react-icons/io5";
 import Dropdown from "./Dropdown";
 
+import { BiAlignLeft } from "react-icons/bi";
+
 export default function Card({
     formatted_title,
     link,
@@ -15,6 +17,7 @@ export default function Card({
     description,
     category,
     imgSrc,
+    status
 }) {
     return (
         <div className="mt-6 mb-6 max-w-[400px] mx-5 rounded-xl shadow-xl hover:scale-[1.025] transition duration-500">
@@ -62,6 +65,12 @@ export default function Card({
                         {description}
                     </p> */}
                     <p className="line-clamp-4">{description}</p>
+                </div>
+                <div className="flex space-x-3 items-center">
+                    <span>
+                        <BiAlignLeft size={24} color="rgb(67 56 202)" />
+                    </span>
+                    <p className="line-clamp-4">{status}</p>
                 </div>
             </div>
             <div className="flex justify-center">
