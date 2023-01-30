@@ -27,9 +27,9 @@ export default function FirstSection({
 
     return (
         <div
-            className={`pb-8 2xl:py-36 ${background} min-h-[calc(100vh-100px)]`}
+            className={`2xl:py-36 ${background} min-h-[calc(100vh-100px)] flex`}
         >
-            <div className="CONTAINER grid xl:grid-cols-2 w-11/12 lg:w-3/4 mx-auto ">
+            <div className="CONTAINER grid xl:grid-cols-2 w-11/12 lg:w-3/4 mx-auto items-center">
                 <div
                     className="w-11/12 mx-auto hidden xl:flex"
                     data-aos="fade-right"
@@ -65,7 +65,7 @@ export default function FirstSection({
                 <div className="mx-auto flex xl:hidden" data-aos="fade-right">
                     {img}
                 </div>
-                <div className="flex flex-col justify-center gap-4 mt-8 mx-auto md:flex-row xl:hidden">
+                <div className="flex flex-col justify-center gap-4 my-8 mx-auto md:flex-row xl:hidden">
                     <PrimaryButton>
                         <a href={hrefBtn} className="flex items-center">
                             {iconBtn}

@@ -86,7 +86,7 @@ export default function Home({ auth }) {
                             className="mr-7"
                         />
                     }
-                    hrefBtnBis={route("courses")}
+                    hrefBtnBis={route("contact")}
                     textBtnBis={<p className="text-sm">Contact Us</p>}
                     iconBtnBis={<IoMail size={20} className="mr-7" />}
                 />
