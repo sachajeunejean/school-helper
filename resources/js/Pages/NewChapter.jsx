@@ -1,29 +1,27 @@
+import { useMemo, useRef, useCallback } from "react";
+import { Head, router } from "@inertiajs/react";
+import General from "@/Layouts/GeneralLayout";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
-import General from "@/Layouts/GeneralLayout";
-import { Head, router } from "@inertiajs/react";
+import Editor from "@/Components/Editor";
 
 export default function NewChapter({ auth }) {
+    // get course title in the url
     const getCourseFormattedTitle = () => {
         return window.location.href.split("/")[4];
     };
 
-    // get error for handle not a function, creating a dummy function
-    const onHandleChange = () => {
-        return;
-    };
-
     function submit(e) {
         e.preventDefault();
+        // Old form sumbit
+        // const data = new FormData(e.target);
 
-        const data = new FormData(e.target);
-
-        router.post(
-            "/courses/" + getCourseFormattedTitle() + "/new-chapter",
-            data
-        );
+        // router.post(
+        //     "/courses/" + getCourseFormattedTitle() + "/new-chapter",
+        //     data
+        // );
     }
 
     return (
@@ -47,7 +45,10 @@ export default function NewChapter({ auth }) {
                             name="title"
                             className="mt-1 block w-full"
                             placeholder="title"
-                            handleChange={onHandleChange}
+                            // function is required for the component textinputcc
+                            handleChange={() => {
+                                return;
+                            }}
                         />
                         <InputLabel forInput="title" value="Title" />
                     </div>
@@ -58,23 +59,31 @@ export default function NewChapter({ auth }) {
                             name="description"
                             className="mt-1 block w-full"
                             placeholder="description"
-                            handleChange={onHandleChange}
+                            // function is required for the component textinput
+                            handleChange={() => {
+                                return;
+                            }}
                         />
                         <InputLabel
                             forInput="description"
                             value="Description"
                         />
                     </div>
+
+                    {/*  Old form for the content chapter
                     <div className="relative">
                         <textarea
                             id="chap_content"
                             name="chap_content"
                             placeholder="chap_content"
                             className="peer p-4 h-36 w-full rounded-md shadow-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
-                        />
+                        ></textarea>
                         <InputLabel forInput="chap_content" value="Content" />
+                    </div> */}
+                    {/* Editor JS */}
+                    <div className="border-2 rounded-lg shadow-lg bg-gray-50 p-5 h-fit">
+                        <Editor />
                     </div>
-
                     <div className="flex justify-between">
                         {/* Link to the previous page */}
                         <a href={`/courses/${getCourseFormattedTitle()}`}>
