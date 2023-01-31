@@ -47,37 +47,37 @@ export default function FirstSection({
                         {subtitle}
                     </h3>
                     <p className=" text-gray-500 leading-8">{text}</p>
-                    <div className="hidden xl:flex  justify-center ">
-                        <PrimaryButton className="mr-5 my-8 xl:my-14">
-                            <a href={hrefBtn} className="flex items-center">
+                    <div className="hidden xl:flex  justify-center gap-20">
+                        <a href={hrefBtn} className="flex items-center">
+                            <PrimaryButton className="mr-5 my-8 xl:my-14">
                                 {iconBtn}
                                 {textBtn}
-                            </a>
-                        </PrimaryButton>
-                        <PrimaryButton className="mr-5 xl:my-14">
-                            <a href={hrefBtnBis} className="flex items-center">
+                            </PrimaryButton>
+                        </a>
+                        <a href={hrefBtnBis} className="flex items-center">
+                            <PrimaryButton className="mr-5 xl:my-14">
                                 {iconBtnBis}
                                 {textBtnBis}
-                            </a>
-                        </PrimaryButton>
+                            </PrimaryButton>
+                        </a>
                     </div>
                 </div>
                 <div className="mx-auto flex xl:hidden" data-aos="fade-right">
                     {img}
                 </div>
                 <div className="flex flex-col justify-center gap-4 my-8 mx-auto md:flex-row xl:hidden">
-                    <PrimaryButton>
-                        <a href={hrefBtn} className="flex items-center">
+                    <a href={hrefBtn} className="flex items-center">
+                        <PrimaryButton className="w-full">
                             {iconBtn}
-                            {textBtn}
-                        </a>
-                    </PrimaryButton>
-                    <PrimaryButton>
-                        <a href={hrefBtnBis} className="flex items-center">
+                            <p className="mr-4 ml-1">{textBtn}</p>
+                        </PrimaryButton>
+                    </a>
+                    <a href={hrefBtnBis} className="flex items-center">
+                        <PrimaryButton>
                             {iconBtnBis}
                             {textBtnBis}
-                        </a>
-                    </PrimaryButton>
+                        </PrimaryButton>
+                    </a>
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@ export default function Home({ auth }) {
                     hrefBtn={route("courses")}
                     textBtn={<p className="text-sm">See all courses</p>}
                     iconBtn={<IoFileTrayFull size={20} className="mr-7" />}
-                    textBtnBis={<p className="text-sm">Search course</p>}
+                    textBtnBis={<p className="text-sm">Search courses</p>}
                     iconBtnBis={<IoSearchOutline size={20} className="mr-7" />}
                 />
 

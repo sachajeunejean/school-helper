@@ -21,18 +21,15 @@ export default function ThirdSection({ title, subtitle, text, img }) {
                     data-aos="zoom-in"
                     data-aos-anchor-placement="bottom-bottom"
                 >
-                    <PrimaryButton>
-                        <a
-                            href={route("register")}
-                            className="flex items-center"
-                        >
+                    <a href={route("register")} className="flex items-center">
+                        <PrimaryButton>
                             <IoArrowRedoOutline
                                 size={20}
                                 style={{ marginRight: "12px" }}
                             />
                             Sign up
-                        </a>
-                    </PrimaryButton>
+                        </PrimaryButton>
+                    </a>
                 </div>
             </div>
         </div>
