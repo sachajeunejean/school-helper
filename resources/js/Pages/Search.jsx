@@ -33,11 +33,7 @@ export default function Search({ auth, courses }) {
                     {courses.map((course) => {
                         // only working with perfect match ... includes,
 
-                        if (
-                            course.formatted_title.includes(searchQuery) ||
-                            course.description.includes(searchQuery) ||
-                            course.category.includes(searchQuery)
-                        ) {
+                        if (course.formatted_title.includes(searchQuery)) {
                             return (
                                 <div key={course.id}>
                                     <Card
