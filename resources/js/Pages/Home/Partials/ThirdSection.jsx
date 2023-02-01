@@ -4,7 +4,7 @@ import { IoArrowRedoOutline } from "react-icons/io5";
 
 export default function ThirdSection({ title, subtitle, text, img }) {
     return (
-        <div className="bg-gradient-to-r from-white to-gray-200 pb-4 2xl:pt-28 2xl:pb-14 min-h-[calc(100vh-100px)]">
+        <div className="flex justify-center items-center bg-gradient-to-r from-white to-gray-200 pb-4 2xl:pt-28 2xl:pb-14 min-h-[calc(100vh-100px)]">
             <div className="w-3/4 mx-auto">
                 <div data-aos="zoom-in">
                     <h3 className="text-medium text-center pt-10 pb-6 text-5xl text-gray-700">

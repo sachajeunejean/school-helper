@@ -23,14 +23,19 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
 
+            $table->bigInteger('id_feedback')->unsigned();
+            $table->foreign('id_feedback')
+                ->references('id')
+                ->on('feedbacks')
+                ->constrained()
+                ->onDelete('cascade');
+
             $table->bigInteger('id_user')->unsigned();
             $table->foreign('id_user')
                 ->references('id')
                 ->on('users')
                 ->constrained()
                 ->onDelete('cascade');
-
-            $table->timestamps();
         });
     }
 

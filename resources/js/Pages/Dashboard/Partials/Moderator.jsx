@@ -1,6 +1,6 @@
 import SwiperSlider from "@/Components/SwiperSlider"
 
-export default function Moderator( { user, followedCourses, createdCourses, feedbacksGiven } ) {
+export default function Moderator( { user, followedCourses, createdCourses, feedbacksGiven, coursesFeedbacks } ) {
 
     return (
         <div>
@@ -14,11 +14,23 @@ export default function Moderator( { user, followedCourses, createdCourses, feed
             </div>
                 <div className="mt-6 mb-6 mx-5">
                     {
-                        feedbacksGiven[0].map((feedback, key) => {
-                            return (<div key={key}>
-                                {feedback.content}
-                            </div>)
-                        })
+                        feedbacksGiven ? 
+                        
+                        (feedbacksGiven.map((feedback, key) => {
+                            return (
+                                <div key={key} className="flex flex-col p-6 bg-gray-50 mb-10" >
+                                    <div className="flex justify-between mb-5">
+                                        <p className={feedback.status === 'accepted' ? "font-bold uppercase text-green-500" : "font-bold uppercase text-red-500" }>[{feedback.status}]</p>
+                                        <p>{feedback.created_at}</p>
+                                    </div>
+                                    <p>{feedback.content}</p>
+                                </div>
+                            )
+                        })) 
+
+                        :
+
+                        "No feedbacks."
                     }
                 </div>
             <div className="flex justify-between bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -33,7 +45,27 @@ export default function Moderator( { user, followedCourses, createdCourses, feed
             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div className="p-6 text-gray-900">My courses feedbacks</div>
             </div>
-            <SwiperSlider courses={createdCourses} />
+            <div className="mt-6 mb-6 mx-10">
+                {
+                    coursesFeedbacks ? 
+                    
+                    (coursesFeedbacks.map((feedback, key) => {
+                        return (
+                            <div key={key} className="flex flex-col p-6 bg-gray-50 mb-10" >
+                                <div className="flex justify-between mb-5">
+                                <p className={feedback.status === 'accepted' ? "font-bold uppercase text-green-500" : "font-bold uppercase text-red-500" }>[{feedback.status}]</p>
+                                <p>{feedback.created_at}</p>
+                                </div>
+                                <p>{feedback.content}</p>
+                            </div>
+                        )
+                    })) 
+
+                    :
+
+                    "No feedbacks."
+                }
+            </div>
         </div>
     )
 

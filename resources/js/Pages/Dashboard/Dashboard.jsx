@@ -4,7 +4,7 @@ import Learner from "@/Pages/Dashboard/Partials/Learner";
 import Teacher from './Partials/Teacher';
 import Moderator from './Partials/Moderator';
 
-export default function Dashboard( { auth, followedCourses, createdCourses, feedbacksGiven } ) {
+export default function Dashboard( { auth, followedCourses, createdCourses, feedbacksGiven, coursesFeedbacks } ) {
     return (
         <General auth={auth} className="flex">
             <Head title="Dashboard" />
@@ -16,7 +16,12 @@ export default function Dashboard( { auth, followedCourses, createdCourses, feed
                         auth.user.role === 'l' ? <Learner user={auth.user} followedCourses={followedCourses} /> : ""
                     }
                     {
-                        auth.user.role === 't' ? <Teacher user={auth.user} followedCourses={followedCourses} createdCourses={createdCourses} /> : ""
+                        auth.user.role === 't' ? <Teacher 
+                                                    user={auth.user} 
+                                                    followedCourses={followedCourses} 
+                                                    createdCourses={createdCourses} 
+                                                    coursesFeedbacks={coursesFeedbacks}
+                                                /> : ""
                     }
                     {
                         auth.user.role === 'm' ? <Moderator 
@@ -24,6 +29,7 @@ export default function Dashboard( { auth, followedCourses, createdCourses, feed
                                                     followedCourses={followedCourses} 
                                                     createdCourses={createdCourses} 
                                                     feedbacksGiven={feedbacksGiven}
+                                                    coursesFeedbacks={coursesFeedbacks}
                                                 /> : ""
                     }
                 </div>

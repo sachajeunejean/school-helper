@@ -55,8 +55,10 @@ class FeedbackController extends Controller
             throw new Exception('course not found in the DB.');
         }
 
-        DB::table('feedbacks')->insert([
-            'content' => $validated['feedback_content']
+        $idFeedback = DB::table('feedbacks')->insertGetId([
+            'content' => $validated['feedback_content'],
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => null
         ]);
 
         DB::table('courses')
@@ -68,6 +70,7 @@ class FeedbackController extends Controller
         DB::table('feedbacks_courses')
             ->insert([
                 'id_course' => $course->id,
+                'id_feedback' => $idFeedback,
                 'id_user' => Auth::user()->id
             ]);
 
