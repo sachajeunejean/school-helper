@@ -155,11 +155,10 @@ class ChapterController extends Controller
      *
      * @return Response
      */
-    public function edit(): Response
+    public function edit(string $title_course, string $title_chapter): Response
     {
-        $currentURL = url()->current();
-        $courseFormattedTitle = explode('/', $currentURL)[4];
-        $chapterFormattedTitle = explode('/', $currentURL)[5];
+        $courseFormattedTitle = $title_course;
+        $chapterFormattedTitle = $title_chapter;
 
         $chapter = DB::table('chapters')
             ->where('formatted_title', '=', $chapterFormattedTitle)
@@ -218,10 +217,10 @@ class ChapterController extends Controller
      *
      * @return Application|Redirector|RedirectResponse
      */
-    public function destroy(): RedirectResponse|Application|Redirector
+    public function destroy(string $title_course, string $title_chapter): RedirectResponse|Application|Redirector
     {
-        $courseFormTitle = explode('/', url()->current())[4];
-        $chapterFormTitle = explode('/', url()->current())[5];
+        $courseFormTitle = $title_course;
+        $chapterFormTitle = $title_chapter;
 
         $chapter = DB::table('chapters')
             ->where('formatted_title', '=', $chapterFormTitle)

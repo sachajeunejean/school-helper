@@ -78,47 +78,27 @@ class FeedbackController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Feedback  $feedback
-     * @return Response
-     */
-    public function show(Feedback $feedback)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Feedback  $feedback
-     * @return Response
-     */
-    public function edit(Feedback $feedback)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  \App\Models\Feedback  $feedback
-     * @return Response
-     */
-    public function update(Request $request, Feedback $feedback)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Feedback  $feedback
-     * @return Response
+     * @param int $id
+     * @return Application|Redirector|RedirectResponse
      */
-    public function destroy(Feedback $feedback)
+    public function destroy(int $id): Redirector|RedirectResponse|Application
     {
-        //
+        $idCourse = DB::table('feedbacks_courses')
+                ->where('id_feedback', '=', $id)
+                ->value('id_course');
+
+        DB::table('courses')
+            ->where('id', '=', $idCourse)
+            ->update([
+                'status' => 'pending'
+            ]);
+
+        DB::table('feedbacks')
+            ->where('id', '=', $id)
+            ->delete();
+
+        return redirect('/dashboard');
     }
 }

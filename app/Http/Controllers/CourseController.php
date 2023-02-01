@@ -172,6 +172,8 @@ class CourseController extends Controller
      */
     public function edit(string $title): Response
     {
+        dd($title);
+
         $course = DB::table('courses')
             ->where('formatted_title', '=', $title)
             ->get()[0];
@@ -232,10 +234,9 @@ class CourseController extends Controller
      *
      * @return Application|Redirector|RedirectResponse
      */
-    public function destroy(): RedirectResponse|Application|Redirector
+    public function destroy(string $title): RedirectResponse|Application|Redirector
     {
-        $currentURL = url()->current();
-        $courseFormattedTitle = explode('/', $currentURL)[4];
+        $courseFormattedTitle = $title;
 
         $idCourse = DB::table('courses')
             ->where('formatted_title', '=', $courseFormattedTitle)

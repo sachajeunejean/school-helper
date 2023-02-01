@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/feedbacks/new', [FeedbackController::class, 'create']);
     Route::post('/dashboard/feedbacks/new', [FeedbackController::class, 'store']);
+    Route::delete('/dashboard/feedbacks/delete/{id}', [FeedbackController::class, 'destroy']);
 });
 
 Route::middleware('auth')->group(function () {

@@ -81,7 +81,7 @@ class DashboardController extends Controller
     {
         $feedbacks = [];
 
-        for ($i = 0; $i < count($courses); $i++) {
+        for ($i = 0, $j = 0; $i < count($courses); $i++) {
             $id_feedback = DB::table('feedbacks_courses')
                 ->where('id_course', '=', $courses[$i]->id)
                 ->value('id_feedback');
@@ -92,8 +92,10 @@ class DashboardController extends Controller
                     ->get()[0];
 
                 if ($feedback) {
-                    $feedbacks[$i] = $feedback;
-                    $feedbacks[$i]->status = $courses[$i]->status;
+                    $feedbacks[$j] = $feedback;
+                    $feedbacks[$j]->status = $courses[$i]->status;
+
+                    $j++;
                 }
             }
         }
