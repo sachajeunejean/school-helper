@@ -1,4 +1,4 @@
-import { useMemo, useRef, useCallback } from "react";
+import { useMemo, useRef, useCallback, useState } from "react";
 import { Head, router } from "@inertiajs/react";
 import General from "@/Layouts/GeneralLayout";
 import InputLabel from "@/Components/InputLabel";
@@ -13,15 +13,16 @@ export default function NewChapter({ auth }) {
         return window.location.href.split("/")[4];
     };
 
+    // put the html output of editorJs in textarea
+    const [chapterContent, setChapterContent] = useState("");
+
     function submit(e) {
         e.preventDefault();
-        // Old form sumbit
-        // const data = new FormData(e.target);
-
-        // router.post(
-        //     "/courses/" + getCourseFormattedTitle() + "/new-chapter",
-        //     data
-        // );
+        const data = new FormData(e.target);
+        router.post(
+            "/courses/" + getCourseFormattedTitle() + "/new-chapter",
+            data
+        );
     }
 
     return (
@@ -70,19 +71,23 @@ export default function NewChapter({ auth }) {
                         />
                     </div>
 
-                    {/*  Old form for the content chapter
+                    {/* Old form for the content chapter */}
                     <div className="relative">
                         <textarea
                             id="chap_content"
                             name="chap_content"
                             placeholder="chap_content"
+                            value={chapterContent}
                             className="peer p-4 h-36 w-full rounded-md shadow-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
                         ></textarea>
                         <InputLabel forInput="chap_content" value="Content" />
-                    </div> */}
+                    </div>
                     {/* Editor JS */}
                     <div className="border-2 rounded-lg shadow-lg bg-gray-50 p-5 h-fit">
-                        <Editor />
+                        <Editor
+                            setChapterContent={setChapterContent}
+                            chapterContent={chapterContent}
+                        />
                     </div>
                     <div className="flex justify-between">
                         {/* Link to the previous page */}
@@ -93,7 +98,7 @@ export default function NewChapter({ auth }) {
                         </a>
 
                         <PrimaryButton className="text-sm">
-                            Create a new course
+                            Create a new chapter
                         </PrimaryButton>
                     </div>
                 </form>

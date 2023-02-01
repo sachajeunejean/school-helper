@@ -101,3 +101,9 @@ font-weight: bold;
   width: 90%;
   margin-left: 20px;
 }
+
+.cdx-simple-image__caption {
+  color: rgb(66, 66, 66);
+  font-style: italic;
+
+}

@@ -5,8 +5,6 @@ import { Head } from "@inertiajs/react";
 import { IoSettingsOutline } from "react-icons/io5";
 
 export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
-    console.log(owner, sessionUser.username);
-
     const onDelete = (e) => {
         e.preventDefault();
 
@@ -18,6 +16,11 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                 "/delete"
         );
     };
+
+    // return the chapter content in a good way
+    function createChapterHtmlContent() {
+        return { __html: chapter.content };
+    }
 
     return (
         <General auth={auth}>
@@ -60,7 +63,7 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
 
                 <h3 className="text-3xl text-center">{chapter.title}</h3>
                 <p className="text-center">{chapter.description}</p>
-                <p>{chapter.content}</p>
+                <div dangerouslySetInnerHTML={createChapterHtmlContent()}></div>
 
                 {/* NEXT AND PREVIOUS CHAPTER */}
                 {/* IF ID PREV = NUL, DONT SHOW PREV */}
