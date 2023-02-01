@@ -3,10 +3,14 @@ import { createReactEditorJS } from "react-editor-js";
 import { EDITOR_JS_TOOLS } from "@/utils/tools";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
+import edjsParser from "editorjs-parser";
 
-export default function Editor() {
+export default function Editor({ setChapterContent }) {
     // init editor js
     const ReactEditorJS = createReactEditorJS();
+
+    // parser
+    const parser = new edjsParser();
 
     // handle initialization
     const editorCore = useRef(null);
@@ -22,8 +26,12 @@ export default function Editor() {
         new Undo({ editor });
     };
 
-    const handleSave = useCallback(async () => {
+    // handle when saved
+
+    const handleChange = useCallback(async () => {
         const savedData = await editorCore.current.save();
+        const formattedChapterContent = parser.parse(savedData);
+        setChapterContent(formattedChapterContent);
     }, []);
 
     return (
@@ -33,10 +41,8 @@ export default function Editor() {
                 tools={EDITOR_JS_TOOLS}
                 onInitialize={handleInitialize}
                 onReady={handleReady}
+                onChange={handleChange}
             />
-            <button type="button" onClick={handleSave}>
-                Click to print the data in the console
-            </button>
         </div>
     );
 }
