@@ -34,7 +34,7 @@ return new class extends Migration
             'firstname' => 'admin',
             'gender' => 'm',
             'email' => 'admin@school-helper.com',
-            'role' => 'a',
+            'role' => 'm',
             'password' => hash::make('pass1234'),
         ]);
     }

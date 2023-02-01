@@ -4,6 +4,7 @@ use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\LikeFollowController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -36,6 +37,8 @@ use Inertia\Inertia;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/feedbacks/new', [FeedbackController::class, 'create']);
+    Route::post('/dashboard/feedbacks/new', [FeedbackController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
