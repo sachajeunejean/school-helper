@@ -64,19 +64,27 @@ export default function NavBar({ auth, courses }) {
         <nav
             className={`w-full bg-white shadow sticky duration-300 z-50  ${
                 visible
-                    ? "top-0 md:translate-y-0"
-                    : "top-0 md:translate-y-[-100px]"
+                    ? "top-0 lg:translate-y-0"
+                    : "top-0 lg:translate-y-[-100px]"
             }`}
         >
-            <div className="justify-between px-4 mx-auto lg:max-w-screen-2xl md:items-center md:flex md:px-8">
+            <div className="justify-between px-4 mx-auto lg:max-w-screen-2xl lg:items-center lg:flex lg:px-8">
                 <div>
-                    <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                        <a href="/courses" className="flex items-center">
+                    <div className="flex items-center justify-between py-3 lg:py-5 lg:block">
+                        <a
+                            href="/courses"
+                            className="flex items-center gap-2.5"
+                        >
+                            <img
+                                src="../../../assets/School_helper_logo.png"
+                                className="w-7"
+                                alt="School Helper Logo"
+                            />
                             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                                 School Helper
                             </span>
                         </a>
-                        <div className="md:hidden">
+                        <div className="lg:hidden">
                             <button
                                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                                 onClick={() => setNavbar(!navbar)}
@@ -116,11 +124,11 @@ export default function NavBar({ auth, courses }) {
                 </div>
                 <div>
                     <div
-                        className={`flex-1 justify-center pb-3 mt-2 md:block md:pb-0 md:mt-0  ${
+                        className={`flex-1 justify-center pb-3 mt-2 lg:block lg:pb-0 lg:mt-0  ${
                             navbar ? "flex" : "hidden"
                         }`}
                     >
-                        <ul className="flex flex-col md:flex-row space-y-8 md:space-x-3 lg:space-x-8 2xl:space-x-12 md:space-y-0">
+                        <ul className="flex flex-col lg:flex-row space-y-8 lg:space-x-3 xl:space-x-8 2xl:space-x-12 lg:space-y-0">
                             <NavLink
                                 href={route("home")}
                                 active={route().current("home")}
@@ -152,26 +160,26 @@ export default function NavBar({ auth, courses }) {
                                 <IoMail className="mr-2" size={18} />
                                 Contact
                             </NavLink>
-                            <div className="w-50% h-px md:h-7 md:w-px bg-gray-200"></div>
+                            <div className="w-50% h-px lg:h-7 lg:w-px bg-gray-200"></div>
 
                             <button
                                 type="button"
                                 id="searchBtn"
                                 onClick={toggleModal}
-                                className="flex md:block focus-visible:outline-none"
+                                className="flex lg:block focus-visible:outline-none"
                             >
                                 <IoSearch
                                     size={18}
                                     color="gray"
-                                    className="mr-2 translate-y-1 md:translate-y-0 focus:outline-none shadow-none"
+                                    className="mr-2 translate-y-1 lg:translate-y-0 focus:outline-none shadow-none"
                                 />
-                                <p className="text-gray-500 text-lg md:hidden">
+                                <p className="text-gray-500 text-lg lg:hidden">
                                     Search
                                 </p>
                             </button>
-                            <div className="w-50% h-px md:h-7 md:w-px bg-gray-200"></div>
+                            <div className="w-50% h-px lg:h-7 lg:w-px bg-gray-200"></div>
                             {/* Mobile links */}
-                            <div className="md:hidden flex flex-col space-y-8">
+                            <div className="lg:hidden flex flex-col space-y-8">
                                 {auth.user ? (
                                     <>
                                         <NavLink href={`/profile`}>
@@ -179,7 +187,9 @@ export default function NavBar({ auth, courses }) {
                                                 className="mr-2"
                                                 size={18}
                                             />
-                                            Profil
+                                            <p className="max-w-[200px] whitespace-nowrap overflow-hidden overflow-ellipsis">
+                                                {auth.user.username}
+                                            </p>
                                         </NavLink>
                                         <NavLink href={`/dashboard`}>
                                             <AiOutlineProfile
@@ -192,7 +202,7 @@ export default function NavBar({ auth, courses }) {
                                             href={route("logout")}
                                             method="post"
                                             as="button"
-                                            className="inline-flex items-center px-1 pt-1 pb-1 border-b-2 border-transparent text-lg md:text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                                            className="inline-flex items-center px-1 pt-1 pb-1 border-b-2 border-transparent text-lg lg:text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                                         >
                                             <IoLogOutOutline
                                                 className="mr-2"
@@ -222,18 +232,18 @@ export default function NavBar({ auth, courses }) {
                             </div>
                             {/* Desktop links */}
                             <div className="sm:flex sm:items-center">
-                                <div className="hidden md:flex ">
+                                <div className="hidden lg:flex ">
                                     <Dropdown>
                                         <Dropdown.Trigger>
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center border border-transparent text-lg md:text-sm font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center border border-transparent text-lg lg:text-sm font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 <IoPerson
                                                     className="mr-2"
                                                     size={18}
                                                 />
-                                                <p className="translate-y-[2px] mr-2">
+                                                <p className="translate-y-[2px] mr-2 max-w-[100px] whitespace-nowrap overflow-hidden overflow-ellipsis">
                                                     {`${
                                                         auth.user
                                                             ? auth.user.username
@@ -305,7 +315,7 @@ export default function NavBar({ auth, courses }) {
                     onClose={toggleModal}
                     show={searching}
                 >
-                    <SearchBar toggleModal={toggleModal}  />
+                    <SearchBar toggleModal={toggleModal} />
                 </Modal>
             </div>
         </nav>
