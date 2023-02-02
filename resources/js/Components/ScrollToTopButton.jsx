@@ -30,7 +30,7 @@ export default function ScrollToTopButton() {
     };
     return (
         <div
-            className={`fixed bottom-14 right-8 z-50 text-gray-100 bg-indigo-700 rounded-full p-3 hover:cursor-pointer hover:bg-transparent hover:ring-2 hover:ring-indigo-700 hover:text-indigo-700   transition-all ${
+            className={`fixed bottom-[72px] right-8 z-50 text-gray-100 bg-indigo-700 rounded-full p-3 hover:cursor-pointer hover:bg-transparent hover:ring-2 hover:ring-indigo-700 hover:text-indigo-700   transition-all ${
                 visible ? "translate-x-36" : "translate-x-0"
             }`}
         >
