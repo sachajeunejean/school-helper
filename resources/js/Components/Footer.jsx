@@ -2,8 +2,7 @@ import { Link } from "@inertiajs/react";
 
 export default function Footer() {
     return (
-        <footer className="w-full text-center pb-5 bg-white">
-            <hr className="p-2" />
+        <footer className="w-full text-center py-5 bg-white bottom-0 flex">
             <div className="w-full justify-between md:flex md:items-center px-4 text-sm space-y-3 md:space-y-0">
                 <p className="flex-grow basis-0">School Helper © 2023</p>
                 <p>Anselme & Sacha</p>

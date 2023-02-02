@@ -12,13 +12,17 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/assets/School_helper_logo.png" />
+
+
         <!-- Scripts -->
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased bg-gradient-to-r from-white to-gray-200">
+    <body class="font-sans antialiased bg-gradient-to-r from-gray-50 to-gray-200">
         @inertia
     </body>
 </html>

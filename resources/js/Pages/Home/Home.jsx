@@ -19,7 +19,7 @@ export default function Home({ auth }) {
             <main className="overflow-hidden ">
                 <FirstSection
                     title={"School Helper"}
-                    background={"bg-gradient-to-r from-white to-gray-200"}
+                    background={"bg-gradient-to-r from-gray-50 to-gray-200"}
                     subtitle={[
                         "A ",
                         <span
@@ -56,7 +56,7 @@ export default function Home({ auth }) {
 
                 <hr className="h-[2px] bg-gray-200" />
                 <SecondSection
-                    background={"bg-gradient-to-l from-white to-gray-200"}
+                    background={"bg-gradient-to-l from-gray-50 to-gray-200"}
                     title={"School Helper"}
                     subtitle={[
                         <span
