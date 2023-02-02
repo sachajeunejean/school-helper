@@ -35,7 +35,7 @@ export default function Editor({ setChapterContent }) {
     }, []);
 
     return (
-        <div>
+        <div className="w-full">
             <ReactEditorJS
                 placeholder="Start creating your chapter !"
                 tools={EDITOR_JS_TOOLS}
