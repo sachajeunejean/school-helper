@@ -42,7 +42,7 @@ class ChapterController extends Controller
      * @param Request $request
      * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request): Redirector|RedirectResponse|Application
+    public function store(string $title, Request $request): Redirector|RedirectResponse|Application
     {
         $request->validate([
             'title' => 'required|string|max:50',
@@ -51,8 +51,7 @@ class ChapterController extends Controller
         ]);
 
         //récupérer le dernier chapitre crée
-        $currentURL = url()->current();
-        $courseFormattedTitle = explode('/', $currentURL)[4];
+        $courseFormattedTitle = $title;
 
         $idCourse = DB::table('courses')
             ->where('formatted_title', '=', $courseFormattedTitle)
@@ -75,6 +74,14 @@ class ChapterController extends Controller
            'description' => $request->description,
            'id_previous' => $lastChapterID,
         ]);
+
+        DB::table('courses')
+            ->where('id', '=', $idCourse)
+            ->update(
+                [
+                    'status' => 'pending'
+                ]
+            );
 
         $chapter->save();
 
@@ -100,21 +107,6 @@ class ChapterController extends Controller
      */
     public function show(string $title_course, string $title_chapter): Response
     {
-        /*$chapter = DB::table('chapters')
-            ->where('formatted_title', '=', $title_chapter)
-            ->get()[0];
-
-        $idCourse = DB::table('courses_chapters')
-            ->where('id_chapter', '=', $chapter->id)
-            ->value('id_course');
-
-        $course = Course::find($idCourse);
-        $idUser = DB::table('courses_users')
-            ->where('id_course', '=', $idCourse)
-            ->value('id_user');
-
-        $user = User::find($idUser);*/
-
         $course = DB::table('courses')
             ->where('formatted_title', '=', $title_course)
             ->get()[0];
@@ -198,6 +190,10 @@ class ChapterController extends Controller
             ->where('formatted_title', '=', $lastFormattedTitle)
             ->value('id');
 
+        $idCourse = DB::table('courses_chapters')
+            ->where('id_chapter', '=', $idChapter)
+            ->value('id_course');
+
         DB::table('chapters')
             ->where('id', $idChapter)
             ->update(
@@ -206,6 +202,14 @@ class ChapterController extends Controller
                     'formatted_title' => $newFormattedTitle,
                     'description' => $request->description,
                     'content' => $request->chap_content,
+                ]
+            );
+
+        DB::table('courses')
+            ->where('id', '=', $idCourse)
+            ->update(
+                [
+                    'status' => 'pending'
                 ]
             );
 

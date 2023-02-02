@@ -28,6 +28,7 @@ export default function Course({
             {/* <p>{course.status}</p> */}
             <div className="min-h-[calc(100vh-185px)] md:min-h-[calc(100vh-125px)]">
                 <div className="pt-5 px-5 md:pt-10 md:px-10">
+                    {console.log(course.owner)}
                     {course.owner === auth.user.username && (
                         <div className="absolute right-10">
                             <Dropdown>

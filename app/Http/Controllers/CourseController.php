@@ -108,6 +108,7 @@ class CourseController extends Controller
         $course->owner = DB::table('users')
             ->join('courses_users', 'courses_users.id_user', '=', 'users.id')
             ->join('courses', 'courses_users.id_course', '=', 'courses.id')
+            ->where('users.id', '=', Auth::user()->id)
             ->value('username');
 
         $chapters = DB::table('chapters')
@@ -198,16 +199,6 @@ class CourseController extends Controller
         $lastFormattedTitle = explode('/', url()->current())[4];
         $newFormattedTitle = strtolower(join('-', explode(' ', $request->title)));
 
-        $file = $request->file('preview_image');
-        $path =  '/images';
-
-        $isFile = false;
-
-        if ($file) {
-            Storage::disk('resources_views')->putFileAs($path, $file, $file->getClientOriginalName());
-            $isFile = true;
-        }
-
         $idCourse = DB::table('courses')
             ->where('formatted_title', '=', $lastFormattedTitle)
             ->value('id');
@@ -220,7 +211,7 @@ class CourseController extends Controller
                   'formatted_title' => $newFormattedTitle,
                   'description' => $request->description,
                   'category' => $request->category,
-                  'preview_image' => $isFile ? $file->getClientOriginalName() : $request->last_preview_image
+                  'status' => 'pending'
               ]
             );
 

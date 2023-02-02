@@ -29,11 +29,17 @@ export default function Teacher( { user, followedCourses, createdCourses, course
                     <select className="w-full md:w-3/4 md:mx-5 my-5 px-4 py-3" onChange={(e) => setCourseTitle(e.target.value)}>
                         <option selected disabled hidden>Select course</option>
                         {
-                            createdCourses.map((course, key) => {
+                            createdCourses ?
+
+                            (createdCourses.map((course, key) => {
                                 return (
                                     <option key={key} value={course.formatted_title}>{course.title}</option>
                                 )
-                            })
+                            })) 
+                            
+                            : 
+                            
+                            "No courses"
                         }
                     </select>
                     <a href={"/courses/" + courseTitle + "/new-chapter"} className={`inline-flex items-center justify-center md:mx-5 md:my-5 px-5 py-3 text-xs bg-indigo-800 border border-transparent font-semibold text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none transition ease-in-out duration-150`}>NEW CHAPTER</a>
@@ -47,7 +53,6 @@ export default function Teacher( { user, followedCourses, createdCourses, course
                 <div className="p-6 text-gray-900">My courses feedbacks</div>
             </div>
             <div className="mt-6 mb-6 mx-10">
-                {console.log(coursesFeedbacks)}
                 {
                     coursesFeedbacks ? 
                     
