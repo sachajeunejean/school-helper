@@ -13,26 +13,6 @@ use Illuminate\Support\Facades\DB;
 class CommentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function index()
-    {
-        //
-    }*/
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function create()
-    {
-        //
-    }*/
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,30 +34,9 @@ class CommentController extends Controller
             'id_course' => $request->id_course,
             'id_user' => Auth::id(),
             'id_comment' => $comment->id,
+            'created_at' => date("Y-m-d H:i:s")
         ]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comment  $comments
-     * @return \Illuminate\Http\Response
-     */
-    /*public function show(Comment $comments)
-    {
-        //
-    }*/
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Comment  $comments
-     * @return \Illuminate\Http\Response
-     */
-    /*public function edit(Comment $comments)
-    {
-        //
-    }*/
 
     /**
      * Update the specified resource in storage.
