@@ -172,8 +172,6 @@ class CourseController extends Controller
      */
     public function edit(string $title): Response
     {
-        dd($title);
-
         $course = DB::table('courses')
             ->where('formatted_title', '=', $title)
             ->get()[0];

@@ -25,8 +25,8 @@ export default function Teacher( { user, followedCourses, createdCourses, course
                 <div>
                     <label>Select the course to add a new chapter :</label>
                 </div>
-                <div className="flex flex-row">
-                    <select className="w-3/4 mx-5 my-5 px-4 py-3" onChange={(e) => setCourseTitle(e.target.value)}>
+                <div className="flex flex-col md:flex-row">
+                    <select className="w-full md:w-3/4 md:mx-5 my-5 px-4 py-3" onChange={(e) => setCourseTitle(e.target.value)}>
                         <option selected disabled hidden>Select course</option>
                         {
                             createdCourses.map((course, key) => {
@@ -36,7 +36,7 @@ export default function Teacher( { user, followedCourses, createdCourses, course
                             })
                         }
                     </select>
-                    <a href={"/courses/" + courseTitle + "/new-chapter"} className={`inline-flex items-center justify-center mx-5 my-5 px-4 py-3 text-xs bg-indigo-800 border border-transparent font-semibold text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none transition ease-in-out duration-150`}>NEW CHAPTER</a>
+                    <a href={"/courses/" + courseTitle + "/new-chapter"} className={`inline-flex items-center justify-center md:mx-5 md:my-5 px-5 py-3 text-xs bg-indigo-800 border border-transparent font-semibold text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none transition ease-in-out duration-150`}>NEW CHAPTER</a>
                 </div>
             </div>
             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">

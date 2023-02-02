@@ -20,7 +20,7 @@ export default function About({ auth }) {
         <General auth={auth}>
             <Head title="About" />
             <div className="bg-gray-200">
-                <div className="flex flex-col items-start pt-16">
+                <div className="flex flex-col items-start pt-16 min-h-[calc(100vh-125px)]">
                     <div className="flex mx-auto w-full" data-aos="fade-right">
                         <h2 className="mx-auto text-medium pt-10 text-4xl text-gray-700 font-semibold">Learn more about us...</h2>
                     </div>
@@ -46,7 +46,7 @@ export default function About({ auth }) {
                     </div>
                 </div>
 
-                <hr className="mx-auto h-px my-8 bg-gray-300 border-0 dark:bg-gray-700 w-3/4" data-aos="fade-bottom" />
+                <hr className="mx-auto h-px my-8 bg-gray-300 border-0 dark:bg-gray-700 w-3/4 mb-16" data-aos="fade-left" />
 
                 <div className="flex mx-auto w-full" data-aos="fade-bottom">
                     <h2 className="mx-auto text-medium pt-10 text-4xl text-gray-700 font-semibold">Our Team</h2>

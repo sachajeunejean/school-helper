@@ -72,7 +72,7 @@ export default function NavBar({ auth, courses }) {
                 <div>
                     <div className="flex items-center justify-between py-3 lg:py-5 lg:block">
                         <a
-                            href="/courses"
+                            href="/"
                             className="flex items-center gap-2.5"
                         >
                             <img
