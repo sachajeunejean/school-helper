@@ -41,7 +41,7 @@ export default function FirstSection({
                         {subtitle}
                     </h3>
                     <p className=" text-gray-500 leading-9">{text}</p>
-                    <div className="hidden xl:flex flex-col xl:flex-row  justify-around my-8 xl:my-14 pt-10">
+                    <div className="hidden xl:flex  justify-center xl:my-14 pt-10 gap-10 2xl:gap-20">
                         <a href={hrefBtn} className="flex items-center">
                             <PrimaryButton>
                                 {iconBtn}
