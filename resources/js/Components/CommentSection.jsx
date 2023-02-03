@@ -5,8 +5,12 @@ import Dropdown from "./Dropdown";
 import { BsThreeDots } from "react-icons/bs";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 export default function CommentSection({ sessionUser, course }) {
+    dayjs.extend(relativeTime);
+
     const { comments } = usePage().props;
     const [isEditing, setIsEditing] = useState(false);
     const [selectedComment, setSelectedComment] = useState(0);
@@ -40,7 +44,7 @@ export default function CommentSection({ sessionUser, course }) {
         setIsEditing(!isEditing);
     };
 
-    console.log(comments)
+    console.log(comments);
 
     return (
         <div className="mt-24 mb-8 space-y-4 2xl:w-3/4 2xl:mx-auto">
@@ -82,7 +86,9 @@ export default function CommentSection({ sessionUser, course }) {
                             <p className="font-bold text-xl underline text-gray-900 whitespace-nowrap overflow-hidden overflow-ellipsis">
                                 {comment.username}
                             </p>
-                            <p className="text-sm text-gray-800">timestamp</p>
+                            <p className="text-sm text-gray-800">
+                                {dayjs(comment.created_at).fromNow()}
+                            </p>
                         </div>
 
                         {isEditing && selectedComment === comment.id ? (
