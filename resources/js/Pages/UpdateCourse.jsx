@@ -42,23 +42,19 @@ export default function UpdateCourse({ auth }) {
     const [showErrorField, setShowErrorField] = useState(false);
     
     function hasSpecialChar(str) {
-        var regex = /^[a-zA-Z0-9\u00C0-\u00FF]+$/;
+        const regex = /^[a-zA-Z0-9\u00C0-\u00FF\u00E7]+$/;
         return !regex.test(str);
     }
 
     function submit(e) {
         e.preventDefault();
         
-        if (data.title.length > 30) {
+        if (data.title.length > 60) {
             setErrorField('The course title is too long.');
             setShowErrorField(true);
             return;
-        } else if (data.description.length > 255) {
+        } else if (data.description.length > 180) {
             setErrorField('The course description is too long.');
-            setShowErrorField(true);
-            return;
-        } else if (hasSpecialChar(data.title)) {
-            setErrorField('The course title only accept letters and numbers.');
             setShowErrorField(true);
             return;
         } else if (data.category === null) {

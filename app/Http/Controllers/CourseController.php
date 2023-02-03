@@ -58,8 +58,8 @@ class CourseController extends Controller
     public function store(Request $request): Redirector|Response|RedirectResponse|Application
     {
         $request->validate([
-            'title' => 'required|string|max:30',
-            'description' => 'required|string|max:255',
+            'title' => 'required|string|max:60',
+            'description' => 'required|string|max:180',
             'category' => 'required|string',
         ]);
 
@@ -85,7 +85,7 @@ class CourseController extends Controller
                 'id_user' => Auth::user()->id
             ]);
 
-            return redirect('/courses/' . $formattedTitle . '?isCreated=1');
+            return redirect('/courses/' . $formattedTitle);
         }
 
         return Inertia::render('NewCourse', [
@@ -191,16 +191,19 @@ class CourseController extends Controller
      * @param Request $request
      * @return Application|Redirector|RedirectResponse
      */
-    public function update(Request $request): RedirectResponse|Application|Redirector
+    public function update(string $title, Request $request): RedirectResponse|Application|Redirector
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:60',
+            'description' => 'required|string|max:180',
             'category' => 'required|string',
         ]);
 
-        $lastFormattedTitle = explode('/', url()->current())[4];
+        $lastFormattedTitle = $title;
+
         $newFormattedTitle = strtolower(join('-', explode(' ', $request->title)));
+
+
 
         $idCourse = DB::table('courses')
             ->where('formatted_title', '=', $lastFormattedTitle)

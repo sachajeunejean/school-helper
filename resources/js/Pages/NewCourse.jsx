@@ -43,14 +43,11 @@ export default function NewCourse({ auth, errorMessage }) {
 
         const data = new FormData(e.target);
         
-        if (data.get('title').length > 30) {
+        if (data.get('title').length > 60) {
             setErrorField('The course title is too long.');
             return;
         } else if (data.get('description').length > 255) {
             setErrorField('The course description is too long.');
-            return;
-        } else if (hasSpecialChar(data.get('title'))) {
-            setErrorField('The course title only accept letters and numbers.');
             return;
         } else if (data.get('category') === null) {
             setErrorField('The category field has to be filled.')
