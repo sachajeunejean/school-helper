@@ -4,7 +4,6 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import General from "@/Layouts/GeneralLayout";
 import { Head, useForm, usePage } from "@inertiajs/react";
-import { Input } from "postcss";
 
 export default function UpdateChapter({ auth }) {
     const { chapter } = usePage().props;
