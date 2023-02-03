@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('description');
             $table->string('category');
             $table->string('status')->default('pending');
-            $table->string('preview_image');
             $table->timestamps();
         });
     }

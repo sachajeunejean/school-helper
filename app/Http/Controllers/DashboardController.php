@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Feedback;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -56,22 +57,18 @@ class DashboardController extends Controller
 
     private function getFeedbacks(int $idModerator): ?array
     {
-        $idFeedbacks = DB::table('feedbacks_courses')
-            ->where('id_user', '=', $idModerator)
-            ->get();
-
         $feedbacks = [];
 
-        for ($i = 0; $i < count($idFeedbacks); $i++) {
-            $feedbacks[$i] = DB::table('feedbacks')
-                ->where('id', '=', $idFeedbacks[$i]->id_feedback)
-                ->get()[0];
+        if (DB::table('feedbacks')->count() !== 0) {
+            $idFeedbacks = DB::table('feedbacks_courses')
+                ->where('id_user', '=', $idModerator)
+                ->get();
 
-            $course = DB::table('courses')
-                ->where('id', '=', $idFeedbacks[$i]->id_course)
-                ->get()[0];
-
-            $feedbacks[$i]->status = $course->status;
+            for ($i = 0; $i < count($idFeedbacks); $i++) {
+                $feedbacks[$i] = DB::table('feedbacks')
+                    ->where('id', '=', $idFeedbacks[$i]->id_feedback)
+                    ->get()[0];
+            }
         }
 
         return (count($feedbacks) ? $feedbacks : null);
@@ -81,21 +78,23 @@ class DashboardController extends Controller
     {
         $feedbacks = [];
 
-        for ($i = 0, $j = 0; $i < count($courses); $i++) {
-            $id_feedback = DB::table('feedbacks_courses')
-                ->where('id_course', '=', $courses[$i]->id)
-                ->value('id_feedback');
+        if (DB::table('feedbacks')->count() !== 0) {
+            for ($i = 0, $j = 0; $i < count($courses); $i++) {
+                $id_feedback = DB::table('feedbacks_courses')
+                    ->where('id_course', '=', $courses[$i]->id)
+                    ->orderByDesc('id_course')
+                    ->value('id_feedback');
 
-            if ($id_feedback) {
-                $feedback = DB::table('feedbacks')
-                    ->where('id', '=', $id_feedback)
-                    ->get()[0];
+                if ($id_feedback) {
+                    $feedback = DB::table('feedbacks')
+                        ->where('id', '=', $id_feedback)
+                        ->get()[0];
 
-                if ($feedback) {
-                    $feedbacks[$j] = $feedback;
-                    $feedbacks[$j]->status = $courses[$i]->status;
+                    if ($feedback) {
+                        $feedbacks[$j] = $feedback;
 
-                    $j++;
+                        $j++;
+                    }
                 }
             }
         }

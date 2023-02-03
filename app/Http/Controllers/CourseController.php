@@ -58,7 +58,7 @@ class CourseController extends Controller
      * @param Request $request
      * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request): Redirector|RedirectResponse|Application
+    public function store(Request $request): Redirector|RedirectResponse|Application|null
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -68,27 +68,32 @@ class CourseController extends Controller
 
         $formattedTitle = strtolower(join('-', explode(' ', $request->title)));
 
-        $file = $request->file('preview_image');
-        $path =  '/images';
+        if (
+            !(DB::table('courses')
+                ->where('formatted_title', '=', $formattedTitle)
+                ->exists()
+            )
+        ) {
+            $idCourse = DB::table('courses')->insertGetId([
+                'title' => $request->title,
+                'formatted_title' => $formattedTitle,
+                'description' => $request->description,
+                'category' => $request->category,
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => null
+            ]);
 
-        Storage::disk('resources_views')->putFileAs($path, $file, $file->getClientOriginalName());
+            DB::table('courses_users')->insert([
+                'id_course' => $idCourse,
+                'id_user' => Auth::user()->id
+            ]);
 
-        $idCourse = DB::table('courses')->insertGetId([
-            'title' => $request->title,
-            'formatted_title' => $formattedTitle,
-            'description' => $request->description,
-            'category' => $request->category,
-            'preview_image' => $file->getClientOriginalName(),
-            'created_at' => date("Y-m-d H:i:s"),
-            'updated_at' => null
-        ]);
+            return redirect('/courses/' . $formattedTitle);
+        }
 
-        DB::table('courses_users')->insert([
-           'id_course' => $idCourse,
-           'id_user' => Auth::user()->id
-        ]);
+        //pass error message
 
-        return redirect('/courses/' . $formattedTitle);
+        return null;
     }
 
     /**

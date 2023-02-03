@@ -57,6 +57,7 @@ class FeedbackController extends Controller
 
         $idFeedback = DB::table('feedbacks')->insertGetId([
             'content' => $validated['feedback_content'],
+            'status' => $validated['status'],
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => null
         ]);

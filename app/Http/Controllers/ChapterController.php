@@ -6,6 +6,7 @@ use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -272,5 +273,28 @@ class ChapterController extends Controller
         Chapter::find($chapter->id)->delete();
 
         return redirect('/courses/' . $courseFormTitle);
+    }
+
+    /**
+     * @param int $urlIdCourse
+     * @param int $urlIdChapter
+     * @return JsonResponse
+     */
+    public function getChapterTitleInfos(int $urlIdCourse, int $urlIdChapter): JsonResponse
+    {
+        $idChapter = DB::table('courses_chapters')
+                        ->where('id_course', '=', $urlIdCourse)
+                        ->where('id_chapter', '=', $urlIdChapter)
+                        ->value('id_chapter');
+
+        $chapter = DB::table('chapters')
+                            ->select('title', 'formatted_title')
+                            ->where('id', '=', $idChapter)
+                            ->get()[0];
+
+        return response()->json([
+           'title' => $chapter->title,
+            'formatted_title' => $chapter->formatted_title
+        ]);
     }
 }
