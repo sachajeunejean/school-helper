@@ -44,11 +44,12 @@ export default function Register({ auth }) {
 
     const submit = (e) => {
         e.preventDefault();
-        
-        if (data.role !== 'l' && data.role !== 't') {
-            setErrorField('You have to choose between 2 roles : Learner or Teacher.');
-        } else
-            post(route("register"));
+
+        if (data.role !== "l" && data.role !== "t") {
+            setErrorField(
+                "You have to choose between 2 roles : Learner or Teacher."
+            );
+        } else post(route("register"));
     };
 
     return (
