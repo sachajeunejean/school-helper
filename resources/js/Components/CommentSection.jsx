@@ -43,7 +43,7 @@ export default function CommentSection({ sessionUser, course }) {
     console.log(comments)
 
     return (
-        <div className="mt-24 mb-8 space-y-4">
+        <div className="mt-24 mb-8 space-y-4 2xl:w-3/4 2xl:mx-auto">
             <h2 className="text-lg lg:text-2xl font-bold text-gray-900 ml-4 relative z-40">
                 Comments ({comments.length})
             </h2>
@@ -79,9 +79,9 @@ export default function CommentSection({ sessionUser, course }) {
                             </Dropdown>
                         )}
                         <div className="flex items-end space-x-10">
-                            <h3 className="font-bold text-xl underline text-gray-900">
+                            <p className="font-bold text-xl underline text-gray-900 whitespace-nowrap overflow-hidden overflow-ellipsis">
                                 {comment.username}
-                            </h3>
+                            </p>
                             <p className="text-sm text-gray-800">timestamp</p>
                         </div>
 
@@ -121,6 +121,8 @@ export default function CommentSection({ sessionUser, course }) {
                                 {comment.content}
                             </p>
                         )}
+
+                        <hr className="border-b-[1px] border-gray" />
                     </div>
                 ))}
             </div>

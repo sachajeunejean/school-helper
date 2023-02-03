@@ -35,7 +35,7 @@ export default function NewChapter({ auth }) {
                     everybody.
                 </h3>
                 <form
-                    className="p-10 space-y-10 md:w-3/4 lg:w-1/2 mx-auto"
+                    className="p-10 space-y-10 md:w-3/4 mx-auto"
                     onSubmit={submit}
                     method="post"
                 >
@@ -83,7 +83,7 @@ export default function NewChapter({ auth }) {
                         <InputLabel forInput="chap_content" value="Content" />
                     </div>
                     {/* Editor JS */}
-                    <div className="border-2 rounded-lg shadow-lg bg-gray-50 p-5 h-fit">
+                    <div className="border-2 rounded-lg shadow-lg bg-gray-50 px-5">
                         <Editor
                             setChapterContent={setChapterContent}
                             chapterContent={chapterContent}

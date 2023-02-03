@@ -2,7 +2,7 @@ import { router } from "@inertiajs/react";
 import React from "react";
 import { IoHeart } from "react-icons/io5";
 
-export default function LikeButton({ course, isLiked, sessionUser }) {
+export default function LikeButton({ course, isLiked, sessionUser, likes }) {
     const likeCourse = (e) => {
         e.preventDefault();
         router.post(
@@ -20,6 +20,15 @@ export default function LikeButton({ course, isLiked, sessionUser }) {
                 sessionUser.id
         );
     };
+
+    let formattedLikes;
+    if (likes < 1000) {
+        formattedLikes = likes;
+    } else {
+        formattedLikes = likes / 1000;
+        formattedLikes = formattedLikes.toFixed(1) + " k";
+    }
+
     return (
         <div>
             {isLiked ? (
@@ -35,7 +44,7 @@ export default function LikeButton({ course, isLiked, sessionUser }) {
                                 isLiked ? "fill-red-700" : "fill-transparent"
                             }`}
                         />
-                        <p>Like</p>
+                        <p>{formattedLikes}</p>
                     </button>
                 </form>
             ) : (
@@ -51,7 +60,7 @@ export default function LikeButton({ course, isLiked, sessionUser }) {
                                 isLiked ? "fill-red-700" : "fill-transparent"
                             }`}
                         />
-                        <p>Like</p>
+                        <p>{formattedLikes}</p>
                     </button>
                 </form>
             )}
