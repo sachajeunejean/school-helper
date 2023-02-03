@@ -26,7 +26,7 @@ export default function Course({
         <General auth={auth}>
             <Head title={`${course.title}`} />
             {/* <p>{course.status}</p> */}
-            <div>
+            <div className="min-h-[calc(100vh-128px)]">
                 <div className="relative px-5 md:px-10">
                     {course.owner === auth.user.username && (
                         <div className="absolute right-5 top-5">
