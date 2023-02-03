@@ -27,7 +27,7 @@ export default function FirstSection({
 
     return (
         <div
-            className={`flex justify-center items-center pb-8 2xl:py-36 ${background} min-h-[calc(100vh-100px)]`}
+            className={`flex justify-center items-center pb-8 2xl:py-36 ${background} min-h-[100vh]`}
         >
             <div className="CONTAINER grid xl:grid-cols-2 w-11/12 lg:w-3/4 mx-auto items-center">
                 <div
