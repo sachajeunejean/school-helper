@@ -4,17 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Response;
-use JetBrains\PhpStorm\NoReturn;
+use Inertia\Inertia;
 
 class CourseController extends Controller
 {
@@ -56,13 +53,13 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @return Redirector|Response|RedirectResponse|Application
      */
-    public function store(Request $request): Redirector|RedirectResponse|Application|null
+    public function store(Request $request): Redirector|Response|RedirectResponse|Application
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:30',
+            'description' => 'required|string|max:255',
             'category' => 'required|string',
         ]);
 
@@ -88,18 +85,19 @@ class CourseController extends Controller
                 'id_user' => Auth::user()->id
             ]);
 
-            return redirect('/courses/' . $formattedTitle);
+            return redirect('/courses/' . $formattedTitle . '?isCreated=1');
         }
 
-        //pass error message
-
-        return null;
+        return Inertia::render('NewCourse', [
+            'errorMessage' => 'The title of the course already exist.'
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
      * @param string $title
+     * @param int|null $token
      * @return Response
      */
     public function show(string $title): Response
