@@ -34,7 +34,7 @@ export default function SearchBar({ toggleModal }) {
                     type="text"
                     id="search-navbar"
                     className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg border-2 focus:ring-0 focus:outline-none focus:border-2 focus:border-indigo-700"
-                    placeholder="Search..."
+                    placeholder="Search for a title..."
                     onChange={(e) =>
                         setQuery(
                             e.target.value
@@ -45,7 +45,7 @@ export default function SearchBar({ toggleModal }) {
                         )
                     }
                 />
-                <p className="text-center text-gray-800 pt-2">
+                <p className="hidden sm:flex text-center text-gray-800 pt-2">
                     Press ESC to cancel
                 </p>
             </form>

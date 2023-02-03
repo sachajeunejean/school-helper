@@ -11,6 +11,10 @@ export default function Search({ auth, courses }) {
 
     const searchQuery = getSearchFormattedTitle();
 
+    const fixedSearchQuery = decodeURIComponent(searchQuery);
+
+    console.log(searchQuery, fixedSearchQuery);
+
     return (
         <General auth={auth} courses={courses}>
             <Head title={`Search`} />
@@ -20,7 +24,7 @@ export default function Search({ auth, courses }) {
                     data-aos="fade-right"
                 >
                     <h3 className="text-center text-medium pt-8 text-3xl text-gray-700">
-                        {`Result for : ${getSearchFormattedTitle()
+                        {`Result for : ${fixedSearchQuery
                             .split("-")
                             .join(" ")}`}
                     </h3>
@@ -33,7 +37,7 @@ export default function Search({ auth, courses }) {
                     {courses.map((course) => {
                         // only working with perfect match ... includes,
 
-                        if (course.formatted_title.includes(searchQuery)) {
+                        if (course.formatted_title.includes(fixedSearchQuery)) {
                             return (
                                 <div key={course.id}>
                                     <Card
