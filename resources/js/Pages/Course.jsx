@@ -90,7 +90,7 @@ export default function Course({
                             />
                         </div>
 
-                        <p className="text-center text-xl">
+                        <p className="text-center text-md text-gray-600">
                             {course.description}
                         </p>
                     </div>
