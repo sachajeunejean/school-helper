@@ -8,8 +8,12 @@ import {
     IoArrowBack,
 } from "react-icons/io5";
 import "../../css/chapter-content-style.css";
+import { useEffect, useState } from "react";
 
 export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
+    const [next, setNext] = useState([]);
+    const [previous, setPrevious] = useState([]);
+
     const onDelete = (e) => {
         e.preventDefault();
 
@@ -22,12 +26,29 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
         );
     };
 
+    // get formatted title to next and previous with the api
+
+    useEffect(() => {
+        fetch(
+            `/api/courses/${course.id}/chapters/${chapter.id_next}/titleInfos`
+        )
+            .then((res) => res.json())
+            .then((result) => {
+                setNext(result);
+            });
+        fetch(
+            `/api/courses/${course.id}/chapters/${chapter.id_previous}/titleInfos`
+        )
+            .then((res) => res.json())
+            .then((result) => {
+                setPrevious(result);
+            });
+    }, []);
+
     // return the chapter content in a good way
     function createChapterHtmlContent() {
         return { __html: chapter.content };
     }
-
-    console.log(chapter);
 
     return (
         <General auth={auth}>
@@ -82,40 +103,44 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                 {chapter.id_next !== null && chapter.id_previous !== null && (
                     <div className="flex justify-between">
                         <a
-                            href="/"
-                            className="flex items-center gap-2 sm:gap-8"
+                            href={`/courses/${course.formatted_title}/${previous.formatted_title}`}
+                            className="flex items-center bg-indigo-700 text-white rounded-l-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
                         >
                             <IoArrowBack />
-                            <p>Previous</p>
+                            <p className="hidden sm:block">{previous.title}</p>
+                            <p className="block sm:hidden">Prev</p>
                         </a>
-                        <button
-                            href="/"
-                            className="flex items-center gap-2 sm:gap-8"
+                        <a
+                            href={`/courses/${course.formatted_title}/${next.formatted_title}`}
+                            className="flex items-center bg-indigo-700 text-white rounded-r-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
                         >
-                            <p>Next</p>
+                            <p className="hidden sm:block">{next.title}</p>
+                            <p className="block sm:hidden">Next</p>
                             <IoArrowForward />
-                        </button>
+                        </a>
                     </div>
                 )}
                 {chapter.id_next === null && chapter.id_previous != null && (
                     <div className="flex justify-center">
                         <a
-                            href="/"
-                            className="flex items-center gap-2 sm:gap-8"
+                            href={`/courses/${course.formatted_title}/${previous.formatted_title}`}
+                            className="flex items-center bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
                         >
                             <IoArrowBack />
-                            <p>Previous</p>
+                            <p className="hidden sm:block">{previous.title}</p>
+                            <p className="block sm:hidden">Prev</p>
                         </a>
                     </div>
                 )}
 
                 {chapter.id_previous === null && chapter.id_next != null && (
-                    <div className="flex justify-center">
+                    <div className="flex justify-center ">
                         <a
-                            href="/"
-                            className="flex items-center gap-2 sm:gap-8"
+                            href={`/courses/${course.formatted_title}/${next.formatted_title}`}
+                            className="flex items-center bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
                         >
-                            <p>Next</p>
+                            <p className="hidden sm:block">{next.title}</p>
+                            <p className="block sm:hidden">Next</p>
                             <IoArrowForward />
                         </a>
                     </div>
@@ -123,7 +148,7 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
 
                 {chapter.id_previous === null && chapter.id_next === null && (
                     <a
-                        href={`/courses/${course.formatted_title}`}
+                        href={router.get(`/courses/${course.formatted_title}`)}
                         className="flex justify-center"
                     >
                         Back to the course
