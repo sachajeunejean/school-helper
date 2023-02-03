@@ -42,6 +42,12 @@ export default function Card({
                     </span>
                     <p className="line-clamp-4">{description}</p>
                 </div>
+                <div className="flex space-x-3 items-center">
+                    <span>
+                        <BiAlignLeft size={24} color="rgb(67 56 202)" />
+                    </span>
+                    <p className="line-clamp-1">{status}</p>
+                </div>
             </div>
             <div className="flex justify-center">
                 <a href={`/courses/${formatted_title}`}>

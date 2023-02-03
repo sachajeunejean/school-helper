@@ -97,7 +97,7 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                         </button>
                     </div>
                 )}
-                {chapter.id_next === null && (
+                {chapter.id_next === null && chapter.id_previous != null && (
                     <div className="flex justify-center">
                         <a
                             href="/"
@@ -109,7 +109,7 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                     </div>
                 )}
 
-                {chapter.id_previous === null && (
+                {chapter.id_previous === null && chapter.id_next != null && (
                     <div className="flex justify-center">
                         <a
                             href="/"
@@ -122,12 +122,13 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                 )}
 
                 {chapter.id_previous === null && chapter.id_next === null && (
-                    <p>No previous or next -> back to the course ? </p>
+                    <a
+                        href={`/courses/${course.formatted_title}`}
+                        className="flex justify-center"
+                    >
+                        Back to the course
+                    </a>
                 )}
-
-                {/* NEXT AND PREVIOUS CHAPTER */}
-                {/* IF ID PREV = NUL, DONT SHOW PREV */}
-                {/* IF ID NEXT = NUL, DONT SHOW NEXT */}
             </div>
         </General>
     );
