@@ -1,13 +1,13 @@
 import { Navigation, Pagination, A11y, Autoplay, Keyboard } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Card from "@/Components/Card";
+import CardDashboard from "@/Components/CardDashboard";
 // import { BiRightArrowCircle, BiLeftArrowCircle } from "react-icons/bi";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-export default ( { courses } ) => {
+export default ({ courses }) => {
     return (
         <div className="relative">
             {/* <div className="image-swiper-button-next right-10 absolute top-1/2 z-10 hidden xl:block">
@@ -46,37 +46,30 @@ export default ( { courses } ) => {
                     },
                 }}
             >
-                {
-
-                    (courses) ?
-
-                        courses.map((course, key) => {
-
-                            return (
-                                <SwiperSlide key={key}>
-                                    <Card
-                                        title={course.title}
-                                        category={course.category}
-                                        formatted_title={course.formatted_title}
-                                        description={course.description}
-                                        status={course.status}
-                                        chapter={"3 Chapters"}
-                                        author={"Sacha Jeunejean"}
-                                        imgSrc={"/resources/images/" + course.preview_image}
-                                    />
-                                </SwiperSlide>
-                            )
-
-                        })
-
-                    :
-
-                    <div className="p-10">
-                        No courses.
-                    </div>
-
-                }
-
+                {courses ? (
+                    courses.map((course, key) => {
+                        return (
+                            <SwiperSlide key={key}>
+                                <CardDashboard
+                                    title={course.title}
+                                    category={course.category
+                                        .split("_")
+                                        .join(" ")}
+                                    description={course.description}
+                                    status={course.status}
+                                    chapter={"3 Chapters"}
+                                    author={"Sacha Jeunejean"}
+                                    imgSrc={
+                                        "/resources/images/" +
+                                        course.preview_image
+                                    }
+                                />
+                            </SwiperSlide>
+                        );
+                    })
+                ) : (
+                    <div className="p-10">No courses.</div>
+                )}
 
                 {/*<SwiperSlide>
                     <Card
