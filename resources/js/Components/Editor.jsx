@@ -26,7 +26,7 @@ export default function Editor({ setChapterContent }) {
         new Undo({ editor });
     };
 
-    // handle when saved
+    // handle when change
 
     const handleChange = useCallback(async () => {
         const savedData = await editorCore.current.save();

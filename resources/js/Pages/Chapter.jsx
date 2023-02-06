@@ -1,4 +1,3 @@
-import { router } from "@inertiajs/react";
 import Dropdown from "@/Components/Dropdown";
 import General from "@/Layouts/GeneralLayout";
 import { Head } from "@inertiajs/react";
@@ -147,12 +146,14 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                 )}
 
                 {chapter.id_previous === null && chapter.id_next === null && (
-                    <a
-                        href={router.get(`/courses/${course.formatted_title}`)}
-                        className="flex justify-center"
-                    >
-                        Back to the course
-                    </a>
+                    <div className="flex justify-center">
+                        <a
+                            href={`/courses/${course.formatted_title}`}
+                            className="bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
+                        >
+                            <p>Back to the course</p>
+                        </a>
+                    </div>
                 )}
             </div>
         </General>
