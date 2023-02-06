@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 
 export default function Footer() {
     return (
@@ -8,25 +8,14 @@ export default function Footer() {
                 <p>Anselme & Sacha</p>
                 <div className="space-x-5 text-gray-600 flex-grow basis-0">
                     <Link
-                        href="#"
+                        href={route("about")}
                         className="hover:underline hover:text-black underline-offset-4"
                     >
                         About
                     </Link>
+
                     <Link
-                        href="#"
-                        className="hover:underline hover:text-black underline-offset-4"
-                    >
-                        Privacy Policy
-                    </Link>
-                    <Link
-                        href="#"
-                        className="hover:underline hover:text-black underline-offset-4"
-                    >
-                        Licensing
-                    </Link>
-                    <Link
-                        href="#"
+                        href={route("contact")}
                         className="hover:underline hover:text-black underline-offset-4"
                     >
                         Contact
