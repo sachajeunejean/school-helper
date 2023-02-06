@@ -7,13 +7,15 @@ import {
     IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import AOS from "aos";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { entries } from "lodash";
 
 export default function Courses({ auth, courses }) {
     // pagination
     const [firstValue, setFirstValue] = useState(0);
     const [secondValue, setSecondValue] = useState(16);
+    const [selectedCategory, setSelectedCategory] = useState();
+    const [categoryList, setCategoryList] = useState([]);
     // infinite scroll
     const observer = useRef();
     const lastCourseElementRef = useCallback(
@@ -32,23 +34,37 @@ export default function Courses({ auth, courses }) {
         },
         [secondValue]
     );
-    // pagination
 
-    // const nextPage = () => {
-    //     setFirstValue(firstValue + 8);
-    //     setSecondValue(secondValue + 8);
-    // };
+    const defaultSubjects = [
+        "art",
+        "biology",
+        "chemistry",
+        "computer_science",
+        "economics",
+        "engineering",
+        "geography",
+        "history",
+        "human_science",
+        "languages",
+        "law",
+        "literature",
+        "marketing",
+        "mathematics",
+        "music",
+        "philosophy",
+        "physics",
+        "technology",
+    ];
 
-    // const previousPage = () => {
-    //     setFirstValue(firstValue - 8);
-    //     setSecondValue(secondValue - 8);
-    // };
+    function handleCategoryChange(e) {
+        setSelectedCategory(e.target.value);
+    }
 
-    // AOS
     useEffect(() => {
+        setCategoryList(defaultSubjects);
+        // AOS
         AOS.init();
     }, []);
-
     return (
         <General auth={auth} courses={courses}>
             <Head title="Courses" />
@@ -62,38 +78,26 @@ export default function Courses({ auth, courses }) {
                         <h3 className="text-center text-medium pt-8 text-3xl text-gray-700">
                             All courses
                         </h3>
-                        <p className="text-center text-medium pt-8 text-3xl text-gray-700">
-                            FILTER
-                        </p>
-                        {/* <a href="/courses/new">
-                            <PrimaryButton className="absolute top-7 -right-4 lg:-right-10 text-2xl rounded-full px-3 py-1 !tracking-normal">
-                                +
-                            </PrimaryButton>
-                        </a> */}
+                        {/* <select
+                            onChange={handleCategoryChange}
+                            className="text-medium mt-8 text-gray-700"
+                        >
+                            <option defaultValue value={""}>
+                                Select Category
+                            </option>
+                            {defaultSubjects.map((subject, key) => (
+                                <option value={subject} key={key}>
+                                    {subject.charAt(0).toUpperCase() +
+                                        subject.slice(1).split("_").join(" ")}
+                                </option>
+                            ))}
+                        </select>
+                    <p>{selectedCategory}</p> */}
                     </div>
                     <div
                         data-aos="fade-up"
                         className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-5 gap-8 lg:p-8"
                     >
-                        {/* {courses
-                            .slice(firstValue, secondValue)
-                            .map((course, key) => (
-                                <div key={key}>
-                                    <Card
-                                        title={course.title}
-                                        category={course.category
-                                            .split("_")
-                                            .join(" ")}
-                                        imgSrc={
-                                            "http://127.0.0.1:5174/resources/images/" +
-                                            course.preview_image
-                                        }
-                                        description={course.description}
-                                        formatted_title={course.formatted_title}
-                                    />
-                                </div>
-                            ))} */}
-
                         {courses
                             .slice(firstValue, secondValue)
                             .map((course, key) => {
@@ -143,28 +147,6 @@ export default function Courses({ auth, courses }) {
                             })}
                     </div>
                 </div>
-                {/* Pagination */}
-                {/* <div className="w-2/3 mx-auto flex justify-around items-center mb-8 text-lg lg:text-2xl">
-                    <div
-                        className={`flex items-center gap-4 cursor-pointer ${
-                            firstValue > 1 ? "flex" : "hidden"
-                        }`}
-                        onClick={previousPage}
-                    >
-                        <IoArrowBackCircleOutline />
-
-                        <p>Previous</p>
-                    </div>
-                    <div
-                        className={`flex items-center gap-4 cursor-pointer ${
-                            secondValue > courses.length ? "hidden" : "flex"
-                        }`}
-                        onClick={nextPage}
-                    >
-                        <p>Next</p>
-                        <IoArrowForwardCircleOutline />
-                    </div>
-                </div> */}
             </main>
         </General>
     );

@@ -45,7 +45,7 @@ export default function SearchBar({ toggleModal }) {
                         )
                     }
                 />
-                <p className="hidden sm:flex text-center text-gray-800 pt-2">
+                <p className="hidden sm:flex justify-center text-gray-600 pt-2">
                     Press ESC to cancel
                 </p>
             </form>

@@ -1,6 +1,6 @@
 import Dropdown from "@/Components/Dropdown";
 import General from "@/Layouts/GeneralLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import {
     IoSettingsOutline,
     IoArrowForward,
@@ -8,6 +8,9 @@ import {
 } from "react-icons/io5";
 import "../../css/chapter-content-style.css";
 import { useEffect, useState } from "react";
+import AOS from "aos";
+
+import "aos/dist/aos.css";
 
 export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
     const [next, setNext] = useState([]);
@@ -28,6 +31,8 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
     // get formatted title to next and previous with the api
 
     useEffect(() => {
+        AOS.init();
+
         fetch(
             `/api/courses/${course.id}/chapters/${chapter.id_next}/titleInfos`
         )
@@ -86,75 +91,89 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                         </Dropdown>
                     </div>
                 )}
+                <div data-aos="fade-down">
+                    <h3 className="font-bold text-4xl text-gray-900 text-center">
+                        {chapter.title}
+                    </h3>
+                    <p className="text-2xl text-gray-500 text-center pb-8">
+                        {chapter.description}
+                    </p>
+                    <hr className="border-b-[1px] border-b-[rgb(100,100,100)] w-3/4 mx-auto" />
+                    <section
+                        className="chapter-content__section py-8"
+                        dangerouslySetInnerHTML={createChapterHtmlContent()}
+                    />
+                </div>
+                <div data-aos="fade-up" data-aos-delay="150">
+                    {chapter.id_next !== null &&
+                        chapter.id_previous !== null && (
+                            <div className="flex justify-between">
+                                <a
+                                    href={`/courses/${course.formatted_title}/${previous.formatted_title}`}
+                                    className="flex items-center bg-indigo-700 text-white rounded-l-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
+                                >
+                                    <IoArrowBack />
+                                    <p className="hidden sm:block">
+                                        {previous.title}
+                                    </p>
+                                    <p className="block sm:hidden">Prev</p>
+                                </a>
+                                <a
+                                    href={`/courses/${course.formatted_title}/${next.formatted_title}`}
+                                    className="flex items-center bg-indigo-700 text-white rounded-r-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
+                                >
+                                    <p className="hidden sm:block">
+                                        {next.title}
+                                    </p>
+                                    <p className="block sm:hidden">Next</p>
+                                    <IoArrowForward />
+                                </a>
+                            </div>
+                        )}
+                    {chapter.id_next === null &&
+                        chapter.id_previous != null && (
+                            <div className="flex justify-start">
+                                <a
+                                    href={`/courses/${course.formatted_title}/${previous.formatted_title}`}
+                                    className="flex items-center bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
+                                >
+                                    <IoArrowBack />
+                                    <p className="hidden sm:block">
+                                        {previous.title}
+                                    </p>
+                                    <p className="block sm:hidden">Prev</p>
+                                </a>
+                            </div>
+                        )}
 
-                <h3 className="font-bold text-4xl text-gray-900 text-center">
-                    {chapter.title}
-                </h3>
-                <p className="text-2xl text-gray-500 text-center pb-8">
-                    {chapter.description}
-                </p>
-                <hr className="border-b-[1px] border-b-[rgb(100,100,100)] w-3/4 mx-auto" />
-                <section
-                    className="chapter-content__section py-8"
-                    dangerouslySetInnerHTML={createChapterHtmlContent()}
-                />
+                    {chapter.id_previous === null &&
+                        chapter.id_next != null && (
+                            <div className="flex justify-end">
+                                <a
+                                    href={`/courses/${course.formatted_title}/${next.formatted_title}`}
+                                    className="flex items-center bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
+                                >
+                                    <p className="hidden sm:block">
+                                        {next.title}
+                                    </p>
+                                    <p className="block sm:hidden">Next</p>
+                                    <IoArrowForward />
+                                </a>
+                            </div>
+                        )}
 
-                {chapter.id_next !== null && chapter.id_previous !== null && (
-                    <div className="flex justify-between">
-                        <a
-                            href={`/courses/${course.formatted_title}/${previous.formatted_title}`}
-                            className="flex items-center bg-indigo-700 text-white rounded-l-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
-                        >
-                            <IoArrowBack />
-                            <p className="hidden sm:block">{previous.title}</p>
-                            <p className="block sm:hidden">Prev</p>
-                        </a>
-                        <a
-                            href={`/courses/${course.formatted_title}/${next.formatted_title}`}
-                            className="flex items-center bg-indigo-700 text-white rounded-r-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
-                        >
-                            <p className="hidden sm:block">{next.title}</p>
-                            <p className="block sm:hidden">Next</p>
-                            <IoArrowForward />
-                        </a>
-                    </div>
-                )}
-                {chapter.id_next === null && chapter.id_previous != null && (
-                    <div className="flex justify-start">
-                        <a
-                            href={`/courses/${course.formatted_title}/${previous.formatted_title}`}
-                            className="flex items-center bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
-                        >
-                            <IoArrowBack />
-                            <p className="hidden sm:block">{previous.title}</p>
-                            <p className="block sm:hidden">Prev</p>
-                        </a>
-                    </div>
-                )}
-
-                {chapter.id_previous === null && chapter.id_next != null && (
-                    <div className="flex justify-end">
-                        <a
-                            href={`/courses/${course.formatted_title}/${next.formatted_title}`}
-                            className="flex items-center bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
-                        >
-                            <p className="hidden sm:block">{next.title}</p>
-                            <p className="block sm:hidden">Next</p>
-                            <IoArrowForward />
-                        </a>
-                    </div>
-                )}
-
-                {chapter.id_previous === null && chapter.id_next === null && (
-                    <div className="flex justify-center">
-                        <a
-                            href={`/courses/${course.formatted_title}`}
-                            className="bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
-                        >
-                            <p>Back to the course</p>
-                        </a>
-                    </div>
-                )}
+                    {chapter.id_previous === null &&
+                        chapter.id_next === null && (
+                            <div className="flex justify-center">
+                                <a
+                                    href={`/courses/${course.formatted_title}`}
+                                    className="bg-indigo-700 text-white rounded-md py-2 px-3 gap-2 sm:gap-4 hover:bg-indigo-900"
+                                >
+                                    <p>Back to the course</p>
+                                </a>
+                            </div>
+                        )}
+                </div>
             </div>
         </General>
     );

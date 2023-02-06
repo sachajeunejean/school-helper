@@ -4,6 +4,8 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import General from "@/Layouts/GeneralLayout";
 import { Head, useForm, usePage } from "@inertiajs/react";
+import EditorEdit from "@/Components/EditorEdit";
+import { useState } from "react";
 
 export default function UpdateChapter({ auth }) {
     const { chapter } = usePage().props;
@@ -78,6 +80,10 @@ export default function UpdateChapter({ auth }) {
                         />
                         <InputLabel forInput="chap_content" value="Content" />
                     </div>
+                    <EditorEdit
+                        setData={setData}
+                        chapterContent={data.chap_content}
+                    />
                     <div className="flex justify-between">
                         <a
                             href={`/courses/${chapter.course.formatted_title}/${chapter.formatted_title}`}

@@ -12,8 +12,6 @@ export default function UpdateCourse({ auth }) {
         title: course.title,
         description: course.description,
         category: course.category,
-        preview_image: course.preview_image,
-        last_preview_image: course.preview_image,
 
         _method: "patch",
     });

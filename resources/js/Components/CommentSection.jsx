@@ -44,8 +44,6 @@ export default function CommentSection({ sessionUser, course }) {
         setIsEditing(!isEditing);
     };
 
-    console.log(comments);
-
     return (
         <div className="mt-24 mb-8 space-y-4 2xl:w-3/4 2xl:mx-auto">
             <h2 className="text-lg lg:text-2xl font-bold text-gray-900 ml-4 relative z-40">
