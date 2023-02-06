@@ -2,7 +2,9 @@ import ChapterListItem from "@/Components/ChapterListItem";
 import CommentSection from "@/Components/CommentSection";
 import Dropdown from "@/Components/Dropdown";
 import FollowButton from "@/Components/FollowButton";
+import Image from "@/Components/Image";
 import LikeButton from "@/Components/LikeButton";
+import Loader from "@/Components/Loader";
 import General from "@/Layouts/GeneralLayout";
 import { Head, router, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
@@ -66,16 +68,9 @@ export default function Course({
                         <p className="capitalize px-3 py-1 mb-5 bg-gray-500 text-gray-100 w-fit rounded-full mx-auto">
                             {course.category.split("_").join(" ")}
                         </p>
-                        <img
-                            src="/assets/img/WebDev.jpg"
-                            //     "http://127.0.0.1:5174/resources/images/" +
-                            //     course.preview_image
-
-                            // alt={course.preview_image}
-
-                            className="w-full max-w-lg mx-auto mb-10"
-                        />
-
+                        <div className="w-full max-w-lg mx-auto mb-10">
+                            <Image src={"/assets/img/WebDev.jpg"} />
+                        </div>
                         <div className="flex justify-around mb-10 max-w-lg mx-auto">
                             <FollowButton
                                 isFollowed={isFollowed}
