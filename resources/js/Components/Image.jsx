@@ -21,6 +21,7 @@ export default function Image({ src, width, size }) {
                     animation: "fadeIn 0.5s",
                     maxHeight: "300px",
                     objectFit: "cover",
+                    borderRadius: "5px",
                 }}
                 onLoad={(e) => {
                     setLoading(false);
