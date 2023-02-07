@@ -73,17 +73,28 @@ export default function Courses({ auth, courses }) {
                         <h3 className="text-center text-medium pt-8 text-3xl text-gray-700">
                             All courses
                         </h3>
-                        <select onChange={(e) => setFilterCategory(e.target.value)} className="flex w-[200px] h-[50px] mt-8 text-center text-base text-gray-700">
-                            <option value="" selected>All categories</option>
-                            {
-                                subjects.map((subject, key) => {
-                                    return (
-                                        <option value={subject} key={key}>
-                                            {subject}
-                                        </option>
-                                    )
-                                })
-                            }
+                        <select
+                            onChange={(e) => setFilterCategory(e.target.value)}
+                            className="flex w-[200px] h-[50px] mt-8 text-center text-base text-gray-700 rounded bg-gray-100 capitalize shadow-sm"
+                        >
+                            <option
+                                className="text-gray-700 bg-gray-100"
+                                defaultValue
+                                value={""}
+                            >
+                                All categories
+                            </option>
+                            {subjects.map((subject, key) => {
+                                return (
+                                    <option
+                                        className="capitalize text-gray-700 bg-gray-100"
+                                        value={subject}
+                                        key={key}
+                                    >
+                                        {subject.split("_").join(" ")}
+                                    </option>
+                                );
+                            })}
                         </select>
                         {/* <a href="/courses/new">
                             <PrimaryButton className="absolute top-7 -right-4 lg:-right-10 text-2xl rounded-full px-3 py-1 !tracking-normal">
@@ -104,7 +115,14 @@ export default function Courses({ auth, courses }) {
                                         <div
                                             key={key}
                                             ref={lastCourseElementRef}
-                                            className={filterCategory ? (filterCategory === course.category ? "" : "hidden") : ""}
+                                            className={
+                                                filterCategory
+                                                    ? filterCategory ===
+                                                      course.category
+                                                        ? ""
+                                                        : "hidden"
+                                                    : ""
+                                            }
                                         >
                                             <Card
                                                 title={course.title}
@@ -127,7 +145,14 @@ export default function Courses({ auth, courses }) {
                                     return (
                                         <div
                                             key={key}
-                                            className={filterCategory ? (filterCategory === course.category ? "" : "hidden") : ""}
+                                            className={
+                                                filterCategory
+                                                    ? filterCategory ===
+                                                      course.category
+                                                        ? ""
+                                                        : "hidden"
+                                                    : ""
+                                            }
                                         >
                                             <Card
                                                 title={course.title}
