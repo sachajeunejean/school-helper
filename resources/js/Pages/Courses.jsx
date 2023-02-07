@@ -42,7 +42,7 @@ export default function Courses({ auth, courses }) {
         "engineering",
         "geography",
         "history",
-        "human_sciences",
+        "human_science",
         "languages",
         "law",
         "literature",
@@ -67,15 +67,19 @@ export default function Courses({ auth, courses }) {
             <main>
                 <div className=" bg-gradient-to-r from-gray-50 to-gray-200 min-h-[calc(100vh-125px)]">
                     <div
-                        className="w-3/4 mx-auto relative flex justify-between"
+                        className="w-3/4 mx-auto relative flex flex-col items-center sm:flex-row sm:justify-between"
                         data-aos="fade-right"
                     >
-                        <h3 className="text-center text-medium pt-8 text-3xl text-gray-700">
-                            All courses
+                        <h3 className="text-center text-medium pt-8 text-3xl text-gray-700 capitalize">
+                            {filterCategory === ""
+                                ? "All courses"
+                                : `Courses : ${filterCategory
+                                      .split("_")
+                                      .join(" ")}`}
                         </h3>
                         <select
                             onChange={(e) => setFilterCategory(e.target.value)}
-                            className="flex w-[200px] h-[50px] mt-8 text-center text-base text-gray-700 rounded bg-gray-100 capitalize shadow-sm"
+                            className="flex w-[200px] h-[50px] mt-8 text-base text-gray-700 rounded bg-gray-100 capitalize shadow-sm"
                         >
                             <option
                                 className="text-gray-700 bg-gray-100"
@@ -104,7 +108,7 @@ export default function Courses({ auth, courses }) {
                     </div>
                     <div
                         data-aos="fade-up"
-                        className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-5 gap-8 lg:p-8"
+                        className="grid place-items-center md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-5 gap-8 lg:p-8"
                     >
                         {courses
                             .slice(firstValue, secondValue)
