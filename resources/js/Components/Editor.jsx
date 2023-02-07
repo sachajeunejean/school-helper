@@ -30,8 +30,12 @@ export default function Editor({ setChapterContent }) {
 
     const handleChange = useCallback(async () => {
         const savedData = await editorCore.current.save();
-        const formattedChapterContent = parser.parse(savedData);
-        setChapterContent(formattedChapterContent);
+        // parsing into html
+        // const formattedChapterContent = parser.parse(savedData);
+        // console.log(savedData, formattedChapterContent);
+
+        // savedData = object
+        setChapterContent(savedData);
     }, []);
 
     return (
