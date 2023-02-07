@@ -87,7 +87,7 @@ export default function Home({ auth }) {
                     iconBtnBis={
                         <IoInformationCircleOutline
                             size={20}
-                            className="mr-7"
+                            className="mr-8"
                         />
                     }
                 />

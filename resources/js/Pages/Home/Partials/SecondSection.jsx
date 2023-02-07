@@ -72,13 +72,10 @@ export default function FirstSection({
                             <p className="mr-4 ml-1">{textBtn}</p>
                         </PrimaryButton>
                     </a>
-                    <a
-                        href={hrefBtnBis}
-                        className="flex items-center w-[230px]"
-                    >
-                        <PrimaryButton>
+                    <a href={hrefBtnBis} className="flex items-center ">
+                        <PrimaryButton className="w-[230px]">
                             {iconBtnBis}
-                            {textBtnBis}
+                            <p className="mr-7 ml-1">{textBtnBis}</p>
                         </PrimaryButton>
                     </a>
                 </div>
