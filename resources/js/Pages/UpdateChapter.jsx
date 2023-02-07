@@ -36,14 +36,13 @@ export default function UpdateChapter({ auth }) {
             }
         );
     }
-    console.log(JSON.stringify(data.chap_content));
     return (
         <General auth={auth}>
             <Head title={`${chapter.title} - Edit`} />
             <div className="bg-gray-100 min-h-[calc(100vh-125px)] ">
                 <form
                     onSubmit={submit}
-                    className="p-10 space-y-10 md:w-3/4 lg:w-1/2 mx-auto"
+                    className="p-10 space-y-10 md:w-3/4 mx-auto"
                 >
                     <h2 className="capitalize text-2xl pt-5 pb-5 text-center font-bold">
                         {`${chapter.title} - Edit`}
@@ -73,24 +72,13 @@ export default function UpdateChapter({ auth }) {
                             value="Description"
                         />
                     </div>
-
-                    <EditorEdit
-                        setData={setData}
-                        setChapterContent={setChapterContent}
-                        chapterContent={chapterContent}
-                    />
-                    <TextInput
-                        handleChange={(e) =>
-                            setData(
-                                "chap_content",
-                                JSON.stringify(e.target.value)
-                            )
-                        }
-                        type="text"
-                        name="chap_content"
-                        value={JSON.stringify(data.chap_content)}
-                    />
-
+                    <div className="border-2 rounded-lg shadow-lg bg-gray-100 px-5">
+                        <EditorEdit
+                            setData={setData}
+                            setChapterContent={setChapterContent}
+                            chapterContent={chapterContent}
+                        />
+                    </div>
                     <div className="flex justify-between">
                         <a
                             href={`/courses/${chapter.course.formatted_title}/${chapter.formatted_title}`}
