@@ -1,8 +1,8 @@
 import { Head } from '@inertiajs/react';
 import General from "@/Layouts/GeneralLayout";
 import Learner from "@/Pages/Dashboard/Partials/Learner";
-import Teacher from './Partials/Teacher';
-import Moderator from './Partials/Moderator';
+import Teacher from '@/Pages/Dashboard/Partials/Teacher';
+import Moderator from '@/Pages/Dashboard/Partials/Moderator';
 
 export default function Dashboard( { auth, followedCourses, createdCourses, feedbacksGiven, coursesFeedbacks } ) {
     return (

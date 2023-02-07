@@ -23,6 +23,9 @@ export default function NewChapter({ auth }) {
         e.preventDefault();
         const data = new FormData(e.target);
 
+        data.delete('chap_content');
+        data.append('chap_content', JSON.stringify(chapterContent));
+
         if (data.get('title').length > 120) {
             setErrorField('The chapter title is too long.');
             setShowErrorField(true);
@@ -41,10 +44,10 @@ export default function NewChapter({ auth }) {
                 return;
         }
 
-        /*router.post(
+        router.post(
             "/courses/" + getCourseFormattedTitle() + "/new-chapter",
             data
-        );*/
+        );
     }
 
     return (

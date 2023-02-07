@@ -33,7 +33,7 @@ export default function Editor({ setChapterContent }) {
         // parsing into html
         // const formattedChapterContent = parser.parse(savedData);
         // console.log(savedData, formattedChapterContent);
-
+        
         // savedData = object
         setChapterContent(savedData);
     }, []);
