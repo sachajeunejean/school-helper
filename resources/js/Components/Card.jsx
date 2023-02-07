@@ -22,7 +22,7 @@ export default function Card({
     return (
         <div className="mt-6 mb-6 max-w-[400px] mx-5 shadow-xl hover:scale-[1.025] transition duration-500">
             <div
-                className={`w-full shadow-xl h-36 bg-[url(${imgSrc})] bg-cover relative flex items-center before:absolute before:bg-[rgba(0,0,0,0.7)] before:top-0 before:right-0 before:bottom-0 before:left-0`}
+                className={`w-full shadow-xl h-36  bg-[url(${imgSrc})]  bg-cover relative flex items-center before:absolute before:bg-[rgba(0,0,0,0.7)] before:top-0 before:right-0 before:bottom-0 before:left-0`}
             >
                 <h3 className="text-white text-xl font-bold z-10 px-6 mr-[10%] max-h-fit first-letter:capitalize line-clamp-4">
                     {title}

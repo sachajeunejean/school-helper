@@ -18,6 +18,8 @@ export default function UpdateChapter({ auth }) {
         _method: "patch",
     });
 
+    const [chapterContent, setChapterContent] = useState(chapter.content);
+
     function submit(e) {
         e.preventDefault();
 
@@ -32,6 +34,7 @@ export default function UpdateChapter({ auth }) {
             }
         );
     }
+    console.log(chapterContent);
 
     return (
         <General auth={auth}>
@@ -80,10 +83,7 @@ export default function UpdateChapter({ auth }) {
                         />
                         <InputLabel forInput="chap_content" value="Content" />
                     </div>
-                    <EditorEdit
-                        setData={setData}
-                        chapterContent={data.chap_content}
-                    />
+                    <EditorEdit setData={setData} />
                     <div className="flex justify-between">
                         <a
                             href={`/courses/${chapter.course.formatted_title}/${chapter.formatted_title}`}

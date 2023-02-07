@@ -7,15 +7,13 @@ import {
     IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import AOS from "aos";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { entries } from "lodash";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Courses({ auth, courses }) {
     // pagination
     const [firstValue, setFirstValue] = useState(0);
     const [secondValue, setSecondValue] = useState(16);
-    const [selectedCategory, setSelectedCategory] = useState();
-    const [categoryList, setCategoryList] = useState([]);
+
     // infinite scroll
     const observer = useRef();
     const lastCourseElementRef = useCallback(
@@ -35,33 +33,7 @@ export default function Courses({ auth, courses }) {
         [secondValue]
     );
 
-    const defaultSubjects = [
-        "art",
-        "biology",
-        "chemistry",
-        "computer_science",
-        "economics",
-        "engineering",
-        "geography",
-        "history",
-        "human_science",
-        "languages",
-        "law",
-        "literature",
-        "marketing",
-        "mathematics",
-        "music",
-        "philosophy",
-        "physics",
-        "technology",
-    ];
-
-    function handleCategoryChange(e) {
-        setSelectedCategory(e.target.value);
-    }
-
     useEffect(() => {
-        setCategoryList(defaultSubjects);
         // AOS
         AOS.init();
     }, []);
@@ -78,21 +50,6 @@ export default function Courses({ auth, courses }) {
                         <h3 className="text-center text-medium pt-8 text-3xl text-gray-700">
                             All courses
                         </h3>
-                        {/* <select
-                            onChange={handleCategoryChange}
-                            className="text-medium mt-8 text-gray-700"
-                        >
-                            <option defaultValue value={""}>
-                                Select Category
-                            </option>
-                            {defaultSubjects.map((subject, key) => (
-                                <option value={subject} key={key}>
-                                    {subject.charAt(0).toUpperCase() +
-                                        subject.slice(1).split("_").join(" ")}
-                                </option>
-                            ))}
-                        </select>
-                    <p>{selectedCategory}</p> */}
                     </div>
                     <div
                         data-aos="fade-up"
@@ -114,8 +71,9 @@ export default function Courses({ auth, courses }) {
                                                     .split("_")
                                                     .join(" ")}
                                                 imgSrc={
-                                                    "http://127.0.0.1:5174/resources/images/" +
-                                                    course.preview_image
+                                                    "/assets/img/" +
+                                                    course.category +
+                                                    ".jpg"
                                                 }
                                                 description={course.description}
                                                 formatted_title={
@@ -133,8 +91,9 @@ export default function Courses({ auth, courses }) {
                                                     .split("_")
                                                     .join(" ")}
                                                 imgSrc={
-                                                    "http://127.0.0.1:5174/resources/images/" +
-                                                    course.preview_image
+                                                    "/assets/img/" +
+                                                    course.category +
+                                                    ".jpg"
                                                 }
                                                 description={course.description}
                                                 formatted_title={
