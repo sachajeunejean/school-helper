@@ -19,6 +19,8 @@ export default function Image({ src, width, size }) {
                     display: loading ? "none" : "block",
                     width: "100%",
                     animation: "fadeIn 0.5s",
+                    maxHeight: "300px",
+                    objectFit: "cover",
                 }}
                 onLoad={(e) => {
                     setLoading(false);
