@@ -1,7 +1,5 @@
 import { Navigation, Pagination, A11y, Autoplay, Keyboard } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import { BiRightArrowCircle, BiLeftArrowCircle } from "react-icons/bi";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -10,7 +8,6 @@ import Card from "@/Components/Card";
 export default ({ courses }) => {
     return (
         <div className="relative">
-
             <Swiper
                 style={{
                     "--swiper-pagination-color": "blue",
@@ -18,6 +15,7 @@ export default ({ courses }) => {
                     "--swiper-pagination-bullet-inactive-opacity": "0.5",
                     "--swiper-pagination-bullet-size": "8px",
                     "--swiper-pagination-bullet-horizontal-gap": "6px",
+                    paddingBottom: "20px",
                 }}
                 modules={[Navigation, Pagination, A11y, Autoplay, Keyboard]}
                 spaceBetween={100}
@@ -42,7 +40,9 @@ export default ({ courses }) => {
                             <SwiperSlide key={key}>
                                 <Card
                                     title={course.title}
-                                    category={course.category}
+                                    category={course.category
+                                        .split("_")
+                                        .join(" ")}
                                     formatted_title={course.formatted_title}
                                     description={course.description}
                                     status={course.status}
