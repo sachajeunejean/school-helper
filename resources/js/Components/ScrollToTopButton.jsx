@@ -33,8 +33,9 @@ export default function ScrollToTopButton() {
             className={`fixed bottom-[72px] right-8 z-50 text-gray-100 bg-indigo-700 rounded-full p-3 hover:cursor-pointer hover:bg-transparent hover:ring-2 hover:ring-indigo-700 hover:text-indigo-700   transition-all ${
                 visible ? "translate-x-36" : "translate-x-0"
             }`}
+            onClick={goToTop}
         >
-            <IoArrowUp size={24} onClick={goToTop} />
+            <IoArrowUp size={24} />
         </div>
     );
 }
