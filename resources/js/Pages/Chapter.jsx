@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 
 import "aos/dist/aos.css";
+import EditorDislpay from "@/Components/EditorDisplay";
 
 export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
     const [next, setNext] = useState([]);
@@ -49,10 +50,10 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
             });
     }, []);
 
-    // return the chapter content in a good way
-    function createChapterHtmlContent() {
-        return { __html: chapter.content };
-    }
+    // // return the chapter content in a good way
+    // function createChapterHtmlContent() {
+    //     return { __html: chapter.content };
+    // }
 
     return (
         <General auth={auth}>
@@ -99,9 +100,13 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
                         {chapter.description}
                     </p>
                     <hr className="border-b-[1px] border-b-[rgb(100,100,100)] w-3/4 mx-auto" />
-                    <section
+                    {/* <section
                         className="chapter-content__section py-8"
                         dangerouslySetInnerHTML={createChapterHtmlContent()}
+                    /> */}
+
+                    <EditorDislpay
+                        chapterContent={JSON.parse(chapter.content)}
                     />
                 </div>
                 <div data-aos="fade-up" data-aos-delay="150">
