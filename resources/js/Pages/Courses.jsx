@@ -33,6 +33,29 @@ export default function Courses({ auth, courses }) {
         [secondValue]
     );
 
+    const subjects = [
+        "art",
+        "biology",
+        "chemistry",
+        "computer_science",
+        "economics",
+        "engineering",
+        "geography",
+        "history",
+        "human_sciences",
+        "languages",
+        "law",
+        "literature",
+        "marketing",
+        "mathematics",
+        "music",
+        "philosophy",
+        "physics",
+        "technology",
+    ];
+
+    const [filterCategory, setFilterCategory] = useState("");
+
     useEffect(() => {
         // AOS
         AOS.init();
@@ -50,6 +73,23 @@ export default function Courses({ auth, courses }) {
                         <h3 className="text-center text-medium pt-8 text-3xl text-gray-700">
                             All courses
                         </h3>
+                        <select onChange={(e) => setFilterCategory(e.target.value)} className="flex w-[200px] h-[50px] mt-8 text-center text-base text-gray-700">
+                            <option value="" selected>All categories</option>
+                            {
+                                subjects.map((subject, key) => {
+                                    return (
+                                        <option value={subject} key={key}>
+                                            {subject}
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+                        {/* <a href="/courses/new">
+                            <PrimaryButton className="absolute top-7 -right-4 lg:-right-10 text-2xl rounded-full px-3 py-1 !tracking-normal">
+                                +
+                            </PrimaryButton>
+                        </a> */}
                     </div>
                     <div
                         data-aos="fade-up"
@@ -64,6 +104,7 @@ export default function Courses({ auth, courses }) {
                                         <div
                                             key={key}
                                             ref={lastCourseElementRef}
+                                            className={filterCategory ? (filterCategory === course.category ? "" : "hidden") : ""}
                                         >
                                             <Card
                                                 title={course.title}
@@ -84,7 +125,10 @@ export default function Courses({ auth, courses }) {
                                     );
                                 } else {
                                     return (
-                                        <div key={key}>
+                                        <div
+                                            key={key}
+                                            className={filterCategory ? (filterCategory === course.category ? "" : "hidden") : ""}
+                                        >
                                             <Card
                                                 title={course.title}
                                                 category={course.category

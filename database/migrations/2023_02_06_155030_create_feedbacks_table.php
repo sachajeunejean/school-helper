@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('feedbacks', function (Blueprint $table) {
-            $table->id();
-            $table->mediumText('content');
-            $table->string('status');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('feedbacks')) {
+            Schema::create('feedbacks', function (Blueprint $table) {
+                $table->id();
+                $table->mediumText('content');
+                $table->string('status');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

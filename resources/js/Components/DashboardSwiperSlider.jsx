@@ -1,13 +1,15 @@
 import { Navigation, Pagination, A11y, Autoplay, Keyboard } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import CardDashboard from "@/Components/CardDashboard";
+import Card from "@/Components/Card";
+import DashboardCard from "@/Components/DashboardCard";
+
 // import { BiRightArrowCircle, BiLeftArrowCircle } from "react-icons/bi";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-export default ({ courses }) => {
+export default ( { courses } ) => {
     return (
         <div className="relative">
             {/* <div className="image-swiper-button-next right-10 absolute top-1/2 z-10 hidden xl:block">
@@ -54,7 +56,7 @@ export default ({ courses }) => {
 
                             return (
                                 <SwiperSlide key={key}>
-                                    <Card
+                                    <DashboardCard
                                         title={course.title}
                                         category={course.category}
                                         formatted_title={course.formatted_title}
@@ -74,6 +76,7 @@ export default ({ courses }) => {
                     </div>
 
                 }
+
 
                 {/*<SwiperSlide>
                     <Card

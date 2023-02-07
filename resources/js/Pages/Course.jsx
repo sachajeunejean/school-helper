@@ -7,7 +7,7 @@ import LikeButton from "@/Components/LikeButton";
 import Loader from "@/Components/Loader";
 import General from "@/Layouts/GeneralLayout";
 import { Head, router, useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoBookmark, IoSettingsOutline } from "react-icons/io5";
 
 export default function Course({
@@ -17,8 +17,9 @@ export default function Course({
     sessionUser,
     isLiked,
     likes,
-    isFollowed,
+    isFollowed
 }) {
+
     const onDelete = (e) => {
         e.preventDefault();
 

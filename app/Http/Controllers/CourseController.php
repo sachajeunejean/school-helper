@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 use Inertia\Response;
-use JetBrains\PhpStorm\NoReturn;
+use Inertia\Inertia;
 
 class CourseController extends Controller
 {
@@ -56,13 +52,13 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @return Redirector|Response|RedirectResponse|Application
      */
-    public function store(Request $request): Redirector|RedirectResponse|Application|null
+    public function store(Request $request): Redirector|Response|RedirectResponse|Application
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:120',
+            'description' => 'required|string|max:180',
             'category' => 'required|string',
         ]);
 
@@ -91,9 +87,9 @@ class CourseController extends Controller
             return redirect('/courses/' . $formattedTitle);
         }
 
-        //pass error message
-
-        return null;
+        return Inertia::render('NewCourse', [
+            'errorMessage' => 'The title of the course already exist.'
+        ]);
     }
 
     /**
@@ -193,16 +189,19 @@ class CourseController extends Controller
      * @param Request $request
      * @return Application|Redirector|RedirectResponse
      */
-    public function update(Request $request): RedirectResponse|Application|Redirector
+    public function update(string $title, Request $request): RedirectResponse|Application|Redirector
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:120',
+            'description' => 'required|string|max:180',
             'category' => 'required|string',
         ]);
 
-        $lastFormattedTitle = explode('/', url()->current())[4];
+        $lastFormattedTitle = $title;
+
         $newFormattedTitle = strtolower(join('-', explode(' ', $request->title)));
+
+
 
         $idCourse = DB::table('courses')
             ->where('formatted_title', '=', $lastFormattedTitle)

@@ -11,9 +11,7 @@ import { BiAlignLeft } from "react-icons/bi";
 
 export default function Card({
     formatted_title,
-    link,
     title,
-    likes,
     description,
     category,
     imgSrc,
@@ -46,7 +44,7 @@ export default function Card({
                     <span>
                         <BiAlignLeft size={24} color="rgb(67 56 202)" />
                     </span>
-                    <p className="line-clamp-1">{status}</p>
+                    <p className="line-clamp-4">{status}</p>
                 </div>
             </div>
             <div className="flex justify-center">

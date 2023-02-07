@@ -33,28 +33,23 @@ export default function NewCourse({ auth, errorMessage }) {
     const [errorField, setErrorField] = useState("");
     const [showErrorField, setShowErrorField] = useState(false);
 
-    function hasSpecialChar(str) {
-        var regex = /^[a-zA-Z0-9\u00C0-\u00FF]+$/;
-        return !regex.test(str);
-    }
-
     function submit(e) {
         e.preventDefault();
 
         const data = new FormData(e.target);
 
-        if (data.get("category") === null) {
-            setErrorField("The category field has to be filled.");
-        } else if (
-            data.get("title").length === 0 ||
-            data.get("description").length === 0
-        ) {
-            if (hasSpecialChar(data.get("title"))) {
-                setErrorField(
-                    "The course title only accept letters and numbers."
-                );
-            } else setErrorField("All the fields has to be filled.");
+        if (data.get('title').length > 120) {
+            setErrorField('The course title is too long.');
             return;
+        } else if (data.get('description').length > 180) {
+            setErrorField('The course description is too long.');
+            return;
+        } else if (data.get('category') === null) {
+            setErrorField('The category field has to be filled.')
+            return;
+        } else if (data.get('title').length === 0 || data.get('description').length === 0) {
+                setErrorField('All the fields has to be filled.');
+                return;
         }
 
         router.post("/courses/new", data);
@@ -66,8 +61,6 @@ export default function NewCourse({ auth, errorMessage }) {
     };
 
     useEffect(() => {
-        console.log(errorMessage);
-
         if (errorMessage) {
             setShowErrorField(true);
             setErrorField(errorMessage);

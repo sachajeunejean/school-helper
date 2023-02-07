@@ -37,6 +37,26 @@ return new class extends Migration
             'role' => 'm',
             'password' => hash::make('pass1234'),
         ]);
+
+        DB::table('users')->insert([
+            'username' => 'learner',
+            'lastname' => 'learner',
+            'firstname' => 'learner',
+            'gender' => 'm',
+            'email' => 'learner@school-helper.com',
+            'role' => 'l',
+            'password' => hash::make('pass1234'),
+        ]);
+
+        DB::table('users')->insert([
+            'username' => 'teacher',
+            'lastname' => 'teacher',
+            'firstname' => 'teacher',
+            'gender' => 'm',
+            'email' => 'teacher@school-helper.com',
+            'role' => 't',
+            'password' => hash::make('pass1234'),
+        ]);
     }
 
     /**
