@@ -20,14 +20,15 @@ export default function About({ auth }) {
             <Head title="About" />
             <div className="bg-gradient-to-r from-gray-50 to-gray-200 overflow-hidden">
                 <div className="py-16 lg:py-28 min-h-[calc(100vh-125px)]">
-                    <div data-aos="fade-right">
+                    <div data-aos="fade-left">
                         <h2 className="mx-auto w-[90%] text-center text-medium text-4xl text-gray-700 font-semibold">
                             Learn more about{" "}
                             <span className="text-indigo-800">us</span> ...
                         </h2>
                     </div>
                     <div
-                        data-aos="fade-left"
+                        data-aos="fade-right"
+                        data-aos-delay="300"
                         className="flex lg:flex-row flex-col items-center justify-between w-3/4 mx-auto"
                     >
                         <div className="max-w-lg h-auto 2xl:max-w-3xl 2xl:pr-44">
@@ -37,7 +38,7 @@ export default function About({ auth }) {
                                 src="/assets/81450-team.json"
                             ></Player>
                         </div>
-                        <div data-aos="fade-left">
+                        <div data-aos="fade-right" data-aos-delay="200">
                             <p className="text-medium text-lg mt-5 mb-5">
                                 At{" "}
                                 <span className="text-indigo-800">

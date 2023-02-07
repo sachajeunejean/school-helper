@@ -28,18 +28,19 @@ export default function Contact({ auth }) {
     return (
         <General auth={auth}>
             <Head title="Contact" />
-            <div className="py-16 lg:py-28 min-h-[calc(100vh-125px)]">
-                <div data-aos="fade-right">
+            <div className="py-16 lg:py-28 min-h-[calc(100vh-125px)] overflow-hidden">
+                <div data-aos="fade-left">
                     <h2 className="mx-auto w-[90%] text-center text-medium text-4xl text-gray-700 font-semibold">
                         Any <span className="text-indigo-800">questions</span> ?
                         Contact <span className="text-indigo-800">us</span> !
                     </h2>
                 </div>
-                <div
-                    data-aos="fade-left"
-                    className="flex flex-col lg:flex-row items-center justify-center mr-10 lg:mt-20 gap-10"
-                >
-                    <div className="max-w-lg h-auto 2xl:max-w-3xl 2xl:pr-44">
+                <div className="flex flex-col lg:flex-row items-center justify-center mr-10 lg:mt-20 gap-10">
+                    <div
+                        className="max-w-lg h-auto 2xl:max-w-3xl 2xl:pr-44"
+                        data-aos="fade-right"
+                        data-aos-delay="300"
+                    >
                         <Player
                             autoplay
                             loop
@@ -51,7 +52,11 @@ export default function Contact({ auth }) {
                             // }}
                         ></Player>
                     </div>
-                    <div className="flex flex-col 2xl:pr-16">
+                    <div
+                        className="flex flex-col 2xl:pr-16"
+                        data-aos="fade-right"
+                        data-aos-delay="300"
+                    >
                         <h3 className="text-3xl mb-10">
                             <span className="text-indigo-800">Our</span>{" "}
                             Informations
