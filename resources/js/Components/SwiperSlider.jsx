@@ -7,7 +7,7 @@ import Card from "@/Components/Card";
 
 export default ({ courses }) => {
     return (
-        <div className="relative">
+        <div>
             <Swiper
                 style={{
                     "--swiper-pagination-color": "blue",
@@ -37,7 +37,10 @@ export default ({ courses }) => {
                 {courses ? (
                     courses.map((course, key) => {
                         return (
-                            <SwiperSlide key={key}>
+                            <SwiperSlide
+                                className="cursor-grab active:cursor-grabbing"
+                                key={key}
+                            >
                                 <Card
                                     title={course.title}
                                     category={course.category
