@@ -24,6 +24,7 @@ export default function Course({
 
         router.delete("/courses/" + course.formatted_title + "/" + "delete");
     };
+
     return (
         <General auth={auth}>
             <Head title={`${course.title}`} />
@@ -69,7 +70,7 @@ export default function Course({
                             {course.category.split("_").join(" ")}
                         </p>
                         <div className="w-full max-w-lg mx-auto mb-10">
-                            <Image src={"/assets/img/WebDev.jpg"} />
+                            <Image src={`/assets/img/${course.category}.jpg`} />
                         </div>
                         <div className="flex justify-around mb-10 max-w-lg mx-auto">
                             <FollowButton
