@@ -169,7 +169,7 @@ class ChapterController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:120',
-            'chap_content' => 'required|string',
+            'chap_content' => 'required',
             'description' => 'required|string|max:180'
         ]);
 

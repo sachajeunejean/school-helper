@@ -38,7 +38,6 @@ export default function EditorDislpay({ setChapterContent, chapterContent }) {
         setChapterContent(savedData);
     }, []);
 
-    console.log(chapterContent);
 
     return (
         <div className="w-full">

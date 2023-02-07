@@ -18,11 +18,13 @@ export default function UpdateChapter({ auth }) {
         _method: "patch",
     });
 
-    const [chapterContent, setChapterContent] = useState(chapter.content);
+    const [chapterContent, setChapterContent] = useState(
+        JSON.parse(chapter.content)
+    );
 
     function submit(e) {
         e.preventDefault();
-
+        setData("chap_content", JSON.stringify(chapterContent));
         post(
             "/courses/" +
                 chapter.course.formatted_title +
@@ -34,8 +36,7 @@ export default function UpdateChapter({ auth }) {
             }
         );
     }
-    console.log(chapterContent);
-
+    console.log(JSON.stringify(data.chap_content));
     return (
         <General auth={auth}>
             <Head title={`${chapter.title} - Edit`} />
@@ -72,18 +73,24 @@ export default function UpdateChapter({ auth }) {
                             value="Description"
                         />
                     </div>
-                    <div className="relative">
-                        <TextInput
-                            handleChange={(e) =>
-                                setData("chap_content", e.target.value)
-                            }
-                            type="text"
-                            name="chap_content"
-                            value={data.chap_content}
-                        />
-                        <InputLabel forInput="chap_content" value="Content" />
-                    </div>
-                    <EditorEdit setData={setData} />
+
+                    <EditorEdit
+                        setData={setData}
+                        setChapterContent={setChapterContent}
+                        chapterContent={chapterContent}
+                    />
+                    <TextInput
+                        handleChange={(e) =>
+                            setData(
+                                "chap_content",
+                                JSON.stringify(e.target.value)
+                            )
+                        }
+                        type="text"
+                        name="chap_content"
+                        value={JSON.stringify(data.chap_content)}
+                    />
+
                     <div className="flex justify-between">
                         <a
                             href={`/courses/${chapter.course.formatted_title}/${chapter.formatted_title}`}
