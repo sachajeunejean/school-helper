@@ -1,6 +1,8 @@
 import { Navigation, Pagination, A11y, Autoplay, Keyboard } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "@/Components/Card";
+import DashboardCard from "@/Components/DashboardCard";
+
 // import { BiRightArrowCircle, BiLeftArrowCircle } from "react-icons/bi";
 
 import "swiper/css";
@@ -54,7 +56,7 @@ export default ( { courses } ) => {
 
                             return (
                                 <SwiperSlide key={key}>
-                                    <Card
+                                    <DashboardCard
                                         title={course.title}
                                         category={course.category}
                                         formatted_title={course.formatted_title}

@@ -32,21 +32,16 @@ export default function NewCourse({ auth, errorMessage }) {
 
     const [errorField, setErrorField] = useState("");
     const [showErrorField, setShowErrorField] = useState(false);
-    
-    function hasSpecialChar(str) {
-        var regex = /^[a-zA-Z0-9\u00C0-\u00FF]+$/;
-        return !regex.test(str);
-    }
 
     function submit(e) {
         e.preventDefault();
 
         const data = new FormData(e.target);
         
-        if (data.get('title').length > 60) {
+        if (data.get('title').length > 120) {
             setErrorField('The course title is too long.');
             return;
-        } else if (data.get('description').length > 255) {
+        } else if (data.get('description').length > 180) {
             setErrorField('The course description is too long.');
             return;
         } else if (data.get('category') === null) {

@@ -46,9 +46,9 @@ class ChapterController extends Controller
     public function store(string $title, Request $request): Redirector|RedirectResponse|Application
     {
         $request->validate([
-            'title' => 'required|string|max:50',
+            'title' => 'required|string|max:120',
             'chap_content' => 'required|string',
-            'description' => 'required|string|max:300'
+            'description' => 'required|string|max:180'
         ]);
 
         //récupérer le dernier chapitre crée
@@ -178,9 +178,9 @@ class ChapterController extends Controller
     public function update(Request $request, Chapter $chapters): Application|RedirectResponse|Redirector
     {
         $request->validate([
-            'title' => 'required|string|max:50',
+            'title' => 'required|string|max:120',
             'chap_content' => 'required|string',
-            'description' => 'required|string|max:300'
+            'description' => 'required|string|max:180'
         ]);
 
         $courseFormattedTitle = explode('/', url()->current())[4];

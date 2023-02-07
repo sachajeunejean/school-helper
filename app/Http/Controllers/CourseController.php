@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Response;
 use Inertia\Inertia;
 
@@ -58,7 +57,7 @@ class CourseController extends Controller
     public function store(Request $request): Redirector|Response|RedirectResponse|Application
     {
         $request->validate([
-            'title' => 'required|string|max:60',
+            'title' => 'required|string|max:120',
             'description' => 'required|string|max:180',
             'category' => 'required|string',
         ]);
@@ -97,7 +96,6 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param string $title
-     * @param int|null $token
      * @return Response
      */
     public function show(string $title): Response
@@ -194,7 +192,7 @@ class CourseController extends Controller
     public function update(string $title, Request $request): RedirectResponse|Application|Redirector
     {
         $request->validate([
-            'title' => 'required|string|max:60',
+            'title' => 'required|string|max:120',
             'description' => 'required|string|max:180',
             'category' => 'required|string',
         ]);

@@ -49,7 +49,7 @@ export default function UpdateCourse({ auth }) {
     function submit(e) {
         e.preventDefault();
         
-        if (data.title.length > 60) {
+        if (data.title.length > 120) {
             setErrorField('The course title is too long.');
             setShowErrorField(true);
             return;

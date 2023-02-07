@@ -11,9 +11,7 @@ import { BiAlignLeft } from "react-icons/bi";
 
 export default function Card({
     formatted_title,
-    link,
     title,
-    likes,
     description,
     category,
     imgSrc,

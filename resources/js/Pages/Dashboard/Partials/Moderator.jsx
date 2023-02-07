@@ -3,6 +3,7 @@ import Dropdown from "@/Components/Dropdown";
 import { IoRemoveCircleOutline } from "react-icons/io5";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
+import DashboardSwiperSlider from "@/Components/DashboardSwiperSlider";
 
 export default function Moderator( { user, followedCourses, createdCourses, feedbacksGiven, coursesFeedbacks } ) {
 
@@ -54,7 +55,7 @@ export default function Moderator( { user, followedCourses, createdCourses, feed
                 <div className="p-6 text-gray-900">My created courses</div>
                 <a href="/courses/new" className={`inline-flex items-center justify-center mx-5 my-5 px-2 py-1 text-xs bg-indigo-800 border border-transparent font-semibold text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none transition ease-in-out duration-150`}>NEW COURSE</a>
             </div>
-            <SwiperSlider courses={createdCourses} />
+            <DashboardSwiperSlider courses={createdCourses} />
             <div className="flex justify-between bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div className="p-6 text-gray-900">Add new chapters</div>
             </div>
@@ -85,7 +86,7 @@ export default function Moderator( { user, followedCourses, createdCourses, feed
             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div className="p-6 text-gray-900">My followed courses</div>
             </div>
-            <SwiperSlider courses={followedCourses} />
+            <DashboardSwiperSlider courses={followedCourses} />
             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div className="p-6 text-gray-900">My courses feedbacks</div>
             </div>
