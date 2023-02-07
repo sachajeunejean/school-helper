@@ -22,8 +22,8 @@ export default function About({ auth }) {
                 <div className="py-16 lg:py-28 min-h-[calc(100vh-125px)]">
                     <div data-aos="fade-left">
                         <h2 className="mx-auto w-[90%] text-center text-medium text-4xl text-gray-700 font-semibold">
-                            Learn more about{" "}
-                            <span className="text-indigo-800">us</span> ...
+                            <span className="text-indigo-800">Learn more</span>{" "}
+                            about us...
                         </h2>
                     </div>
                     <div
@@ -39,7 +39,7 @@ export default function About({ auth }) {
                             ></Player>
                         </div>
                         <div data-aos="fade-right" data-aos-delay="200">
-                            <p className="text-medium text-lg mt-5 mb-5">
+                            <p className="text-medium text-lg mt-5 mb-5 text-gray-700">
                                 At{" "}
                                 <span className="text-indigo-800">
                                     School Helper
@@ -75,10 +75,12 @@ export default function About({ auth }) {
                                 <span className="text-indigo-800">time</span>.
                             </p>
                             <div className="flex justify-center mt-20">
-                                <PrimaryButton children={"CONTACT US"}>
-                                    <IoMail size={20} className="mr-7" />
-                                    <p className="text-sm">Contact Us</p>
-                                </PrimaryButton>
+                                <a href={route("contact")}>
+                                    <PrimaryButton children={"CONTACT US"}>
+                                        <IoMail size={20} className="mr-7" />
+                                        <p className="text-sm">Contact Us</p>
+                                    </PrimaryButton>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -91,7 +93,7 @@ export default function About({ auth }) {
 
                 <div className="flex mx-auto w-full" data-aos="fade-bottom">
                     <h2 className="mx-auto text-medium pt-10 text-4xl text-gray-700 font-semibold">
-                        Our Team
+                        Our <span className="text-indigo-800">Team</span>
                     </h2>
                 </div>
 
