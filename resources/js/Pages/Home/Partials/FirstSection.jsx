@@ -43,13 +43,13 @@ export default function FirstSection({
                     <p className=" text-gray-500 leading-9">{text}</p>
                     <div className="hidden xl:flex  justify-center xl:my-14 pt-10 gap-10 2xl:gap-20">
                         <a href={hrefBtn} className="flex items-center">
-                            <PrimaryButton>
+                            <PrimaryButton className="w-[230px]">
                                 {iconBtn}
                                 {textBtn}
                             </PrimaryButton>
                         </a>
                         <a href={hrefBtnBis} className="flex items-center">
-                            <PrimaryButton>
+                            <PrimaryButton className="w-[230px] justify-between">
                                 {iconBtnBis}
                                 {textBtnBis}
                             </PrimaryButton>
@@ -64,13 +64,13 @@ export default function FirstSection({
                 </div>
                 <div className="flex flex-col justify-center gap-4  mx-auto md:flex-row xl:hidden">
                     <a href={hrefBtn} className="flex items-center">
-                        <PrimaryButton>
+                        <PrimaryButton className="w-[230px]">
                             {iconBtn}
                             {textBtn}
                         </PrimaryButton>
                     </a>
-                    <a className="flex items-center">
-                        <PrimaryButton>
+                    <a href={hrefBtnBis} className="flex items-center">
+                        <PrimaryButton className="w-[230px] justify-between">
                             {iconBtnBis}
                             {textBtnBis}
                         </PrimaryButton>
