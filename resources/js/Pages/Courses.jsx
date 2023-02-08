@@ -108,7 +108,7 @@ export default function Courses({ auth, courses }) {
                     </div>
                     <div
                         data-aos="fade-up"
-                        className="grid place-items-center md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-5 gap-8 lg:p-8"
+                        className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 p-5 gap-8 lg:p-8"
                     >
                         {courses
                             .slice(firstValue, secondValue)
@@ -133,11 +133,7 @@ export default function Courses({ auth, courses }) {
                                                 category={course.category
                                                     .split("_")
                                                     .join(" ")}
-                                                imgSrc={
-                                                    "/assets/img/" +
-                                                    course.category +
-                                                    ".jpg"
-                                                }
+                                                imgSrc={`/assets/img/${course.category}.jpg`}
                                                 description={course.description}
                                                 formatted_title={
                                                     course.formatted_title
