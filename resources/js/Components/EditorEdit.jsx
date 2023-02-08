@@ -5,7 +5,11 @@ import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
 import edjsParser from "editorjs-parser";
 
-export default function EditorEdit({ setData }) {
+export default function EditorEdit({
+    setChapterContent,
+    chapterContent,
+    setData,
+}) {
     // init editor js
     const ReactEditorJS = createReactEditorJS();
 
@@ -30,8 +34,14 @@ export default function EditorEdit({ setData }) {
 
     const handleChange = useCallback(async () => {
         const savedData = await editorCore.current.save();
-        const formattedChapterContent = parser.parse(savedData);
-        setData("chap_content", formattedChapterContent);
+        setData("chap_content", savedData);
+
+        // parsing into html
+        // const formattedChapterContent = parser.parse(savedData);
+        // console.log(savedData, formattedChapterContent);
+
+        // savedData = object
+        setChapterContent(savedData);
     }, []);
 
     return (
@@ -41,54 +51,7 @@ export default function EditorEdit({ setData }) {
                 onInitialize={handleInitialize}
                 onReady={handleReady}
                 onChange={handleChange}
-                data={{
-                    blocks: [
-                        {
-                            type: "header",
-                            data: {
-                                text: "Discovering JavaScript",
-                                level: 2,
-                            },
-                        },
-                        {
-                            type: "paragraph",
-                            data: {
-                                text: "Hey. Meet the new Editor. On this page you can see it in action — try to edit this text. Source code of the page contains the example of connection and configuration.",
-                            },
-                        },
-                        {
-                            type: "header",
-                            data: {
-                                text: "Key features",
-                                level: 3,
-                            },
-                        },
-                        {
-                            type: "list",
-                            data: {
-                                style: "unordered",
-                                items: [
-                                    "It is a block-styled editor",
-                                    "It returns clean data output in JSON",
-                                    "Designed to be extendable and pluggable with a simple API",
-                                ],
-                            },
-                        },
-                        {
-                            type: "header",
-                            data: {
-                                text: "What does it mean «block-styled editor»",
-                                level: 3,
-                            },
-                        },
-                        {
-                            type: "paragraph",
-                            data: {
-                                text: 'Workspace in classic editors is made of a single contenteditable element, used to create different HTML markups. Editor.js <mark class="cdx-marker">workspace consists of separate Blocks: paragraphs, headings, images, lists, quotes, etc</mark>. Each of them is an independent contenteditable element (or more complex structure) provided by Plugin and united by Editor\'s Core.',
-                            },
-                        },
-                    ],
-                }}
+                data={chapterContent}
             />
         </div>
     );

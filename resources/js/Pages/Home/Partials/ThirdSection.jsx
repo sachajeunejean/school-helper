@@ -22,12 +22,14 @@ export default function ThirdSection({ title, subtitle, text, img }) {
                     data-aos-anchor-placement="bottom-bottom"
                 >
                     <a href={route("register")} className="flex items-center">
-                        <PrimaryButton>
-                            <IoArrowRedoOutline
-                                size={20}
-                                style={{ marginRight: "12px" }}
-                            />
-                            Sign up
+                        <PrimaryButton className="gap-8 lg:gap">
+                            <IoArrowRedoOutline size={20} />
+                            <p>
+                                Register{" "}
+                                <span className="hidden lg:inline-block">
+                                    to School Helper
+                                </span>
+                            </p>
                         </PrimaryButton>
                     </a>
                 </div>

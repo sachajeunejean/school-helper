@@ -4,8 +4,8 @@ import {
     IoInformationCircleOutline,
     IoFileTrayFull,
     IoMail,
-    IoSearchOutline,
 } from "react-icons/io5";
+import { MdOutlineLogin } from "react-icons/md";
 import FirstSection from "@/Pages/Home/Partials/FirstSection";
 import SecondSection from "@/Pages/Home/Partials/SecondSection";
 import ThirdSection from "@/Pages/Home/Partials/ThirdSection";
@@ -50,8 +50,9 @@ export default function Home({ auth }) {
                     hrefBtn={route("courses")}
                     textBtn={<p className="text-sm">See all courses</p>}
                     iconBtn={<IoFileTrayFull size={20} className="mr-7" />}
-                    textBtnBis={<p className="text-sm">Search courses</p>}
-                    iconBtnBis={<IoSearchOutline size={20} className="mr-7" />}
+                    hrefBtnBis={route("login")}
+                    textBtnBis={<p className="text-sm">Start learning</p>}
+                    iconBtnBis={<MdOutlineLogin size={20} />}
                 />
 
                 <hr className="h-[2px] bg-gray-200" />
@@ -78,17 +79,17 @@ export default function Home({ auth }) {
                             style={{ scale: ".8" }}
                         ></Player>
                     }
-                    hrefBtn={route("about")}
-                    textBtn={<p className="text-sm">About Us</p>}
-                    iconBtn={
+                    hrefBtn={route("contact")}
+                    textBtn={<p className="text-sm">Contact Us</p>}
+                    iconBtn={<IoMail size={20} className="mr-7" />}
+                    hrefBtnBis={route("about")}
+                    textBtnBis={<p className="text-sm">About Us</p>}
+                    iconBtnBis={
                         <IoInformationCircleOutline
                             size={20}
-                            className="mr-7"
+                            className="mr-8"
                         />
                     }
-                    hrefBtnBis={route("contact")}
-                    textBtnBis={<p className="text-sm">Contact Us</p>}
-                    iconBtnBis={<IoMail size={20} className="mr-7" />}
                 />
                 <hr className="h-[2px] bg-gray-200" />
 

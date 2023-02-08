@@ -23,25 +23,28 @@ export default function NewChapter({ auth }) {
         e.preventDefault();
         const data = new FormData(e.target);
 
-        data.delete('chap_content');
-        data.append('chap_content', JSON.stringify(chapterContent));
+        data.delete("chap_content");
+        data.append("chap_content", JSON.stringify(chapterContent));
 
-        if (data.get('title').length > 120) {
-            setErrorField('The chapter title is too long.');
+        if (data.get("title").length > 120) {
+            setErrorField("The chapter title is too long.");
             setShowErrorField(true);
             return;
-        } else if (data.get('description').length > 180) {
-            setErrorField('The chapter description is too long.');
+        } else if (data.get("description").length > 180) {
+            setErrorField("The chapter description is too long.");
             setShowErrorField(true);
             return;
-        } else if (data.get('chap_content').length === 0) {
-            setErrorField('The chapter content field has to be filled.')
+        } else if (data.get("chap_content").length === 0) {
+            setErrorField("The chapter content field has to be filled.");
             setShowErrorField(true);
             return;
-        } else if (data.get('title').length === 0 || data.get('description').length === 0) {
-                setErrorField('All the fields has to be filled.');
-                setShowErrorField(true);
-                return;
+        } else if (
+            data.get("title").length === 0 ||
+            data.get("description").length === 0
+        ) {
+            setErrorField("All the fields has to be filled.");
+            setShowErrorField(true);
+            return;
         }
 
         router.post(
@@ -52,11 +55,29 @@ export default function NewChapter({ auth }) {
 
     return (
         <General auth={auth}>
-            <div className={showErrorField ? "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" : "hidden"} role="alert">
+            <div
+                className={
+                    showErrorField
+                        ? "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                        : "hidden"
+                }
+                role="alert"
+            >
                 <strong className="font-bold">Error: </strong>
                 <span className="block sm:inline">{errorField}</span>
-                <span className="absolute top-0 bottom-0 right-0 px-4 py-3" onClick={() => setShowErrorField(false)}>
-                    <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                <span
+                    className="absolute top-0 bottom-0 right-0 px-4 py-3"
+                    onClick={() => setShowErrorField(false)}
+                >
+                    <svg
+                        className="fill-current h-6 w-6 text-red-500"
+                        role="button"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                    >
+                        <title>Close</title>
+                        <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
                 </span>
             </div>
             <Head title="New Chapter" />
@@ -78,10 +99,6 @@ export default function NewChapter({ auth }) {
                             name="title"
                             className="mt-1 block w-full"
                             placeholder="title"
-                            // function is required for the component textinputcc
-                            handleChange={() => {
-                                return;
-                            }}
                         />
                         <InputLabel forInput="title" value="Title" />
                     </div>
@@ -92,10 +109,6 @@ export default function NewChapter({ auth }) {
                             name="description"
                             className="mt-1 block w-full"
                             placeholder="description"
-                            // function is required for the component textinput
-                            handleChange={() => {
-                                return;
-                            }}
                         />
                         <InputLabel
                             forInput="description"
@@ -110,12 +123,13 @@ export default function NewChapter({ auth }) {
                             name="chap_content"
                             placeholder="chap_content"
                             value={chapterContent}
-                            className="peer p-4 h-36 w-full rounded-md shadow-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                            className="hidden"
+                            readOnly
                         ></textarea>
                         <InputLabel forInput="chap_content" value="Content" />
                     </div>
                     {/* Editor JS */}
-                    <div className="border-2 rounded-lg shadow-lg bg-gray-50 px-5">
+                    <div className="border-2 rounded-lg shadow-lg bg-gray-100 px-5">
                         <Editor
                             setChapterContent={setChapterContent}
                             chapterContent={chapterContent}

@@ -17,9 +17,8 @@ export default function Course({
     sessionUser,
     isLiked,
     likes,
-    isFollowed
+    isFollowed,
 }) {
-
     const onDelete = (e) => {
         e.preventDefault();
 
@@ -70,7 +69,7 @@ export default function Course({
                         <p className="capitalize px-3 py-1 mb-5 bg-gray-500 text-gray-100 w-fit rounded-full mx-auto">
                             {course.category.split("_").join(" ")}
                         </p>
-                        <div className="w-full max-w-lg mx-auto mb-10">
+                        <div className="w-full max-w-lg mx-auto mb-10 shadow-sm">
                             <Image src={`/assets/img/${course.category}.jpg`} />
                         </div>
                         <div className="flex justify-around mb-10 max-w-lg mx-auto">
@@ -93,8 +92,10 @@ export default function Course({
                     </div>
                 </div>
                 <div className="mx-auto w-10/12 xl:w-1/2 xl:float-right xl:mr-14 2xl:w-7/12">
-                    <h3 className="underline text-lg text-center pt-10 xl:pt-4">
-                        {chapters.length > 0 ? "" : "No chapter"}
+                    <h3 className="text-xl text-center font-bold pt-16">
+                        {chapters.length > 0
+                            ? ""
+                            : "Looks like there is no chapter yet..."}
                     </h3>
                     <div>
                         <ol>

@@ -38,18 +38,21 @@ export default function NewCourse({ auth, errorMessage }) {
 
         const data = new FormData(e.target);
 
-        if (data.get('title').length > 120) {
-            setErrorField('The course title is too long.');
+        if (data.get("title").length > 120) {
+            setErrorField("The course title is too long.");
             return;
-        } else if (data.get('description').length > 180) {
-            setErrorField('The course description is too long.');
+        } else if (data.get("description").length > 180) {
+            setErrorField("The course description is too long.");
             return;
-        } else if (data.get('category') === null) {
-            setErrorField('The category field has to be filled.')
+        } else if (data.get("category") === null) {
+            setErrorField("The category field has to be filled.");
             return;
-        } else if (data.get('title').length === 0 || data.get('description').length === 0) {
-                setErrorField('All the fields has to be filled.');
-                return;
+        } else if (
+            data.get("title").length === 0 ||
+            data.get("description").length === 0
+        ) {
+            setErrorField("All the fields has to be filled.");
+            return;
         }
 
         router.post("/courses/new", data);
@@ -142,18 +145,18 @@ export default function NewCourse({ auth, errorMessage }) {
                             <div className="relative">
                                 <select
                                     name="category"
-                                    className="w-full rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
+                                    className="capitalize w-full rounded-md bg-gray-100 border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-indigo-700  focus:ring-indigo-700"
                                 >
-                                    <option selected disabled hidden>
+                                    <option defaultValue hidden>
                                         Choose the category
                                     </option>
                                     {subjects.map((subject, key) => (
-                                        <option value={subject} key={key}>
-                                            {subject.charAt(0).toUpperCase() +
-                                                subject
-                                                    .slice(1)
-                                                    .split("_")
-                                                    .join(" ")}
+                                        <option
+                                            className="capitalize"
+                                            value={subject}
+                                            key={key}
+                                        >
+                                            {subject.split("_").join(" ")}
                                         </option>
                                     ))}
                                 </select>
