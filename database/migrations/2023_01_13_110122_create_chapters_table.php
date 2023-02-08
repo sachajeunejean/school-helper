@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('chapters', function (Blueprint $table) {
-            $table->id();
+            $table->id()->primary();
             $table->string('title');
             $table->string('formatted_title');
             $table->string('description');
