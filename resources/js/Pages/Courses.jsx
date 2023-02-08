@@ -104,7 +104,7 @@ export default function Courses({ auth, courses }) {
                                         <div
                                             key={key}
                                             ref={lastCourseElementRef}
-                                            className={filterCategory ? (filterCategory === course.category ? "" : "hidden") : ""}
+                                            className={ course.status === 'accepted' ? (filterCategory ? (filterCategory === course.category ? "" : "hidden") : "") : "hidden"}
                                         >
                                             <Card
                                                 title={course.title}
@@ -127,7 +127,7 @@ export default function Courses({ auth, courses }) {
                                     return (
                                         <div
                                             key={key}
-                                            className={filterCategory ? (filterCategory === course.category ? "" : "hidden") : ""}
+                                            className={ course.status === 'accepted' ? (filterCategory ? (filterCategory === course.category ? "" : "hidden") : "") : "hidden"}
                                         >
                                             <Card
                                                 title={course.title}

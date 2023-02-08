@@ -1,5 +1,6 @@
 import { Navigation, Pagination, A11y, Autoplay, Keyboard } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Card from "@/Components/Card";
 // import { BiRightArrowCircle, BiLeftArrowCircle } from "react-icons/bi";
 
 import "swiper/css";
