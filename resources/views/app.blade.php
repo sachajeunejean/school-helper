@@ -15,6 +15,8 @@
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="/assets/School_helper_logo.png" />
 
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
 
         <!-- Scripts -->
         @routes
