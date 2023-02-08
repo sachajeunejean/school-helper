@@ -23,7 +23,7 @@ export default function Modal({
     }[maxWidth];
 
     return (
-        <Transition show={show} as={Fragment} leave="duration-200">
+        <Transition show={show} as={Fragment} leave="duration-400">
             <Dialog
                 as="div"
                 id="modal"
@@ -39,7 +39,7 @@ export default function Modal({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="absolute inset-0 bg-gray-500/75" />
+                    <div className="absolute inset-0 bg-gray-500/80" />
                 </Transition.Child>
 
                 <Transition.Child
@@ -52,7 +52,7 @@ export default function Modal({
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                     <Dialog.Panel
-                        className={`mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto bg-transparent p-2 ${maxWidthClass}`}
+                        className={`mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all w-3/4 mx-auto  p-2 ${maxWidthClass}`}
                     >
                         {children}
                     </Dialog.Panel>

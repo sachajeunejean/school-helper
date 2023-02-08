@@ -44,6 +44,16 @@ return [
             'throw' => false,
         ],
 
+        'public_uploads' => [
+            'driver' => 'local',
+            'root' => '/resources/images',
+        ],
+
+        'resources_views' => [
+            'driver' => 'local',
+            'root' => base_path('resources/'),
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

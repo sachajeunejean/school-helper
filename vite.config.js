@@ -8,6 +8,12 @@ export default defineConfig({
             input: 'resources/js/app.jsx',
             refresh: true,
         }),
-        react(),
+        react({
+            babel: {
+                parserOpts: {
+                    plugins: ['decorators-legacy', 'classProperties']
+                }
+            }
+        }),
     ],
 });

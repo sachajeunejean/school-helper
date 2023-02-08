@@ -21,7 +21,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('courses')
                 ->constrained()
-                ->onUpdate('cascade')
                 ->onDelete('cascade');
 
             $table->bigInteger('id_user')->unsigned();
@@ -29,15 +28,13 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->constrained()
-                ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->bigInteger('id_feedback')->unsigned();
-            $table->foreign('id_feedback')
+            $table->bigInteger('id_comment')->unsigned();
+            $table->foreign('id_comment')
                 ->references('id')
-                ->on('feedbacks')
+                ->on('comments')
                 ->constrained()
-                ->onUpdate('cascade')
                 ->onDelete('cascade');
 
             $table->timestamps();

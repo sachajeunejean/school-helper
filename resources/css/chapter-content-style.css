@@ -1,0 +1,134 @@
+.chapter-content__section>* {
+    margin-bottom: 0.8em;
+}
+
+.chapter-content__section>h1 {
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0em;
+    margin-right: 0;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.chapter-content__section>h2 {
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0em;
+    margin-right: 0;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.chapter-content__section>h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0em;
+    margin-right: 0;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.chapter-content__section>h4 {
+    display: block;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+    margin-left: 0em;
+    margin-right: 0;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.chapter-content__section>h5 {
+    display: block;
+    font-size: .83em;
+    margin-top: 1.67em;
+    margin-bottom: 1.67em;
+    margin-left: 0em;
+    margin-right: 0;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.chapter-content__section>h6 {
+    display: block;
+    font-size: .67em;
+    margin-top: 2.33em;
+    margin-bottom: 2.33em;
+    margin-left: 0em;
+    margin-right: 0;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.chapter-content__section>ul {
+    list-style-type: disc; 
+    list-style-position: inside; 
+    margin-left: 15px; 
+    line-height: 1.8;
+}
+
+.chapter-content__section>ol {
+    list-style-type: decimal; 
+    list-style-position: inside; 
+    margin-left: 15px; 
+    line-height: 1.8;
+}
+
+.chapter-content__section>li {
+    display: list-item;
+}
+
+.chapter-content__section>p {
+    line-height: 1.6;
+}
+
+.chapter-content__section>blockquote>cite {
+    color: gray;
+    margin-left: 12px;
+}
+
+.chapter-content__section>blockquote>p {
+    margin-bottom: 6px;
+    font-style: italic;
+}
+
+.chapter-content__section>blockquote>p::before{
+    content: open-quote;
+}
+
+
+.chapter-content__section>blockquote>p::after{
+    content: close-quote;
+}
+
+.chapter-content__section figcaption {
+    color: gray;
+    font-style: italic;
+    margin-top:6px;
+    margin-left: 12px;
+}
+
+.chapter-content__section figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+
+.chapter-content__section>table {
+    width:100%;
+    margin: 2em 0;
+}
+
+
+
+.chapter-content__section>table>tbody>tr>td {
+    text-align: center;
+    border: 1px solid gray;
+}

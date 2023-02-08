@@ -1,154 +1,323 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "@inertiajs/react";
+
 import NavLink from "@/Components/NavLink";
-import SearchButton from "@/Components/SearchButton";
 import Dropdown from "@/Components/Dropdown";
 import Modal from "@/Components/Modal";
 import SearchBar from "@/Components/SearchBar";
-import SecondaryButton from "@/Components/SecondaryButton";
 import {
-    IoHome,
     IoFileTrayFull,
-    IoPerson,
-    IoMail,
+    IoHome,
     IoInformationCircle,
+    IoMail,
+    IoPerson,
+    IoSearch,
+    IoLogOutOutline,
+    IoLogInOutline,
 } from "react-icons/io5";
-
-export default function NavBar() {
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { AiOutlineProfile } from "react-icons/ai";
+export default function NavBar({ auth, courses }) {
+    // Hide/Show modal (for searchbar)
     const [searching, setSearching] = useState(false);
+    // Hide/Show navbar mobile
+    const [navbar, setNavbar] = useState(false);
+
+    // get previous scroll position
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [visible, setVisible] = useState(true);
 
     const toggleModal = () => {
         setSearching(!searching);
     };
 
+    const handleScroll = () => {
+        const currentScrollPos = window.scrollY;
+
+        if (currentScrollPos > 80 && currentScrollPos > prevScrollPos) {
+            setVisible(false);
+        } else {
+            setVisible(true);
+        }
+
+        setPrevScrollPos(currentScrollPos);
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    });
+
+    // useEffect(() => {
+    //     const close = (e) => {
+    //         if (e.keyCode === 27) {
+    //             setSearching(false);
+    //         }
+    //     };
+
+    //     window.addEventListener("keydown", close);
+    //     return () => window.removeEventListener("keydown", close);
+    // });
+
     return (
-        <nav className="px-2 pt-4 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-            <div className="container flex items-center justify-between mx-auto ">
-                <a href="#" className="flex items-center">
-                    <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                        School Helper
-                    </span>
-                </a>
-                <button
-                    data-collapse-toggle="navbar-dropdown"
-                    type="button"
-                    className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="navbar-dropdown"
-                    aria-expanded="false"
-                >
-                    <span className="sr-only">Open main menu</span>
-                    <svg
-                        className="w-6 h-6"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
+        <nav
+            className={`w-full bg-white shadow sticky duration-300 z-50  ${
+                visible
+                    ? "top-0 lg:translate-y-0"
+                    : "top-0 lg:translate-y-[-100px]"
+            }`}
+        >
+            <div className="justify-between px-4 mx-auto lg:max-w-screen-2xl lg:items-center lg:flex lg:px-8">
+                <div>
+                    <div className="flex items-center justify-between py-3 lg:py-5 lg:block">
+                        <a
+                            href="/"
+                            className="flex items-center gap-2.5"
+                        >
+                            <img
+                                src="../../../assets/School_helper_logo.png"
+                                className="w-7"
+                                alt="School Helper Logo"
+                            />
+                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                                School Helper
+                            </span>
+                        </a>
+                        <div className="lg:hidden">
+                            <button
+                                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                                onClick={() => setNavbar(!navbar)}
+                            >
+                                {navbar ? (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                ) : (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M4 6h16M4 12h16M4 18h16"
+                                        />
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className={`flex-1 justify-center pb-3 mt-2 lg:block lg:pb-0 lg:mt-0  ${
+                            navbar ? "flex" : "hidden"
+                        }`}
                     >
-                        <path
-                            fillRule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clipRule="evenodd"
-                        ></path>
-                    </svg>
-                </button>
-                <div
-                    className="hidden w-full md:block md:w-auto "
-                    id="navbar-dropdown"
-                >
-                    <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
-                        <NavLink
-                            href={route("home")}
-                            active={route().current("home")}
-                        >
-                            <IoHome className="mr-2" />
-                            Home
-                        </NavLink>
-                        <NavLink
-                            href={route("courses")}
-                            active={route().current("courses")}
-                        >
-                            <IoFileTrayFull className="mr-2" />
-                            Courses
-                        </NavLink>
+                        <ul className="flex flex-col lg:flex-row space-y-8 lg:space-x-3 xl:space-x-8 2xl:space-x-12 lg:space-y-0">
+                            <NavLink
+                                href={route("home")}
+                                active={route().current("home")}
+                            >
+                                <IoHome className="mr-2" size={16} />
+                                Home
+                            </NavLink>
+                            <NavLink
+                                href={route("courses")}
+                                active={route().current("courses")}
+                            >
+                                <IoFileTrayFull className="mr-2" size={18} />
+                                Courses
+                            </NavLink>
+                            <NavLink
+                                href={route("about")}
+                                active={route().current("about")}
+                            >
+                                <IoInformationCircle
+                                    className="mr-2"
+                                    size={18}
+                                />
+                                About
+                            </NavLink>
+                            <NavLink
+                                href={route("contact")}
+                                active={route().current("contact")}
+                            >
+                                <IoMail className="mr-2" size={18} />
+                                Contact
+                            </NavLink>
+                            <div className="w-50% h-px lg:h-7 lg:w-px bg-gray-200"></div>
 
-                        <NavLink
-                            href={route("about")}
-                            active={route().current("about")}
-                        >
-                            <IoInformationCircle className="mr-2" />
-                            About
-                        </NavLink>
-                        <NavLink
-                            href={route("contact")}
-                            active={route().current("contact")}
-                        >
-                            <IoMail className="mr-2" />
-                            Contact
-                        </NavLink>
-                        <button type="button" onClick={toggleModal}>
-                            <SearchButton />
-                        </button>
-
-                        <div className="hidden sm:flex sm:items-center">
-                            <div className="relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <button
-                                            type="button"
-                                            className="inline-flex items-center border border-transparent text-sm font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                        >
-                                            <IoPerson className="mr-2" />
-                                            Profile
-                                            <svg
-                                                className="ml-2 -mr-0.5 h-4 w-4"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </Dropdown.Trigger>
-
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            My Profile
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("dashboard")}
-                                        >
-                                            My Dashboard
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
+                            <button
+                                type="button"
+                                id="searchBtn"
+                                onClick={toggleModal}
+                                className="flex lg:block focus-visible:outline-none"
+                            >
+                                <IoSearch
+                                    size={18}
+                                    color="gray"
+                                    className="mr-2 translate-y-1 lg:translate-y-0 focus:outline-none shadow-none"
+                                />
+                                <p className="text-gray-500 text-lg lg:hidden">
+                                    Search
+                                </p>
+                            </button>
+                            <div className="w-50% h-px lg:h-7 lg:w-px bg-gray-200"></div>
+                            {/* Mobile links */}
+                            <div className="lg:hidden flex flex-col space-y-8">
+                                {auth.user ? (
+                                    <>
+                                        <NavLink href={`/profile`}>
+                                            <IoPerson
+                                                className="mr-2"
+                                                size={18}
+                                            />
+                                            <p className="max-w-[200px] whitespace-nowrap overflow-hidden overflow-ellipsis">
+                                                {auth.user.username}
+                                            </p>
+                                        </NavLink>
+                                        <NavLink href={`/dashboard`}>
+                                            <AiOutlineProfile
+                                                className="mr-2"
+                                                size={18}
+                                            />
+                                            Dashboard
+                                        </NavLink>
+                                        <Link
                                             href={route("logout")}
                                             method="post"
                                             as="button"
+                                            className="inline-flex items-center px-1 pt-1 pb-1 border-b-2 border-transparent text-lg lg:text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                                         >
+                                            <IoLogOutOutline
+                                                className="mr-2"
+                                                size={18}
+                                            />
                                             Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
+                                        </Link>
+                                    </>
+                                ) : (
+                                    <>
+                                        <NavLink href={"/login"}>
+                                            <IoLogInOutline
+                                                className="mr-2"
+                                                size={18}
+                                            />
+                                            Login
+                                        </NavLink>
+                                        <NavLink href={"/login"}>
+                                            <IoPerson
+                                                className="mr-2"
+                                                size={18}
+                                            />
+                                            Register
+                                        </NavLink>
+                                    </>
+                                )}
                             </div>
-                        </div>
-                    </ul>
+                            {/* Desktop links */}
+                            <div className="sm:flex sm:items-center">
+                                <div className="hidden lg:flex ">
+                                    <Dropdown>
+                                        <Dropdown.Trigger>
+                                            <button
+                                                type="button"
+                                                className="inline-flex items-center border border-transparent text-lg lg:text-sm font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                <IoPerson
+                                                    className="mr-2"
+                                                    size={18}
+                                                />
+                                                <p className="translate-y-[2px] mr-2 max-w-[100px] whitespace-nowrap overflow-hidden overflow-ellipsis">
+                                                    {`${
+                                                        auth.user
+                                                            ? auth.user.username
+                                                            : "Profil"
+                                                    }`}
+                                                </p>
+                                                <MdKeyboardArrowDown
+                                                    size={20}
+                                                    className="translate-y-[1px]"
+                                                />
+                                            </button>
+                                        </Dropdown.Trigger>
+
+                                        <div
+                                            className={`${
+                                                auth.user ? "flex" : "hidden"
+                                            }`}
+                                        >
+                                            <Dropdown.Content>
+                                                <Dropdown.Link
+                                                    href={route("profile.edit")}
+                                                >
+                                                    My Profile
+                                                </Dropdown.Link>
+
+                                                <Dropdown.Link
+                                                    href={route("dashboard")}
+                                                >
+                                                    Dashboard
+                                                </Dropdown.Link>
+
+                                                <Dropdown.Link
+                                                    href={route("logout")}
+                                                    method="post"
+                                                    as="button"
+                                                >
+                                                    Log Out
+                                                </Dropdown.Link>
+                                            </Dropdown.Content>
+                                        </div>
+                                        <div
+                                            className={`${
+                                                auth.user ? "hidden" : "flex"
+                                            }`}
+                                        >
+                                            <Dropdown.Content>
+                                                <Dropdown.Link
+                                                    href={route("login")}
+                                                >
+                                                    Login
+                                                </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route("register")}
+                                                >
+                                                    Register
+                                                </Dropdown.Link>
+                                            </Dropdown.Content>
+                                        </div>
+                                    </Dropdown>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
+                <Modal
+                    // close={() => {
+                    //     toggleModal(false);
+                    // }}
+                    onClose={toggleModal}
+                    show={searching}
+                >
+                    <SearchBar toggleModal={toggleModal} />
+                </Modal>
             </div>
-            <Modal show={searching}>
-                <div className="flex justify-between">
-                    <SearchBar />
-                    <SecondaryButton
-                        onClick={toggleModal}
-                        className="bg-indigo-500 text-white hover:text-black"
-                    >
-                        Cancel
-                    </SecondaryButton>
-                </div>
-            </Modal>
         </nav>
     );
 }
