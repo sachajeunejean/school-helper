@@ -16,7 +16,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('courses')) {
             Schema::create('courses', function (Blueprint $table) {
-                $table->id()->primary();
+                $table->id();
                 $table->string('title')->unique();
                 $table->string('formatted_title')->unique();
                 $table->text('description');
