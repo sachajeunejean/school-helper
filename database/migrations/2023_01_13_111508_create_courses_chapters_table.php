@@ -16,7 +16,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('courses_chapters')) {
             Schema::create('courses_chapters', function (Blueprint $table) {
-                $table->id();
+                $table->id()->primary();
 
                 $table->bigInteger('id_course')->unsigned();
                 $table->foreign('id_course')
