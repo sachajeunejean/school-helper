@@ -15,7 +15,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('comments')) {
             Schema::create('comments', function (Blueprint $table) {
-                $table->id()->primary();
+                $table->id();
                 $table->string('content');
                 $table->timestamps();
             });

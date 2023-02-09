@@ -15,7 +15,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('chapters')) {
             Schema::create('chapters', function (Blueprint $table) {
-                $table->id()->primary();
+                $table->id();
                 $table->string('title');
                 $table->string('formatted_title');
                 $table->string('description');
