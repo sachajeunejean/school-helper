@@ -99,6 +99,9 @@ export default function NewChapter({ auth }) {
                             name="title"
                             className="mt-1 block w-full"
                             placeholder="title"
+                            handleChange={() => {
+                                return;
+                            }}
                         />
                         <InputLabel forInput="title" value="Title" />
                     </div>
@@ -109,6 +112,9 @@ export default function NewChapter({ auth }) {
                             name="description"
                             className="mt-1 block w-full"
                             placeholder="description"
+                            handleChange={() => {
+                                return;
+                            }}
                         />
                         <InputLabel
                             forInput="description"
