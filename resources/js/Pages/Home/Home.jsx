@@ -51,7 +51,7 @@ export default function Home({ auth }) {
                     textBtn={<p className="text-sm">See all courses</p>}
                     iconBtn={<IoFileTrayFull size={20} className="mr-7" />}
                     hrefBtnBis={ auth.user ? route("dashboard") : route('login') }
-                    textBtnBis={<p className="text-sm">{ auth.user ? "Dashboard" : "Start learning"}</p>}
+                    textBtnBis={<p className="text-sm">{ auth.user ? "Go to dashboard" : "Start learning"}</p>}
                     iconBtnBis={<MdOutlineLogin size={20} />}
                 />
 
