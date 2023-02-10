@@ -163,7 +163,6 @@ class CourseController extends Controller
             'isLiked' => $isLiked,
             'likes' => $likes,
             'isFollowed' => $isFollowed,
-            'owner' => $course->owner
         ]);
     }
 
