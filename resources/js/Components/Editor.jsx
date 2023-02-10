@@ -1,46 +1,74 @@
-import React, { useCallback, useRef } from "react";
-import { createReactEditorJS } from "react-editor-js";
-import { EDITOR_JS_TOOLS } from "@/utils/tools";
-import DragDrop from "editorjs-drag-drop";
-import Undo from "editorjs-undo";
+import EditorJS from "@editorjs/editorjs";
+import Header from "@editorjs/header";
+import Underline from "@editorjs/underline";
+import Marker from "@editorjs/marker";
+import Delimiter from "@editorjs/delimiter";
+import Quote from "@editorjs/quote";
+import Embed from "@editorjs/embed";
+import Table from "@editorjs/table";
+import List from "@editorjs/list";
+import SimpleImage from "@editorjs/simple-image";
 
 export default function Editor({ setChapterContent }) {
-    // init editor js
-    const ReactEditorJS = createReactEditorJS();
+    const editor = new EditorJS({
+        /**
+         * Id of Element that should contain Editor instance
+         */
+        holder: "editorjs",
+        tools: {
+            embed: Embed,
 
-    // handle initialization
-    const editorCore = useRef(null);
+            marker: {class: Marker, shortcut: "Ctrl+M"},
+            underline: {
+                class: Underline,
+                shortcut: "Ctrl+U",
+            },
 
-    const handleInitialize = useCallback((instance) => {
-        editorCore.current = instance;
-    }, []);
+            header: {
+                class: Header,
+                levels: [1, 2, 3, 4, 5, 6],
+                inlineToolbar: ["underline"],
+                config: {placeholder: "Enter a heading"},
+            },
+            list: {
+                class: List,
+                inlineToolbar: ["bold", "italic", "underline"],
+                config: {
+                    defaultStyle: "unordered",
+                    placeholder: "Enter a list",
+                },
+            },
 
-    // handle when ready
-    const handleReady = () => {
-        const editor = editorCore.current._editorJS;
-        new DragDrop(editor);
-        new Undo({ editor });
-    };
-
-    // handle when change
-
-    const handleChange = useCallback(async () => {
-        const savedData = await editorCore.current.save();
-        // console.log(savedData, formattedChapterContent);
-        
-        // savedData = object
-        setChapterContent(savedData);
-    }, []);
+            image: {class: SimpleImage, inlineToolbar: false},
+            quote: {
+                class: Quote,
+                inlineToolbar: false,
+                config: {
+                    quotePlaceholder: "Enter a quote",
+                    captionPlaceholder: "Quote's author",
+                },
+            },
+            table: {class: Table, inlineToolbar: true},
+            delimiter: Delimiter,
+        },
+        onReady: () => {
+            console.log("Editor.js is ready to work!");
+        },
+        onChange: (api, event) => {
+            editor
+                .save()
+                .then((outputData) => {
+                    setChapterContent(outputData);
+                })
+                .catch((error) => {
+                    console.log("Saving failed: ", error);
+                });
+        },
+    });
 
     return (
         <div className="w-full">
-            <ReactEditorJS
-                placeholder="Start creating your chapter !"
-                tools={EDITOR_JS_TOOLS}
-                onInitialize={handleInitialize}
-                onReady={handleReady}
-                onChange={handleChange}
-            />
+            <div id="editorjs"></div>
         </div>
     );
 }
