@@ -23,7 +23,6 @@
         @vite([
             'resources/js/app.jsx',
             "resources/js/Pages/{$page['component']}.jsx",
-            "https://requirejs.org/docs/release/2.3.5/minified/require.js"
         ])
         @inertiaHead
     </head>
