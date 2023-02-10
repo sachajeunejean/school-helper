@@ -31,7 +31,7 @@ export default function Course({
             {/* <p>{course.status}</p> */}
             <div className="min-h-[calc(100vh-128px)]">
                 <div className="relative px-5 md:px-10">
-                    {course.owner === auth.user.username && (
+                    {course.owner === auth.user.username ? (
                         <div className="absolute right-5 top-5">
                             <Dropdown>
                                 <Dropdown.Trigger>
@@ -61,7 +61,7 @@ export default function Course({
                                 </Dropdown.Content>
                             </Dropdown>
                         </div>
-                    )}
+                    ) : ""}
                     <div className="xl:float-left xl:fixed xl:mt-6 xl:w-1/3">
                         <h2 className="capitalize text-2xl pt-5 pb-5 text-center font-bold mx-auto w-4/6 sm:w-5/6">
                             {course.title}
