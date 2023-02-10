@@ -162,7 +162,8 @@ class CourseController extends Controller
             'sessionUser' => Auth::check() ? Auth::user() : false,
             'isLiked' => $isLiked,
             'likes' => $likes,
-            'isFollowed' => $isFollowed
+            'isFollowed' => $isFollowed,
+            'owner' => $course->owner
         ]);
     }
 

@@ -18,6 +18,7 @@ export default function Course({
     isLiked,
     likes,
     isFollowed,
+    owner
 }) {
     const onDelete = (e) => {
         e.preventDefault();
@@ -31,7 +32,7 @@ export default function Course({
             {/* <p>{course.status}</p> */}
             <div className="min-h-[calc(100vh-128px)]">
                 <div className="relative px-5 md:px-10">
-                    {course.owner === auth.user.username && (
+                    {owner === auth.user.username && (
                         <div className="absolute right-5 top-5">
                             <Dropdown>
                                 <Dropdown.Trigger>
