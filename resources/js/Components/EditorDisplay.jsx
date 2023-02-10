@@ -1,54 +1,86 @@
-import React, { useCallback, useRef } from "react";
-import { createReactEditorJS } from "react-editor-js";
-import { EDITOR_JS_TOOLS } from "@/utils/tools";
-import DragDrop from "editorjs-drag-drop";
-import Undo from "editorjs-undo";
-import edjsParser from "editorjs-parser";
+import { useEffect, useRef } from "react";
+import EditorJS from "@editorjs/editorjs";
+import Header from "@editorjs/header";
+import Underline from "@editorjs/underline";
+import Marker from "@editorjs/marker";
+import Delimiter from "@editorjs/delimiter";
+import Quote from "@editorjs/quote";
+import Embed from "@editorjs/embed";
+import Table from "@editorjs/table";
+import List from "@editorjs/list";
+import SimpleImage from "@editorjs/simple-image";
 
-export default function EditorDislpay({ setChapterContent, chapterContent }) {
-    // init editor js
-    const ReactEditorJS = createReactEditorJS();
-
-    // parser
-    const parser = new edjsParser();
-
-    // handle initialization
+export default function Editor({ setChapterContent, chapterContent }) {
     const editorCore = useRef(null);
-
-    const handleInitialize = useCallback((instance) => {
-        editorCore.current = instance;
+    // This will run only once
+    useEffect(() => {
+        if (!editorCore.current) {
+            initEditor();
+        }
+        return () => {
+            editorCore.current.destroy();
+            editorCore.current = null;
+        };
     }, []);
 
-    // handle when ready
-    const handleReady = () => {
-        const editor = editorCore.current._editorJS;
-        new DragDrop(editor);
-        new Undo({ editor });
+    const initEditor = () => {
+        const editor = new EditorJS({
+            holder: "editorjs",
+            data: chapterContent,
+            onReady: () => {
+                editorCore.current = editor;
+            },
+
+            onChange: async () => {
+                const content = await editor.save();
+                // Put your logic here to save this data to your DB
+                setChapterContent(content);
+            },
+            autofocus: true,
+            tools: {
+                embed: Embed,
+
+                marker: { class: Marker, shortcut: "Ctrl+M" },
+                underline: {
+                    class: Underline,
+                    shortcut: "Ctrl+U",
+                },
+
+                header: {
+                    class: Header,
+                    levels: [1, 2, 3, 4, 5, 6],
+                    inlineToolbar: ["underline"],
+                    config: { placeholder: "Enter a heading" },
+                },
+                list: {
+                    class: List,
+                    inlineToolbar: ["bold", "italic", "underline"],
+                    config: {
+                        defaultStyle: "unordered",
+                        placeholder: "Enter a list",
+                    },
+                },
+
+                image: { class: SimpleImage, inlineToolbar: false },
+                quote: {
+                    class: Quote,
+                    inlineToolbar: false,
+                    config: {
+                        quotePlaceholder: "Enter a quote",
+                        captionPlaceholder: "Quote's author",
+                    },
+                },
+                table: { class: Table, inlineToolbar: true },
+                delimiter: Delimiter,
+            },
+
+            readOnly: true,
+        });
     };
-
-    // handle when change
-
-    const handleChange = useCallback(async () => {
-        const savedData = await editorCore.current.save();
-        // parsing into html
-        // const formattedChapterContent = parser.parse(savedData);
-        // console.log(savedData, formattedChapterContent);
-
-        // savedData = object
-        setChapterContent(savedData);
-    }, []);
-
 
     return (
         <div className="w-full">
-            <ReactEditorJS
-                tools={EDITOR_JS_TOOLS}
-                onInitialize={handleInitialize}
-                onReady={handleReady}
-                onChange={handleChange}
-                data={chapterContent}
-                readOnly
-            />
+            <div id="editorjs"></div>
         </div>
     );
 }
