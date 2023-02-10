@@ -1,4 +1,7 @@
+import React, { useCallback, useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
+import DragDrop from "editorjs-drag-drop";
+import Undo from "editorjs-undo";
 import Header from "@editorjs/header";
 import Underline from "@editorjs/underline";
 import Marker from "@editorjs/marker";
@@ -10,61 +13,71 @@ import List from "@editorjs/list";
 import SimpleImage from "@editorjs/simple-image";
 
 export default function Editor({ setChapterContent }) {
-    const editor = new EditorJS({
-        /**
-         * Id of Element that should contain Editor instance
-         */
-        holder: "editorjs",
-        tools: {
-            embed: Embed,
+    const editorCore = useRef(null);
 
-            marker: {class: Marker, shortcut: "Ctrl+M"},
-            underline: {
-                class: Underline,
-                shortcut: "Ctrl+U",
-            },
+    // This will run only once
+    useEffect(() => {
+        if (!editorCore.current) {
+            initEditor();
+        }
+        return () => {
+            editorCore.current.destroy();
+            editorCore.current = null;
+        };
+    }, []);
 
-            header: {
-                class: Header,
-                levels: [1, 2, 3, 4, 5, 6],
-                inlineToolbar: ["underline"],
-                config: {placeholder: "Enter a heading"},
+    const initEditor = () => {
+        const editor = new EditorJS({
+            holder: "editorjs",
+            onReady: () => {
+                editorCore.current = editor;
+                new DragDrop(editor);
+                new Undo({ editor });
             },
-            list: {
-                class: List,
-                inlineToolbar: ["bold", "italic", "underline"],
-                config: {
-                    defaultStyle: "unordered",
-                    placeholder: "Enter a list",
+            onChange: async () => {
+                const content = await editor.save();
+                // Put your logic here to save this data to your DB
+                setChapterContent(content);
+            },
+            autofocus: true,
+            tools: {
+                embed: Embed,
+
+                marker: { class: Marker, shortcut: "Ctrl+M" },
+                underline: {
+                    class: Underline,
+                    shortcut: "Ctrl+U",
                 },
-            },
 
-            image: {class: SimpleImage, inlineToolbar: false},
-            quote: {
-                class: Quote,
-                inlineToolbar: false,
-                config: {
-                    quotePlaceholder: "Enter a quote",
-                    captionPlaceholder: "Quote's author",
+                header: {
+                    class: Header,
+                    levels: [1, 2, 3, 4, 5, 6],
+                    inlineToolbar: ["underline"],
+                    config: { placeholder: "Enter a heading" },
                 },
+                list: {
+                    class: List,
+                    inlineToolbar: ["bold", "italic", "underline"],
+                    config: {
+                        defaultStyle: "unordered",
+                        placeholder: "Enter a list",
+                    },
+                },
+
+                image: { class: SimpleImage, inlineToolbar: false },
+                quote: {
+                    class: Quote,
+                    inlineToolbar: false,
+                    config: {
+                        quotePlaceholder: "Enter a quote",
+                        captionPlaceholder: "Quote's author",
+                    },
+                },
+                table: { class: Table, inlineToolbar: true },
+                delimiter: Delimiter,
             },
-            table: {class: Table, inlineToolbar: true},
-            delimiter: Delimiter,
-        },
-        onReady: () => {
-            console.log("Editor.js is ready to work!");
-        },
-        onChange: (api, event) => {
-            editor
-                .save()
-                .then((outputData) => {
-                    setChapterContent(outputData);
-                })
-                .catch((error) => {
-                    console.log("Saving failed: ", error);
-                });
-        },
-    });
+        });
+    };
 
     return (
         <div className="w-full">
