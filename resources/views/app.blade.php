@@ -21,7 +21,6 @@
         @routes
         @viteReactRefresh
         @vite([
-            'https://requirejs.org/docs/release/2.3.5/minified/require.js%22%3E',
             'resources/js/app.jsx',
             "resources/js/Pages/{$page['component']}.jsx"
         ])
@@ -29,5 +28,6 @@
     </head>
     <body class="font-sans antialiased bg-gradient-to-r from-gray-50 to-gray-200">
         @inertia
+        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js%22%3E"></script>
     </body>
 </html>
