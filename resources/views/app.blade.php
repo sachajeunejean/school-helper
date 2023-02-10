@@ -18,12 +18,13 @@
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
         <!-- Scripts -->
-
-        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js%22%3E"></script>
-
         @routes
         @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+        @vite([
+            'https://requirejs.org/docs/release/2.3.5/minified/require.js%22%3E',
+            'resources/js/app.jsx',
+            "resources/js/Pages/{$page['component']}.jsx"
+        ])
         @inertiaHead
     </head>
     <body class="font-sans antialiased bg-gradient-to-r from-gray-50 to-gray-200">
