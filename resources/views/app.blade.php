@@ -28,6 +28,6 @@
     </head>
     <body class="font-sans antialiased bg-gradient-to-r from-gray-50 to-gray-200">
         @inertia
-        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js%22%3E"></script>
+        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
     </body>
 </html>
