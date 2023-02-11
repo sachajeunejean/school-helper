@@ -106,10 +106,12 @@ class CourseController extends Controller
 
         $idCourse = DB::table('courses')->where('formatted_title', '=', $title)->value('id');
 
+        $idUser = DB::table('courses_users')
+            ->where('id_course', '=', $idCourse)
+            ->value('id_user');
+
         $course->owner = DB::table('users')
-            ->join('courses_users', 'courses_users.id_user', '=', 'users.id')
-            ->join('courses', 'courses_users.id_course', '=', 'courses.id')
-            ->where('users.id', '=', Auth::user()->id)
+            ->where('id', '=', $idUser)
             ->value('username');
 
         $chapters = DB::table('chapters')
