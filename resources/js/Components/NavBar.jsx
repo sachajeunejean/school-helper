@@ -220,7 +220,7 @@ export default function NavBar({ auth, courses }) {
                                             />
                                             Login
                                         </NavLink>
-                                        <NavLink href={"/login"}>
+                                        <NavLink href={"/register"}>
                                             <IoPerson
                                                 className="mr-2"
                                                 size={18}
