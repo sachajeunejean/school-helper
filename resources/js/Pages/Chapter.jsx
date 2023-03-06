@@ -59,7 +59,7 @@ export default function Chapter({ chapter, auth, owner, sessionUser, course }) {
         <General auth={auth}>
             <Head title={`${chapter.title}`} />
             <div className="w-3/4 mx-auto py-10 space-y-4 min-h-[calc(100vh-125px)]">
-                {owner === sessionUser.username && (
+                {(owner === sessionUser.username || auth.user.role === 'm') && (
                     <div className="absolute right-5 top-[84px] md:top-[88px]">
                         <Dropdown>
                             <Dropdown.Trigger>
