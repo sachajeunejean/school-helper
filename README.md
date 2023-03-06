@@ -28,5 +28,4 @@ School-helper is an online platform of free shared courses. A user can either be
 ## Technologies
 
 - Laravel with Inertia and React
-- Typescript
 - MySQL
