@@ -31,7 +31,7 @@ export default function Course({
             {/* <p>{course.status}</p> */}
             <div className="min-h-[calc(100vh-128px)]">
                 <div className="relative px-5 md:px-10">
-                    {course.owner === auth.user.username ? (
+                    {course.owner === auth.user.username || auth.user.role === 'm' ? (
                         <div className="absolute right-5 top-5">
                             <Dropdown>
                                 <Dropdown.Trigger>
