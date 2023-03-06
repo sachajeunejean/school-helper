@@ -37,7 +37,7 @@ export default function Search({ auth, courses }) {
                     {courses.map((course) => {
                         // only working with perfect match ... includes,
 
-                        if (course.formatted_title.includes(fixedSearchQuery)) {
+                        if (course.formatted_title.includes(fixedSearchQuery) && course.status !== 'pending') {
                             return (
                                 <div key={course.id}>
                                     <Card
