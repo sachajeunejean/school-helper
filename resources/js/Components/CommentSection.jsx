@@ -8,7 +8,7 @@ import SecondaryButton from "./SecondaryButton";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-export default function CommentSection({ sessionUser, course }) {
+export default function CommentSection({ sessionUser, course, auth }) {
     dayjs.extend(relativeTime);
 
     const { comments } = usePage().props;
@@ -55,7 +55,7 @@ export default function CommentSection({ sessionUser, course }) {
             <div>
                 {comments.map((comment, key) => (
                     <div className="py-3" key={key}>
-                        {sessionUser.username === comment.username && (
+                        {(sessionUser.username === comment.username || auth.user.role === 'm') && (
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <button className="absolute right-0 -top-1">

@@ -120,7 +120,7 @@ export default function Course({
                             ))}
                         </ol>
                     </div>
-                    <CommentSection sessionUser={sessionUser} course={course} />
+                    <CommentSection sessionUser={sessionUser} course={course} auth={auth} />
                 </div>
             </div>
         </General>
